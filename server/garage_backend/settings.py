@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+from dotenv import dotenv_values
+
+# Load environment variables from .env file
+env_vars = dotenv_values(".env")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-uk!^o-*1_#z804a63xm^0u69o&-q-ik0ey(ibzvjfz(&!ydet='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not env_vars.get("ENV") == "production"
 
 ALLOWED_HOSTS = []
 
@@ -74,9 +79,15 @@ WSGI_APPLICATION = 'garage_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": env_vars.get(
+            "POSTGRES_ENGINE", "django.db.backends.postgresql_psycopg2"
+        ),
+        "NAME": env_vars.get("POSTGRES_DATABASE", "my_garage_django"),
+        "USER": env_vars.get("POSTGRES_USER", "jeffkim"),
+        "PASSWORD": env_vars.get("POSTGRES_PASSWORD", "password"),
+        "HOST": env_vars.get("POSTGRES_HOST", "localhost"),
+        "PORT": env_vars.get("POSTGRES_PORT", 5432),
     }
 }
 
