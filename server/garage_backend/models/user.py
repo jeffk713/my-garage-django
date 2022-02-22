@@ -6,4 +6,6 @@ class User(CustomModel):
     username = models.TextField(null=False, blank=False)
     email = models.TextField(null=False, unique=True, blank=False)
     password = models.TextField(null=False, blank=False)
-    created_at = models.DateTimeField(auto_now=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

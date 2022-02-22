@@ -83,14 +83,12 @@ WSGI_APPLICATION = 'garage_backend.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": env_vars.get(
-            "POSTGRES_ENGINE", "django.db.backends.postgresql_psycopg2"
-        ),
-        "NAME": env_vars.get("POSTGRES_DATABASE", "my_garage_django"),
-        "USER": env_vars.get("POSTGRES_USER", "jeffkim"),
-        "PASSWORD": env_vars.get("POSTGRES_PASSWORD", "password"),
-        "HOST": env_vars.get("POSTGRES_HOST", "localhost"),
-        "PORT": env_vars.get("POSTGRES_PORT", 5432),
+        "ENGINE": env_vars.get("POSTGRES_ENGINE"),
+        "NAME": env_vars.get("POSTGRES_DATABASE"),
+        "USER": env_vars.get("POSTGRES_USER"),
+        "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
+        "HOST": env_vars.get("POSTGRES_HOST"),
+        "PORT": env_vars.get("POSTGRES_PORT"),
     }
 }
 
