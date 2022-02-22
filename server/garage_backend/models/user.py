@@ -6,9 +6,9 @@ from .custom_user_manager import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin, CustomModel):
-    name = models.CharField(null=False, blank=False, max_length=30, default='user')
+    name = models.TextField(default='user', max_length=50)
     email = models.EmailField(null=False, blank=False, unique=True)
-    password = models.CharField(null=False, blank=False, max_length=30)
+    password = models.TextField(null=False, blank=False, max_length=50)
     is_active = models.BooleanField(default = True)
     is_staff = models.BooleanField(default = False)
     

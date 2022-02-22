@@ -5,9 +5,9 @@ from .user import User
 
 
 class Vehicle(CustomModel):
-    nickname = models.CharField(blank=False, null=False, max_length=30)
-    make = models.CharField(blank=False, null=False, max_length=30)
-    model = models.CharField(blank=False, null=False, max_length=30)
+    nickname = models.TextField(blank=False, null=False, max_length=50)
+    make = models.TextField(blank=False, null=False, max_length=50)
+    model = models.TextField(blank=False, null=False, max_length=50)
     year = models.IntegerField(blank=False, null=False)
     image_url = models.TextField(blank=False, null=False)
     warrantyUntil = models.DateField()

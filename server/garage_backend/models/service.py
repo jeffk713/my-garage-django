@@ -5,7 +5,7 @@ from .vehicle import Vehicle
 
 
 class Service(CustomModel):
-    name = models.CharField(blank=False, null=False, max_length=50)
+    name = models.TextField(blank=False, null=False, max_length=120)
     mileage = models.IntegerField(blank=False, null=False)
     serviceDate = models.DateField(auto_now_add=True)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
