@@ -1,19 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import BaseUserManager
 
 
 class CustomUserManager(BaseUserManager):
-  """manager for user profiles"""
+  """ manager for user """
   
-  def create_user(self, email, name, password=None):
-    """create a new user profile"""
-    if not email:
-        raise ValueError('User must have an email')
+  def create_user(self, email, name, password):
+    """ create a new user """
     
-    email = self.normalize_email(email)
+    if not email or not name or not password:
+        raise ValueError('Please submit all required fields')
+    
+    email = email.lower()
     user = self.model(email=email, name=name)
-
-    print('Print self.model upon creating', user)
     
     # set hashed password, 'set_password' comes from AbstractBaseUser
     user.set_password(password)
@@ -22,7 +21,7 @@ class CustomUserManager(BaseUserManager):
     return user
 
   def create_superuser(self, email, name, password):
-    """create an admin user with given details"""
+    """ create an admin user """
     user = self.create_user(email, name, password) # 'self' parameter is automatically passed in
     
     user.is_superuser = True # is_superuser comes from PermissionsMixin
