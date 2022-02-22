@@ -1,5 +1,6 @@
 from django.db.models import Model
 
+
 class CustomModel(Model):
 
     class Meta:
