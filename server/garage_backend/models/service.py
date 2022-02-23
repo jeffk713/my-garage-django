@@ -17,8 +17,8 @@ class Service(CustomModel):
         Vehicle,
         on_delete=models.CASCADE,
         db_column="vehicle_id",
-        related_name="vehicles",
-        related_query_name="vehicle",
+        related_name="service_vehicles",
+        related_query_name="service_vehicle",
     )
 
     createdAt = models.DateTimeField(auto_now_add=True)
