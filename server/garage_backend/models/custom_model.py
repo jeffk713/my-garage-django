@@ -11,7 +11,7 @@ class CustomModel(Model):
         Build and return a dictionary with fields specified
         If no fields are specified, will return all fields using _meta.fields
         """
-        
+
         model_dict = {}
         if not fields:
             fields = [field.get_attname_column() for field in self._meta.fields]
@@ -21,7 +21,7 @@ class CustomModel(Model):
                 model_dict[field] = getattr(self, field)
                 
         return model_dict
-    
+
     def find_by_id(self, id):
         try:
             return self.objects.get(id=id)

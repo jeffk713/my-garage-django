@@ -9,8 +9,8 @@ class Vehicle(CustomModel):
     make = models.TextField(blank=False, null=False, max_length=50)
     model = models.TextField(blank=False, null=False, max_length=50)
     year = models.IntegerField(blank=False, null=False)
-    image_url = models.TextField(blank=False, null=False)
-    warrantyUntil = models.DateField()
+    imageUrl = models.TextField(null=True)
+    warrantyUntil = models.DateField(null=True, blank=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
