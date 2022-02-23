@@ -11,13 +11,13 @@ from garage_backend.models.service import Service
 class ServiceModelTests(TestCase):
     
     @classmethod
-    def setUpTestData(User):
+    def setUpTestData(cls):
         user = get_user_model().objects.create_user(
         email='service.tester@test.com',
         name='service.tester',
         password='test123',
         )
-        User.vehicle = Vehicle.objects.create(
+        cls.vehicle = Vehicle.objects.create(
             nickname='service car',
             make='VW',
             model='Tiguan',

@@ -22,7 +22,7 @@ class CustomUserManager(BaseUserManager):
 
   def create_superuser(self, email, name, password):
     """ create an admin user """
-    user = self.create_user(email, name, password) # 'self' parameter is automatically passed in
+    user = self.create_user(email, name, password)
     
     user.is_superuser = True # is_superuser comes from PermissionsMixin
     user.is_staff = True
