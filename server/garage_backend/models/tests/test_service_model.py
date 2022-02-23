@@ -7,6 +7,7 @@ from django.db import IntegrityError
 from garage_backend.models.vehicle import Vehicle
 from garage_backend.models.service import Service
 
+
 class ServiceModelTests(TestCase):
     
     @classmethod
@@ -14,7 +15,7 @@ class ServiceModelTests(TestCase):
         user = get_user_model().objects.create_user(
         email='service.tester@test.com',
         name='service.tester',
-        password='test123'
+        password='test123',
         )
         User.vehicle = Vehicle.objects.create(
             nickname='service car',
@@ -23,7 +24,8 @@ class ServiceModelTests(TestCase):
             year=2009,
             imageUrl=None,
             warrantyUntil=None,
-            user=user
+            shopId=None,
+            user=user,
         )
 
 
@@ -36,7 +38,7 @@ class ServiceModelTests(TestCase):
             mileage=15000,
             isWarranty=True,
             note=None,
-            vehicle=self.vehicle
+            vehicle=self.vehicle,
         )
 
         self.assertEqual(service.name, 'oil change')
@@ -54,7 +56,7 @@ class ServiceModelTests(TestCase):
                 mileage=None,
                 isWarranty=True,
                 note=None,
-                vehicle=self.vehicle
+                vehicle=self.vehicle,
             )
 
 
@@ -67,5 +69,5 @@ class ServiceModelTests(TestCase):
                 mileage=40000,
                 isWarranty=True,
                 note=None,
-                vehicle=None
+                vehicle=None,
             )

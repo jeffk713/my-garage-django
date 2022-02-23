@@ -15,7 +15,7 @@ class VehicleModelTests(TestCase):
         User.user = get_user_model().objects.create_user(
         email='vehicle.tester@test.com',
         name='vehicle.tester',
-        password='test123'
+        password='test123',
         )
         
     def test_create_vehicle(self):
@@ -28,7 +28,8 @@ class VehicleModelTests(TestCase):
             year=2022,
             imageUrl=None,
             warrantyUntil=datetime.datetime(2026, 10, 15),
-            user=self.user
+            shopId=None,
+            user=self.user,
         )
         
         current_vehicle_count = Vehicle.objects.count()
@@ -46,5 +47,6 @@ class VehicleModelTests(TestCase):
                 year=2022,
                 imageUrl=None,
                 warrantyUntil=datetime.datetime(2026, 10, 15),
-                user=None
+                shopId=None,
+                user=None,
             )
