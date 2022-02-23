@@ -1,4 +1,4 @@
-from datetime import date
+from django.utils import timezone
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -40,10 +40,11 @@ class ServiceModelTests(TestCase):
             note=None,
             vehicle=self.vehicle,
         )
-
+        fail_message = 'Time compare failed'
+        
         self.assertEqual(service.name, 'oil change')
         self.assertEqual(service.mileage, 15000)
-        self.assertEqual(service.serviceDate, date.today())
+        self.assertLess(service.serviceDate, timezone.now(), fail_message)
         self.assertEqual(service.price, 0)
 
 

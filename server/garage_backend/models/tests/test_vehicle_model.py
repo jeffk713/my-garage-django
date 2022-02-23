@@ -11,7 +11,6 @@ class VehicleModelTests(TestCase):
     
     @classmethod
     def setUpTestData(cls):
-        cls.prev_vehicle_count = Vehicle.objects.count()
         cls.user = get_user_model().objects.create_user(
         email='vehicle.tester@test.com',
         name='vehicle.tester',
@@ -21,7 +20,7 @@ class VehicleModelTests(TestCase):
     def test_create_vehicle(self):
         ''' Test, register new vehicle '''
         
-        Vehicle.objects.create(
+        vehicle = Vehicle.objects.create(
             nickname='tester.vehicle',
             make='Toyota',
             model='Tacoma',
@@ -32,9 +31,8 @@ class VehicleModelTests(TestCase):
             user=self.user,
         )
         
-        current_vehicle_count = Vehicle.objects.count()
-        
-        self.assertEqual(self.prev_vehicle_count+1, current_vehicle_count)
+        self.assertEqual(vehicle.nickname, 'tester.vehicle')
+        self.assertEqual(vehicle.user, self.user)
         
     def test_create_vehicle_with_invalid_user(self):
         ''' Test, register new vehicle with invalid user raises error '''
