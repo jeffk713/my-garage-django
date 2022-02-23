@@ -1,6 +1,6 @@
 import datetime
 
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 
@@ -21,19 +21,13 @@ class VehicleModelTests(TestCase):
     def test_create_vehicle(self):
         ''' Test, register new vehicle '''
         
-        nickname = 'tester.vehicle'
-        make = 'Toyota'
-        model = 'Tacoma'
-        year = 2022
-        imageUrl = None
-        warrantyUntil = datetime.datetime(2026, 10, 15)
         Vehicle.objects.create(
-            nickname=nickname,
-            make=make,
-            model=model,
-            year=year,
-            imageUrl=imageUrl,
-            warrantyUntil=warrantyUntil,
+            nickname='tester.vehicle',
+            make='Toyota',
+            model='Tacoma',
+            year=2022,
+            imageUrl=None,
+            warrantyUntil=datetime.datetime(2026, 10, 15),
             user=self.user
         )
         
@@ -44,20 +38,13 @@ class VehicleModelTests(TestCase):
     def test_create_vehicle_with_invalid_user(self):
         ''' Test, register new vehicle with invalid user raises error '''
         
-        nickname = 'tester.vehicle'
-        make = 'BMW'
-        model = '340xi'
-        year = 2022
-        imageUrl = None
-        warrantyUntil = datetime.datetime(2026, 10, 15)
-        
         with self.assertRaises(IntegrityError):
             Vehicle.objects.create(
-                nickname=nickname,
-                make=make,
-                model=model,
-                year=year,
-                imageUrl=imageUrl,
-                warrantyUntil=warrantyUntil,
+                nickname='tester.vehicle',
+                make='BMW',
+                model='340xi',
+                year=2022,
+                imageUrl=None,
+                warrantyUntil=datetime.datetime(2026, 10, 15),
                 user=None
             )

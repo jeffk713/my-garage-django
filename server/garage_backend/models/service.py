@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 
 from .custom_model import CustomModel
@@ -7,9 +9,10 @@ from .vehicle import Vehicle
 class Service(CustomModel):
     name = models.TextField(blank=False, null=False, max_length=120)
     mileage = models.IntegerField(blank=False, null=False)
-    serviceDate = models.DateField(auto_now_add=True)
+    serviceDate = models.DateField(default=date.today())
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    note = models.TextField()
+    isWarranty = models.BooleanField(default=False)
+    note = models.TextField(null=True)
     vehicle = models.ForeignKey(
         Vehicle,
         on_delete=models.CASCADE,

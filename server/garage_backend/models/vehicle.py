@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 from .custom_model import CustomModel
 from .user import User
@@ -10,7 +11,7 @@ class Vehicle(CustomModel):
     model = models.TextField(blank=False, null=False, max_length=50)
     year = models.IntegerField(blank=False, null=False)
     imageUrl = models.TextField(null=True)
-    warrantyUntil = models.DateField(null=True, blank=True)
+    warrantyUntil = models.DateField(null=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
