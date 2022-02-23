@@ -3,3 +3,4 @@ from .vehicle import Vehicle
 from .service import Service
 from .shop import Shop
 from .vehicle_note import VehicleNote
+from .parts import Parts

@@ -1,6 +1,5 @@
-from django.utils import timezone
-
 from django.db import models
+from django.utils import timezone
 
 from .custom_model import CustomModel
 from .vehicle import Vehicle
@@ -9,7 +8,7 @@ from .vehicle import Vehicle
 class Service(CustomModel):
     name = models.TextField(blank=False, null=False, max_length=120)
     mileage = models.IntegerField(blank=False, null=False)
-    serviceDate = models.DateField(default=timezone.now())
+    serviceDate = models.DateTimeField(null=False, default=timezone.now())
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     isWarranty = models.BooleanField(default=False)
     note = models.TextField(null=True)

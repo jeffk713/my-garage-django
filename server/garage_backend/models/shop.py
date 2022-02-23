@@ -15,3 +15,6 @@ class Shop(CustomModel):
         related_name="shop_users",
         related_query_name="shop_user",
     )
+    
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
