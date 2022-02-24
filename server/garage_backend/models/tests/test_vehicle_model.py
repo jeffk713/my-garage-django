@@ -27,6 +27,7 @@ class VehicleModelTests(TestCase):
             year=2022,
             imageUrl=None,
             warrantyUntil=date(2026, 10, 15),
+            shopId=None,
             user=self.user,
         )
         
@@ -44,5 +45,6 @@ class VehicleModelTests(TestCase):
                 year=2022,
                 imageUrl=None,
                 warrantyUntil=date(2026, 10, 15),
+                shopId=None,
                 user=None,
             )

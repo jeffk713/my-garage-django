@@ -24,6 +24,7 @@ class VehicleNoteModelTests(TestCase):
             year=2009,
             imageUrl=None,
             warrantyUntil=None,
+            shopId=None,
             user=user,
         )
     

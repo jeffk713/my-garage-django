@@ -26,6 +26,7 @@ class PartsModelTests(TestCase):
             year=2009,
             imageUrl=None,
             warrantyUntil=None,
+            shopId=None,
             user=user,
         )
         cls.service = Service.objects.create(

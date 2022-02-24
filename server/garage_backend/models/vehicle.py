@@ -11,6 +11,7 @@ class Vehicle(CustomModel):
     year = models.IntegerField(blank=False, null=False)
     imageUrl = models.TextField(null=True)
     warrantyUntil = models.DateField(null=True)
+    shopId = models.IntegerField(null=True)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
