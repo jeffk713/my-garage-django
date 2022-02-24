@@ -15,7 +15,32 @@ class UserList(APIView):
         """ list all users """
         
     def post(self, request, format=None):
-        """ create a user """
+        try:
+            body = request.data
+            email = body.get("email")
+            name = body.get("name")
+            password = body.get("password")
+            
+            if not (email and name and password):
+                return JsonResponse(
+                    {
+                        "error": "Email, name, and password are required",
+                    },
+                    status=400,
+                )
+                
+            user = User(
+                email=email,
+                password=password,
+                name=name
+            )
+            user.save()
+            
+            user_dict = user.to_dict()
+            return JsonResponse(user_dict, status=201)
+        
+        except Exception:
+            pass
 
 
 class UserDetail(APIView):

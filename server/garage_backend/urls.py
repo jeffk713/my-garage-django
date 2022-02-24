@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from garage_backend.views import api, auth
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/user/', api.UserList.as_view()),
 ]
