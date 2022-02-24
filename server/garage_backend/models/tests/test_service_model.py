@@ -1,8 +1,7 @@
-from django.utils import timezone
-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
+from django.utils import timezone
 
 from garage_backend.models.vehicle import Vehicle
 from garage_backend.models.service import Service
@@ -24,7 +23,6 @@ class ServiceModelTests(TestCase):
             year=2009,
             imageUrl=None,
             warrantyUntil=None,
-            shopId=None,
             user=user,
         )
 
