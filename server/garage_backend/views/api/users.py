@@ -1,5 +1,7 @@
 from django.contrib.auth.middleware import get_user
 from django.http import HttpResponse, JsonResponse
+from django.db import IntegrityError
+
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
@@ -35,12 +37,24 @@ class UserList(APIView):
                 name=name
             )
             user.save()
-            
             user_dict = user.to_dict()
+            
             return JsonResponse(user_dict, status=201)
         
-        except Exception:
-            pass
+        except IntegrityError as e:
+            return JsonResponse(
+                {
+                    "error": "User already exists",
+                }, 
+                status=400,
+            )
+        except Exception as e:
+            return JsonResponse(
+                {
+                    "error": "Server error has occurred",
+                }, 
+                status=500,
+            )
 
 
 class UserDetail(APIView):
