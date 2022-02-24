@@ -5,9 +5,9 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.db import IntegrityError
 
-from garage_backend.models.vehicle import Vehicle
-from garage_backend.models.service import Service
-from garage_backend.models.parts import Parts
+from garage_backend.models import Vehicle
+from garage_backend.models import Service
+from garage_backend.models import Parts
 
 
 class PartsModelTests(TestCase):

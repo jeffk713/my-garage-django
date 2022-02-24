@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 
-from garage_backend.models.shop import Shop
+from garage_backend.models import Shop
 
 
 class ShopeModelTests(TestCase):
