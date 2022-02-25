@@ -22,8 +22,9 @@ class CustomModel(Model):
                 
         return model_dict
 
-    def find_by_id(self, id):
+    @staticmethod
+    def find_by_id(id):
         try:
-            return self.objects.get(id=id)
+            return self.objects.get(pk=id)
         except self.DoesNotExist:
             return None
