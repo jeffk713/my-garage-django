@@ -17,8 +17,7 @@ class User(APIView):
         
     def post(self, request, format=None):
         try:
-            data = JSONParser().parse(request)
-            serializer = UserSerializer(data=data)
+            serializer = UserSerializer(data=request.data)
 
             if serializer.is_valid(raise_exception=True): 
                 serializer.save()
@@ -41,7 +40,7 @@ class UserDetail(APIView):
             return get_user_model().objects.get(pk=user_id)
         except get_user_model().DoesNotExist:
             return None
-    
+
     def get(self, request, user_id, format=None):
         try:
             user = self.get_user_by_id(user_id)
@@ -53,19 +52,23 @@ class UserDetail(APIView):
         
         except Exception:
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
-    
+
     def patch(self, request, user_id, format=None):
-        user = self.get_user_by_id(user_id)
-        if not user: 
-            return JsonResponse({"error": "User not found"}, status=400)
-        
-        body = request.data
-        for (key, value) in body.items():
-            user._do_update(self, base_qs, using, pk_val, values, update_fields, forced_update)
-        
-        user_dict = user.to_dict()
+        try:
+            user = self.get_user_by_id(user_id)
+            if not user: 
+                return JsonResponse({"error": ["User not found"]}, status=400)
             
-        return JsonResponse(user_dict)
+            serializer = UserSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True): 
+                serializer.save()
+            
+            return JsonResponse(serializer.data)
+
+        except Exception:
+            if err := serializer.errors:
+                return JsonResponse({"error": get_error_message_list(err)}, status=400)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
         
     def delete(self, request, user_id, format=None):
         """ delete an existing user """
