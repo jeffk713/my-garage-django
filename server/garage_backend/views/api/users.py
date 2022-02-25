@@ -25,9 +25,9 @@ class User(APIView):
 
             return JsonResponse(serializer.data, status=201)
 
-        except Exception as e:
-            if error := serializer.errors:
-                return JsonResponse({"error": get_error_message_list(error)}, status=400)
+        except Exception:
+            if err := serializer.errors:
+                return JsonResponse({"error": get_error_message_list(err)}, status=400)
             return JsonResponse({"error": "Server error has occurred"}, status=500)
 
 

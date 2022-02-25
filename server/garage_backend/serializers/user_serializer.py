@@ -10,6 +10,9 @@ class UserSerializer(ModelSerializer):
             'id', 
             'email', 
             'name', 
+            'password'
+        ]
+        exclude:[
             'password', 
             'is_active', 
             'is_staff', 
