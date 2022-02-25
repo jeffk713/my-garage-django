@@ -28,7 +28,7 @@ class User(APIView):
         except Exception:
             if err := serializer.errors:
                 return JsonResponse({"error": get_error_message_list(err)}, status=400)
-            return JsonResponse({"error": "Server error has occurred"}, status=500)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
 
 
 class UserDetail(APIView):
@@ -46,13 +46,13 @@ class UserDetail(APIView):
         try:
             user = self.get_user_by_id(user_id)
             if not user: 
-                return JsonResponse({"error": "User not found"}, status=400)
-            user_dict = user.to_dict()
+                return JsonResponse({"error": ["User not found"]}, status=400)
             
-            return JsonResponse(user_dict)
+            serializer = UserSerializer(user)
+            return JsonResponse(serializer.data)
         
-        except Exception as e:
-            return JsonResponse({"error": "Server error has occurred"}, status=500)
+        except Exception:
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
     
     def patch(self, request, user_id, format=None):
         user = self.get_user_by_id(user_id)
