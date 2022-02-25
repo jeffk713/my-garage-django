@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 
 from garage_backend.serializers import UserSerializer
 from garage_backend.views.view_utils.exception_utils import get_error_message_list
+from garage_backend.views.view_utils.object_utils import get_object_by_id
+
 
 class User(APIView):
     """
@@ -34,16 +36,10 @@ class UserDetail(APIView):
     """
     Retrieve, update, or delete an existing user by user ID
     """
-    
-    def get_user_by_id(self, user_id):
-        try:
-            return get_user_model().objects.get(pk=user_id)
-        except get_user_model().DoesNotExist:
-            return None
 
     def get(self, request, user_id, format=None):
         try:
-            user = self.get_user_by_id(user_id)
+            user = get_object_by_id(get_user_model(), user_id)
             if not user: 
                 return JsonResponse({"error": ["User not found"]}, status=400)
             
@@ -55,7 +51,7 @@ class UserDetail(APIView):
 
     def patch(self, request, user_id, format=None):
         try:
-            user = self.get_user_by_id(user_id)
+            user = get_object_by_id(get_user_model(), user_id)
             if not user: 
                 return JsonResponse({"error": ["User not found"]}, status=400)
             
@@ -71,4 +67,15 @@ class UserDetail(APIView):
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
         
     def delete(self, request, user_id, format=None):
-        """ delete an existing user """
+        try:
+            user = get_object_by_id(get_user_model(), user_id)
+            if not user: 
+                return JsonResponse({"error": ["User not found"]}, status=400)
+            
+            serializer = UserSerializer(user)
+            user.delete()
+            
+            return JsonResponse(serializer.data)
+        
+        except Exception:
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
