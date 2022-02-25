@@ -21,10 +21,3 @@ class CustomModel(Model):
                 model_dict[field] = getattr(self, field)
                 
         return model_dict
-
-    @staticmethod
-    def find_by_id(id):
-        try:
-            return self.objects.get(pk=id)
-        except self.DoesNotExist:
-            return None

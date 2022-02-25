@@ -4,7 +4,10 @@ from django.http import HttpResponse, JsonResponse
 from django.db import IntegrityError
 
 from rest_framework.request import Request
+from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
+
+from garage_backend.serializers import UserSerializer
 
 
 class User(APIView):
@@ -14,26 +17,14 @@ class User(APIView):
         
     def post(self, request, format=None):
         try:
-            body = request.data
-            email = body.get("email")
-            name = body.get("name")
-            password = body.get("password")
+            data = JSONParser().parse(request)
+            serializer = UserSerializer(data=data)
             
-            if not (email and name and password):
-                return JsonResponse({"error": "Email, name, and password are required"}, status=400)
+            if serializer.is_valid(raise_exception=True): 
+                serializer.save()
                 
-            user = User(
-                email=email,
-                password=password,
-                name=name
-            )
-            user.save()
-            user_dict = user.to_dict()
-            
-            return JsonResponse(user_dict, status=201)
+            return JsonResponse(serializer.data, status=201)
         
-        except IntegrityError as e:
-            return JsonResponse({"error": "User already exists"}, status=400)
         except Exception as e:
             return JsonResponse({"error": "Server error has occurred"}, status=500)
 
@@ -62,7 +53,17 @@ class UserDetail(APIView):
             return JsonResponse({"error": "Server error has occurred"}, status=500)
     
     def patch(self, request, user_id, format=None):
-        """ update an existing user """
+        user = self.get_user_by_id(user_id)
+        if not user: 
+            return JsonResponse({"error": "User not found"}, status=400)
+        
+        body = request.data
+        for (key, value) in body.items():
+            user._do_update(self, base_qs, using, pk_val, values, update_fields, forced_update)
+        
+        user_dict = user.to_dict()
+            
+        return JsonResponse(user_dict)
         
     def delete(self, request, user_id, format=None):
         """ delete an existing user """
