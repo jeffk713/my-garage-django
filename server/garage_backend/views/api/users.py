@@ -8,7 +8,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 
 from garage_backend.serializers import UserSerializer
-
+from garage_backend.views.view_utils.exception_utils import get_error_message_list
 
 class User(APIView):
     """
@@ -19,13 +19,15 @@ class User(APIView):
         try:
             data = JSONParser().parse(request)
             serializer = UserSerializer(data=data)
-            
+
             if serializer.is_valid(raise_exception=True): 
                 serializer.save()
-                
+
             return JsonResponse(serializer.data, status=201)
-        
+
         except Exception as e:
+            if error := serializer.errors:
+                return JsonResponse({"error": get_error_message_list(error)}, status=400)
             return JsonResponse({"error": "Server error has occurred"}, status=500)
 
 
