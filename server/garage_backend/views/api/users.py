@@ -1,10 +1,7 @@
-from django.contrib.auth.middleware import get_user
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.db import IntegrityError
 
-from rest_framework.request import Request
-from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 
 from garage_backend.serializers import UserSerializer
