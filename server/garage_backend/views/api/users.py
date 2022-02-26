@@ -74,7 +74,7 @@ class UserDetail(APIView):
         
     def delete(self, request, user_id, format=None):
         try:
-            user = object_utils.get_object_by_id(models.User(), user_id)
+            user = object_utils.get_object_by_id(models.User, user_id)
             if not user: 
                 return JsonResponse({"error": ["User not found"]}, status=400)
             

@@ -1,10 +1,9 @@
 from django.db import models
 
-from .custom_model import CustomModel
 from .user import User
 
 
-class Shop(CustomModel):
+class Shop(models.Model):
     name = models.TextField(null=False, blank=False, max_length=80)
     contact = models.TextField(null=True, max_length=12)
     address = models.TextField(null=True)

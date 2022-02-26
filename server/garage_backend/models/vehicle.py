@@ -1,10 +1,9 @@
 from django.db import models
 
-from .custom_model import CustomModel
 from .user import User
 
 
-class Vehicle(CustomModel):
+class Vehicle(models.Model):
     nickname = models.TextField(blank=False, null=False, max_length=50)
     make = models.TextField(blank=False, null=False, max_length=50)
     model = models.TextField(blank=False, null=False, max_length=50)

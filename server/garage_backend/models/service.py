@@ -1,11 +1,10 @@
 from django.db import models
 from django.utils import timezone
 
-from .custom_model import CustomModel
 from .vehicle import Vehicle
 
 
-class Service(CustomModel):
+class Service(models.Model):
     name = models.TextField(blank=False, null=False, max_length=120)
     mileage = models.IntegerField(blank=False, null=False)
     serviceDate = models.DateTimeField(null=False, default=timezone.now())
