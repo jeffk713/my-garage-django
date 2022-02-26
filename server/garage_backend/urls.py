@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', api.User.as_view()),
     path('api/user/<int:user_id>/', api.UserDetail.as_view()),
+    path('api/vehicle/', api.Vehicle.as_view()),
+    path('api/vehicle/<int:vehicle_id>/', api.VehicleDetail.as_view()),
 ]
