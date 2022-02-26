@@ -7,7 +7,7 @@ from .vehicle import Vehicle
 class Service(models.Model):
     name = models.TextField(blank=False, null=False, max_length=120)
     mileage = models.IntegerField(blank=False, null=False)
-    serviceDate = models.DateTimeField(null=False, default=timezone.now())
+    serviceDate = models.DateField(null=False, default=timezone.now())
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     isWarranty = models.BooleanField(default=False)
     note = models.TextField(null=True)

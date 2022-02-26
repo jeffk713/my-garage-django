@@ -24,4 +24,6 @@ urlpatterns = [
     path('api/user/<int:user_id>/', api.UserDetail.as_view()),
     path('api/vehicle/', api.Vehicle.as_view()),
     path('api/vehicle/<int:vehicle_id>/', api.VehicleDetail.as_view()),
+    path('api/service/', api.Service.as_view()),
+    path('api/service/<int:service_id>/', api.ServiceDetail.as_view()),
 ]
