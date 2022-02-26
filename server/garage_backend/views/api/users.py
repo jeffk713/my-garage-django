@@ -1,9 +1,9 @@
-from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.db import IntegrityError
 
 from rest_framework.views import APIView
 
+from garage_backend import models
 from garage_backend.serializers import UserSerializer
 from garage_backend.views.view_utils.exception_utils import get_error_message_list
 from garage_backend.views.view_utils.object_utils import get_object_by_id
@@ -16,7 +16,7 @@ class User(APIView):
         
     def get(self, request, format=None):
         try:
-            users = get_user_model().objects.all().order_by("id")
+            users = models.User.objects.all().order_by("id")
             serializer = UserSerializer(users, many=True)
 
             return JsonResponse(serializer.data, safe=False)
@@ -47,7 +47,7 @@ class UserDetail(APIView):
 
     def get(self, request, user_id, format=None):
         try:
-            user = get_object_by_id(get_user_model(), user_id)
+            user = get_object_by_id(models.User, user_id)
             if not user: 
                 return JsonResponse({"error": ["User not found"]}, status=400)
             
@@ -59,7 +59,7 @@ class UserDetail(APIView):
 
     def patch(self, request, user_id, format=None):
         try:
-            user = get_object_by_id(get_user_model(), user_id)
+            user = get_object_by_id(models.User, user_id)
             if not user: 
                 return JsonResponse({"error": ["User not found"]}, status=400)
             
@@ -76,7 +76,7 @@ class UserDetail(APIView):
         
     def delete(self, request, user_id, format=None):
         try:
-            user = get_object_by_id(get_user_model(), user_id)
+            user = get_object_by_id(models.User(), user_id)
             if not user: 
                 return JsonResponse({"error": ["User not found"]}, status=400)
             
