@@ -11,7 +11,7 @@ class Vehicle(APIView):
     """
     create a new vehicle
     """
-    
+
     def post(self, request, format=None):
         try:
             serializer = serializers.VehicleSerializer(data=request.data)
@@ -30,7 +30,7 @@ class VehicleDetail(APIView):
     """
     Retrieve, update, and delete an existing vehicle
     """
-    
+ 
     def get(self, request, vehicle_id, format=None):
         try:
             vehicle = object_utils.get_object_by_id(models.Vehicle, vehicle_id)
@@ -42,6 +42,20 @@ class VehicleDetail(APIView):
 
         except Exception:
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
-        
+
     def patch(self, request, vehicle_id, format=None):
-        pass
+        try:
+            vehicle = object_utils.get_object_by_id(models.Vehicle, vehicle_id)
+            if not vehicle: 
+                return JsonResponse({"error": ["Vehicle not found"]}, status=400)
+            
+            serializer = serializers.VehicleSerializer(vehicle, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True): 
+                serializer.save()
+            
+            return JsonResponse(serializer.data)
+
+        except Exception:
+            if err := serializer.errors:
+                return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
