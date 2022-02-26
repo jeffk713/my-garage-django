@@ -14,8 +14,19 @@ from garage_backend.views.view_utils.object_utils import get_object_by_id
 
 class User(APIView):
     """
-    Create a user
+    List all users or create a user
     """
+        
+    def get(self, request, format=None):
+        try:
+            users = get_user_model().objects.all().order_by("id")
+            serializer = UserSerializer(users, many=True)
+
+            return JsonResponse(serializer.data, safe=False)
+        
+        except Exception:
+            print(Exception)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)    
         
     def post(self, request, format=None):
         try:
