@@ -26,10 +26,20 @@ class Service(APIView):
                 return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
 
+
 class ServiceDetail(APIView):
     """
     Retrieve, update, and delete an existing service
     """
     
     def get(self, request, service_id, format=None):
-        pass
+        try:
+            service = object_utils.get_object_by_id(models.Service, service_id)
+            if not service: 
+                return JsonResponse({"error": ["Service not found"]}, status=400)
+            serializer = serializers.ServiceSerializer(service)
+
+            return JsonResponse(serializer.data)
+        
+        except Exception:
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
