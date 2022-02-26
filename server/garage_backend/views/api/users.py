@@ -11,18 +11,18 @@ class User(APIView):
     """
     List all users or create a user
     """
-        
+
     def get(self, request, format=None):
         try:
             users = models.User.objects.all().order_by("id")
             serializer = serializers.UserSerializer(users, many=True)
 
             return JsonResponse(serializer.data, safe=False)
-        
+
         except Exception:
             print(Exception)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)    
-        
+
     def post(self, request, format=None):
         try:
             serializer = serializers.UserSerializer(data=request.data)
