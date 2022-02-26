@@ -16,8 +16,8 @@ class VehicleNote(CustomModel):
         Vehicle,
         on_delete=models.CASCADE,
         db_column="vehicle_id",
-        related_name="note_vehicles",
-        related_query_name="note_vehicle",
+        related_name="vehicle_notes",
+        related_query_name="vehicle_note",
     )
     
     createdAt = models.DateTimeField(auto_now_add=True)

@@ -12,8 +12,8 @@ class Shop(CustomModel):
         User,
         on_delete=models.CASCADE,
         db_column="user_id",
-        related_name="shop_users",
-        related_query_name="shop_user",
+        related_name="shops",
+        related_query_name="shop",
     )
     
     createdAt = models.DateTimeField(auto_now_add=True)

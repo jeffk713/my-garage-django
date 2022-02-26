@@ -16,8 +16,8 @@ class Vehicle(CustomModel):
         User,
         on_delete=models.CASCADE,
         db_column="user_id",
-        related_name="vehicle_users",
-        related_query_name="vehicle_user",
+        related_name="vehicles",
+        related_query_name="vehicle",
     )
     
     createdAt = models.DateTimeField(auto_now_add=True)
