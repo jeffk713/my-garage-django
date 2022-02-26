@@ -43,3 +43,17 @@ class ServiceDetail(APIView):
         
         except Exception:
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
+        
+    def patch(self, request, service_id, format=None):
+        try:
+            service = object_utils.get_object_by_id(models.Service, service_id)
+            if not service: 
+                return JsonResponse({"error": ["Service not found"]}, status=400)
+            serializer = serializers.ServiceSerializer(service, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True): 
+                serializer.save()
+            
+            return JsonResponse(serializer.data)
+            
+        except Exception:
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
