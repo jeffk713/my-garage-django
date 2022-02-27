@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from garage_backend.models.service import Service
+from .service import Service
 
 
 class Parts(models.Model):
@@ -12,6 +12,7 @@ class Parts(models.Model):
     service = models.ForeignKey(
         Service, 
         on_delete=models.CASCADE,
+        db_column="service_id",
         related_name="parts",
         related_query_name="part",
     )

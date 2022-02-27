@@ -21,7 +21,8 @@ class Service(APIView):
 
             return JsonResponse(serializer.data, status=201)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             if err := serializer.errors:
                 return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
@@ -41,7 +42,8 @@ class ServiceDetail(APIView):
 
             return JsonResponse(serializer.data)
         
-        except Exception:
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
         
     def patch(self, request, service_id, format=None):
@@ -55,5 +57,21 @@ class ServiceDetail(APIView):
             
             return JsonResponse(serializer.data)
             
-        except Exception:
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
+        
+    def delete(self, request, service_id, format=None):
+        try:
+            service = object_utils.get_object_by_id(models.Service, service_id)
+            if not service: 
+                return JsonResponse({"error": ["Service not found"]}, status=400)
+            
+            serializer = serializers.ServiceSerializer(service)
+            service.delete()
+            
+            return JsonResponse(serializer.data)
+            
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)

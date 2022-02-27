@@ -1,6 +1,6 @@
 from django.db import models
 
-from garage_backend.models.vehicle import Vehicle
+from .vehicle import Vehicle
 
 
 class VehicleNote(models.Model):

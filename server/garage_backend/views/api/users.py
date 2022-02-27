@@ -19,8 +19,8 @@ class User(APIView):
 
             return JsonResponse(serializer.data, safe=False)
 
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)    
 
     def post(self, request, format=None):
@@ -32,7 +32,8 @@ class User(APIView):
 
             return JsonResponse(serializer.data, status=201)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             if err := serializer.errors:
                 return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
@@ -52,7 +53,8 @@ class UserDetail(APIView):
             serializer = serializers.UserSerializer(user)
             return JsonResponse(serializer.data)
         
-        except Exception:
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
 
     def patch(self, request, user_id, format=None):
@@ -67,7 +69,8 @@ class UserDetail(APIView):
             
             return JsonResponse(serializer.data)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             if err := serializer.errors:
                 return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
@@ -83,5 +86,6 @@ class UserDetail(APIView):
             
             return JsonResponse(serializer.data)
         
-        except Exception:
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)

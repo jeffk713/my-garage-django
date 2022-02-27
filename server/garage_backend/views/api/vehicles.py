@@ -21,7 +21,8 @@ class Vehicle(APIView):
 
             return JsonResponse(serializer.data, status=201)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             if err := serializer.errors:
                 return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
@@ -41,7 +42,8 @@ class VehicleDetail(APIView):
 
             return JsonResponse(serializer.data)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
 
     def patch(self, request, vehicle_id, format=None):
@@ -56,7 +58,8 @@ class VehicleDetail(APIView):
 
             return JsonResponse(serializer.data)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             if err := serializer.errors:
                 return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
@@ -72,5 +75,6 @@ class VehicleDetail(APIView):
 
             return JsonResponse(serializer.data)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
