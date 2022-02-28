@@ -29,4 +29,19 @@ class Shop(APIView):
 
 
 class ShopDetail(APIView):
-    pass
+    """
+    Retrieve, update, or delete an existing shop by shop ID
+    """
+
+    def get(self, request, shop_id, format=None):
+        try:
+            shop = object_utils.get_object_by_id(models.Shop, shop_id)
+            if not shop: 
+                return JsonResponse({"error": ["Shop not found"]}, status=400)
+            
+            serializer = serializers.ShopSerializer(shop)
+            return JsonResponse(serializer.data)
+        
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
