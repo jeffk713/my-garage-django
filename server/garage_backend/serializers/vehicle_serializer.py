@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from garage_backend import models
 from .service_serializer import ServiceSerializer
+from .vehicle_note_serializer import VehicleNoteSerializer
 
 
 class VehicleSerializer(serializers.ModelSerializer):

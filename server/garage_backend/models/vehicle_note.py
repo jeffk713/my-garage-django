@@ -12,12 +12,10 @@ class VehicleNote(models.Model):
     fBrake = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     rBrake = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     note = models.TextField(null=True)
-    vehicle = models.ForeignKey(
+    vehicle = models.OneToOneField(
         Vehicle,
         on_delete=models.CASCADE,
-        db_column="vehicle_id",
-        related_name="vehicle_notes",
-        related_query_name="vehicle_note",
+        primary_key=True,
     )
     
     createdAt = models.DateTimeField(auto_now_add=True)
