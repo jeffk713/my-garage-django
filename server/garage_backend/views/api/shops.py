@@ -45,3 +45,36 @@ class ShopDetail(APIView):
         except Exception as e:
             print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
+    
+    def patch(self, request, shop_id, format=None):
+        try:
+            shop = object_utils.get_object_by_id(models.Shop, shop_id)
+            if not shop: 
+                return JsonResponse({"error": ["Shop not found"]}, status=400)
+            
+            serializer = serializers.ShopSerializer(shop, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True): 
+                serializer.save()
+            
+            return JsonResponse(serializer.data)
+
+        except Exception as e:
+            print(e)
+            if err := serializer.errors:
+                return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
+        
+    def delete(self, request, shop_id, format=None):
+        try:
+            shop = object_utils.get_object_by_id(models.Shop, shop_id)
+            if not shop: 
+                return JsonResponse({"error": ["Shop not found"]}, status=400)
+            
+            serializer = serializers.ShopSerializer(shop)
+            shop.delete()
+            
+            return JsonResponse(serializer.data)
+        
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
