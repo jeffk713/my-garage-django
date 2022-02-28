@@ -7,7 +7,8 @@ from .vehicle_note_serializer import VehicleNoteSerializer
 
 class VehicleSerializer(serializers.ModelSerializer):
     services = ServiceSerializer(many=True, read_only=True)
-    
+    vehicleNote = VehicleNoteSerializer(read_only=True)
+
     class Meta:
         model = models.Vehicle
         fields = "__all__"

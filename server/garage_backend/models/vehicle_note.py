@@ -15,7 +15,7 @@ class VehicleNote(models.Model):
     vehicle = models.OneToOneField(
         Vehicle,
         on_delete=models.CASCADE,
-        primary_key=True,
+        related_name="vehicleNote",
     )
     
     createdAt = models.DateTimeField(auto_now_add=True)

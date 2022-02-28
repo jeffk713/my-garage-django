@@ -27,5 +27,7 @@ urlpatterns = [
     path('api/service/', api.Service.as_view()),
     path('api/service/<int:service_id>/', api.ServiceDetail.as_view()),
     path('api/shop/', api.Shop.as_view()),
-    path('api/shop/<int:shop_id>/', api.ShopDetail().as_view()),
+    path('api/shop/<int:shop_id>/', api.ShopDetail.as_view()),
+    path('api/vehiclenote/', api.VehicleNote.as_view()),
+    path('api/vehiclenote/<int:vehicle_note_id>/', api.VehicleNoteDetail.as_view()),
 ]
