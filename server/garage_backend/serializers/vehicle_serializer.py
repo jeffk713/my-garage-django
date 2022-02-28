@@ -1,12 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
-from garage_backend.models import Vehicle
+from garage_backend import models
 from .service_serializer import ServiceSerializer
 
 
-class VehicleSerializer(ModelSerializer):
+class VehicleSerializer(serializers.ModelSerializer):
     services = ServiceSerializer(many=True, read_only=True)
     
     class Meta:
-        model = Vehicle
+        model = models.Vehicle
         fields = "__all__"
