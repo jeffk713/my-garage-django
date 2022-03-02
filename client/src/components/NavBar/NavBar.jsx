@@ -2,7 +2,7 @@ import { CustomLink, Logo } from './index';
 
 const NavBar = () => {
   return (
-    <div className='bg-slate-900 p-4 flex justify-between '>
+    <div className='bg-zinc-800 px-8 py-4 flex justify-between h-24'>
       <Logo />
       <div className='flex flex-row gap-4 items-center'>
         <CustomLink>Dashboard</CustomLink>
