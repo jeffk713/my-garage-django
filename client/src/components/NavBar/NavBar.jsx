@@ -1,16 +1,14 @@
 import { CustomLink, Logo } from './index';
-import { SigninForm } from '../SigninForm';
 
 const NavBar = () => {
   return (
-    <div className='bg-sky-600 h-screen px-4 py-10 pb-28 flex flex-col align-center sm:w-1/5 md:w-1/4'>
+    <div className='bg-slate-900 p-4 flex justify-between '>
       <Logo />
-      <CustomLink>Dashboard</CustomLink>
-      <CustomLink>Vehicles</CustomLink>
-      <CustomLink>Shops</CustomLink>
-      <CustomLink>About</CustomLink>
-      <div className='mt-12'>
-        <SigninForm />
+      <div className='flex flex-row gap-4 items-center'>
+        <CustomLink>Dashboard</CustomLink>
+        <CustomLink>Vehicles</CustomLink>
+        <CustomLink>Shops</CustomLink>
+        <CustomLink>About</CustomLink>
       </div>
     </div>
   );

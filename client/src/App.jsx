@@ -1,12 +1,21 @@
 import { NavBar } from './components/NavBar';
 
+import bg from './assets/images/bg.jpeg';
 import './App.css';
 
 function App() {
   return (
-    <div className='App w-screen flex flex-row xl:w-10/12 h-screen mx-auto'>
+    <div className='w-screen h-screen mx-auto bg-fixed'>
       <NavBar />
-      <div className='bg-slate-200 grow text-gray-800'>APP START</div>
+      <div className='bg-slate-200 text-gray-800'>
+        <div
+        className='h-[cal(100vh - )]'
+          style={{
+            backgroundImage: `url(${bg})`,
+          }}
+        />
+        <div>APP START</div>
+      </div>
     </div>
   );
 }
