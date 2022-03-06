@@ -8,7 +8,7 @@ class CustomUserManager(BaseUserManager):
   def create_user(self, email, name, password):
     """ create a new user """
     
-    if not email or not name or not password:
+    if not (email and name and password):
         raise ValueError('Please submit all required fields')
     
     email = email.lower()

@@ -30,4 +30,5 @@ urlpatterns = [
     path('api/shop/<int:shop_id>/', api.ShopDetail.as_view()),
     path('api/vehiclenote/', api.VehicleNote.as_view()),
     path('api/vehiclenote/<int:vehicle_note_id>/', api.VehicleNoteDetail.as_view()),
+    path('auth/', auth.SignIn.as_view())
 ]

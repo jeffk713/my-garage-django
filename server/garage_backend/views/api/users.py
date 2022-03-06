@@ -25,17 +25,28 @@ class User(APIView):
 
     def post(self, request, format=None):
         try:
-            serializer = serializers.UserSerializer(data=request.data)
-
-            if serializer.is_valid(raise_exception=True): 
-                serializer.save()
-
-            return JsonResponse(serializer.data, status=201)
-
+            body = request.data
+            email = body.get("email")
+            name = body.get("name")
+            password = body.get("password")
+            
+            user = models.User.objects.create_user(
+            email=email,
+            name=name,
+            password=password,
+            )
+            serializer = serializers.UserSerializer(user)
+            
+            return JsonResponse(serializer.data) 
+        
+        except IntegrityError as e:
+            print(e)
+            return JsonResponse({"error": ["User already exists"]}, status=401)
+        except ValueError as e:
+            print(e)
+            return JsonResponse({"error": ["All fields required."]}, status=400)
         except Exception as e:
             print(e)
-            if err := serializer.errors:
-                return JsonResponse({"error": exception_utils.get_error_message_list(err)}, status=400)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
 
 
