@@ -1,14 +1,17 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { CustomButton, SignFormInput } from '../Utils';
 
-const USER_INPUT = {
+import { userSignInAsync } from '../../redux/user/user-thunk-creators';
+
+const INITIAL_INPUT = {
   email: '',
   password: '',
 };
 
-const SignInForm = () => {
-  const [input, setInput] = useState(USER_INPUT);
+const SignInForm = ({ userSignInAsync }) => {
+  const [input, setInput] = useState(INITIAL_INPUT);
   const { email, password } = input;
 
   const handleChange = e => {
@@ -16,8 +19,18 @@ const SignInForm = () => {
     setInput({ ...input, [name]: value });
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    userSignInAsync(input);
+    setInput(INITIAL_INPUT);
+  };
+
   return (
-    <form className='flex flex-row items-stretch gap-3 mt-3'>
+    <form
+      className='flex flex-row items-stretch gap-3 mt-3'
+      onSubmit={handleSubmit}
+    >
       <SignFormInput
         type='email'
         name='email'
@@ -39,4 +52,9 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+const mapDispatchToProps = dispatch => ({
+  userSignInAsync: userCredentials =>
+    dispatch(userSignInAsync(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignInForm);
