@@ -20,7 +20,6 @@ from garage_backend.views import api, auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/user/', api.User.as_view()),
     path('api/user/<int:user_id>/', api.UserDetail.as_view()),
     path('api/vehicle/', api.Vehicle.as_view()),
     path('api/vehicle/<int:vehicle_id>/', api.VehicleDetail.as_view()),
@@ -30,5 +29,6 @@ urlpatterns = [
     path('api/shop/<int:shop_id>/', api.ShopDetail.as_view()),
     path('api/vehiclenote/', api.VehicleNote.as_view()),
     path('api/vehiclenote/<int:vehicle_note_id>/', api.VehicleNoteDetail.as_view()),
-    path('auth/', auth.SignIn.as_view())
+    path('auth/signin/', auth.SignIn.as_view()),
+    path('auth/register/', auth.Register.as_view()),
 ]

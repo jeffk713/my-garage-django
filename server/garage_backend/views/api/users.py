@@ -6,50 +6,6 @@ from rest_framework.views import APIView
 from garage_backend import models, serializers
 from garage_backend.views.view_utils import exception_utils, object_utils
 
-
-class User(APIView):
-    """
-    List all users or create a user
-    """
-
-    def get(self, request, format=None):
-        try:
-            users = models.User.objects.all().order_by("id")
-            serializer = serializers.UserSerializer(users, many=True)
-
-            return JsonResponse(serializer.data, safe=False)
-
-        except Exception as e:
-            print(e)
-            return JsonResponse({"error": ["Server error has occurred"]}, status=500)    
-
-    def post(self, request, format=None):
-        try:
-            body = request.data
-            email = body.get("email")
-            name = body.get("name")
-            password = body.get("password")
-            
-            user = models.User.objects.create_user(
-            email=email,
-            name=name,
-            password=password,
-            )
-            serializer = serializers.UserSerializer(user)
-            
-            return JsonResponse(serializer.data) 
-        
-        except IntegrityError as e:
-            print(e)
-            return JsonResponse({"error": ["User already exists"]}, status=401)
-        except ValueError as e:
-            print(e)
-            return JsonResponse({"error": ["All fields required."]}, status=400)
-        except Exception as e:
-            print(e)
-            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
-
-
 class UserDetail(APIView):
     """
     Retrieve, update, or delete an existing user by user ID
