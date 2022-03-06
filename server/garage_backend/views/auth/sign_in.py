@@ -22,6 +22,8 @@ class SignIn(APIView):
                 return JsonResponse({"error": ["User credentials incorrect"]}, status=400)
             
             serializer = serializers.UserSerializer(user)
+            request.session['user_id'] = serializer.data["id"]
+            
             return JsonResponse(serializer.data)
 
         except Exception as e:

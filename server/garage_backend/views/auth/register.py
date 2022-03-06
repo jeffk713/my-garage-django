@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from garage_backend import models, serializers
 
+
 class Register(APIView):
     """
     Register a user
