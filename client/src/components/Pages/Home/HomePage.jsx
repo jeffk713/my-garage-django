@@ -1,5 +1,5 @@
 import { HomeTitle, SignUpLink } from '.';
-import { SignInForm } from '../SigninForm';
+import { SignInForm } from '../../SigninForm';
 
 const HomePage = () => {
   return (
