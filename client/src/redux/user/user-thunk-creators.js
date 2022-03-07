@@ -4,6 +4,7 @@ import {
   userSignInStart,
   userSignInSuccess,
   userSignInFail,
+  userSignOutStart,
 } from './user-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
@@ -30,4 +31,8 @@ export const userSignInAsync = userCredentials => dispatch => {
     });
 
   dispatch(userSignInStart(userCredentials));
+};
+
+export const userSignOutAsync = () => dispatch => {
+  dispatch(userSignOutStart());
 };

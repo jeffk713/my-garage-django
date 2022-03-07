@@ -1,4 +1,5 @@
 import { NavLink, Logo } from './index';
+import { SignOutLink } from '../Utils';
 
 const NavBar = () => {
   return (
@@ -8,7 +9,7 @@ const NavBar = () => {
         <NavLink>Dashboard</NavLink>
         <NavLink>Vehicles</NavLink>
         <NavLink>Shops</NavLink>
-        <NavLink>About</NavLink>
+        <SignOutLink />
       </div>
     </div>
   );
