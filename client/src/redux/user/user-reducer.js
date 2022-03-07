@@ -1,6 +1,7 @@
 import { userActionTypes } from './user-action-types';
 
 const INITIAL_STATE = {
+  isLoading: false,
   isAuth: false,
   name: null,
   email: null,
@@ -11,8 +12,18 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionTypes.USER_SIGN_IN_START:
       return {
         ...state,
-        name: 'sign in start',
-        email: action.payload.email,
+        isLoading: true,
+      };
+    case userActionTypes.USER_SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        isLoading: false,
+      };
+    case userActionTypes.USER_SIGN_IN_FAIL:
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return {

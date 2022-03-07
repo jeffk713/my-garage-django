@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-import { userSignInStart } from './user-action-creators';
+import {
+  userSignInStart,
+  userSignInSuccess,
+  userSignInFail,
+} from './user-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
   const config = {
@@ -9,10 +13,21 @@ export const userSignInAsync = userCredentials => dispatch => {
     },
   };
   const body = JSON.stringify(userCredentials);
+  dispatch(userSignInSuccess());
+
   axios
     .post('/auth/signin/', body, config)
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err));
+    .then(res => {
+      const userObj = {
+        id: res.data.id,
+        email: res.data.email,
+        name: res.data.name,
+      };
+      dispatch(userSignInSuccess(userObj));
+    })
+    .catch(err => {
+      dispatch(userSignInFail());
+    });
 
   dispatch(userSignInStart(userCredentials));
 };
