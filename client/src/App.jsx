@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
 
 import { NavBar } from './components/NavBar';
 import { Background } from './components/Utils';
@@ -12,6 +11,7 @@ import { authBySession } from './redux/user/user-thunk-creators';
 const App = ({ isAuth, authBySession }) => {
   useEffect(() => {
     !isAuth && authBySession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -19,9 +19,7 @@ const App = ({ isAuth, authBySession }) => {
       <Background />
       <NavBar />
       <div className='text-gray-800 relative h-[calc(100vh-6rem)]'>
-        <Switch>
-          <Route exact path='/' component={isAuth ? DashboardPage : HomePage} />
-        </Switch>
+        {isAuth ? <DashboardPage /> : <HomePage />}
       </div>
     </div>
   );
