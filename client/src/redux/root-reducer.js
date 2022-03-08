@@ -5,7 +5,7 @@ import sideBarReducer from './side-bar/side-bar-reducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  sidebar: sideBarReducer,
+  sideBar: sideBarReducer,
 });
 
 export default rootReducer;

@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 const sideBarReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case sideBarActionTypes.SIDE_BAR_TOGGLE:
+    case sideBarActionTypes.TOGGLE_SIDE_BAR:
       return {
         ...state,
         display: !state.display,
