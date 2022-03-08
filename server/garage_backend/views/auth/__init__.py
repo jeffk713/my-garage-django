@@ -1,2 +1,3 @@
-from .sign_in import SignIn
+from .sign_in_out import SignIn, SignOut
 from .register import Register
+from .authenticate import Authenticate

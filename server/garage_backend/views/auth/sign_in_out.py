@@ -8,6 +8,7 @@ from garage_backend.views.view_utils import object_utils
 class SignIn(APIView):
     """
     Authenticates a user if user info is correct
+    Set session cookie upon sign in
     """
     
     def post(self, request, format=None):
@@ -23,9 +24,25 @@ class SignIn(APIView):
             
             serializer = serializers.UserSerializer(user)
             request.session['user_id'] = serializer.data["id"]
-            
+
             return JsonResponse(serializer.data)
 
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error": ["Server error has occurred"]}, status=500)
+        
+class SignOut(APIView):
+    """
+    delete session cookie and sign out the user
+    """
+    
+    def delete(self, request, format=None):
+        try:
+            user_id = request.session['user_id']
+            del request.session['user_id']
+            
+            return JsonResponse({"data": [{"userId": user_id}]})
+        
         except Exception as e:
             print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)

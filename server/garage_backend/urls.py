@@ -31,4 +31,7 @@ urlpatterns = [
     path('api/vehiclenote/<int:vehicle_note_id>/', api.VehicleNoteDetail.as_view()),
     path('auth/signin/', auth.SignIn.as_view()),
     path('auth/register/', auth.Register.as_view()),
+    path('auth/signout/', auth.SignOut.as_view()),
+    path('auth/authenticate/', auth.Authenticate.as_view()),
+    
 ]

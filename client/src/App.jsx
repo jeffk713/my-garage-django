@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
@@ -6,7 +7,13 @@ import { Background } from './components/Utils';
 import { HomePage } from './components/Pages/Home';
 import { DashboardPage } from './components/Pages/Dashboard';
 
-function App({ isAuth }) {
+import { authBySession } from './redux/user/user-thunk-creators';
+
+const App = ({ isAuth, authBySession }) => {
+  useEffect(() => {
+    !isAuth && authBySession();
+  }, []);
+
   return (
     <div className='w-screen h-screen mx-auto bg-fixed'>
       <Background />
@@ -18,10 +25,14 @@ function App({ isAuth }) {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = state => ({
   isAuth: state.user.isAuth,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  authBySession: () => dispatch(authBySession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

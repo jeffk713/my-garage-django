@@ -5,6 +5,8 @@ import {
   userSignInSuccess,
   userSignInFail,
   userSignOutStart,
+  userSignOutSuccess,
+  userSignOutFail,
 } from './user-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
@@ -14,7 +16,7 @@ export const userSignInAsync = userCredentials => dispatch => {
     },
   };
   const body = JSON.stringify(userCredentials);
-  dispatch(userSignInSuccess());
+  dispatch(userSignInStart());
 
   axios
     .post('/auth/signin/', body, config)
@@ -29,10 +31,37 @@ export const userSignInAsync = userCredentials => dispatch => {
     .catch(err => {
       dispatch(userSignInFail());
     });
-
-  dispatch(userSignInStart(userCredentials));
 };
 
 export const userSignOutAsync = () => dispatch => {
   dispatch(userSignOutStart());
+
+  axios
+    .delete('/auth/signout')
+    .then(res => {
+      console.log(res.data);
+      dispatch(userSignOutSuccess());
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch(userSignOutFail());
+    });
+};
+
+export const authBySession = () => dispatch => {
+  dispatch(userSignInStart());
+
+  axios
+    .get('/auth/authenticate/')
+    .then(res => {
+      const userObj = {
+        id: res.data.id,
+        email: res.data.email,
+        name: res.data.name,
+      };
+      dispatch(userSignInSuccess(userObj));
+    })
+    .catch(err => {
+      dispatch(userSignInFail());
+    });
 };
