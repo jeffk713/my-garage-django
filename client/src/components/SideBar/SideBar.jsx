@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { UserGreet, VehicleCard } from '.';
+import { VehicleCard } from '../VehicleCard';
 import { CustomLink } from '../Utils';
 
 const SideBar = ({ sideBarDisplay }) => {
@@ -10,7 +10,6 @@ const SideBar = ({ sideBarDisplay }) => {
         sideBarDisplay && 'translate-x-full'
       }`}
     >
-      <UserGreet />
       <VehicleCard />
       <VehicleCard />
       <CustomLink>Shops</CustomLink>
