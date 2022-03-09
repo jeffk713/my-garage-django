@@ -1,20 +1,16 @@
 import { Switch, Route } from 'react-router-dom';
 
-import { VehiclePost } from '.';
-import { SideBar } from '../../SideBar';
+import { Dashboard } from '.';
+import { VehicleInfoPage } from '../VehicleInfo';
 
 const DashboardPage = () => {
   return (
     <div className='h-full bg-neutral-300/80 overflow-y-auto'>
-      <SideBar />
       <div className='p-12 flex flex-col'>
-        <h2 className='text-3xl font-bold border-b-4 border-zinc-800'>
-          DASHBOARD
-        </h2>
-        <div className='p-12 flex flex-wrap gap-8 justify-center'>
-          <VehiclePost />
-          <VehiclePost />
-        </div>
+        <Switch>
+          <Route exact path='/' component={Dashboard} />
+          <Route path='/vehicle/:vehicleId' component={VehicleInfoPage} />
+        </Switch>
       </div>
     </div>
   );

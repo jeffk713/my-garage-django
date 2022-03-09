@@ -5,6 +5,7 @@ import { NavBar } from './components/NavBar';
 import { Background } from './components/Utils';
 import { HomePage } from './components/Pages/Home';
 import { DashboardPage } from './components/Pages/Dashboard';
+import { SideBar } from './components/SideBar';
 
 import { authBySession } from './redux/user/user-thunk-creators';
 
@@ -17,6 +18,7 @@ const App = ({ isAuth, authBySession }) => {
   return (
     <div className='w-screen h-screen mx-auto bg-fixed'>
       <Background />
+      <SideBar />
       <NavBar />
       <div className='text-gray-800 relative h-[calc(100vh-6rem)]'>
         {isAuth ? <DashboardPage /> : <HomePage />}
