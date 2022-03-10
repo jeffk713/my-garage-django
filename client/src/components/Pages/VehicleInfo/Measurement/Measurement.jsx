@@ -17,16 +17,22 @@ const Measurement = () => {
     note: '',
   };
   const [measureInput, setMeasureInput] = useState(INITIAL_MEASUREMENT);
+  const [editMode, setEditMode] = useState(false);
   const { fBrake, rBrake, lfTire, lrTire, rfTire, rrTire, note } = measureInput;
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setMeasureInput({ ...measureInput, [name]: value });
+    editMode && setMeasureInput({ ...measureInput, [name]: value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     console.log(measureInput);
+    editMode && setMeasureInput(INITIAL_MEASUREMENT);
+  };
+
+  const toggleEditMode = () => {
+    setEditMode(prev => !prev);
     setMeasureInput(INITIAL_MEASUREMENT);
   };
 
@@ -34,7 +40,12 @@ const Measurement = () => {
     <div className='border-2 p-4 rounded flex flex-col'>
       <div className='flex justify-between'>
         <p>(mm)</p>
-        <img className='w-6 cursor-pointer' src={edit} alt='edit' />
+        <img
+          className='w-6 cursor-pointer'
+          src={edit}
+          alt='edit'
+          onClick={toggleEditMode}
+        />
       </div>
       <form
         className='text-zinc-800 flex flex-col gap-4'
@@ -94,7 +105,7 @@ const Measurement = () => {
           placeholder='Note'
           onChange={handleChange}
         />
-        <CustomButton type='submit'>Save</CustomButton>
+        {editMode && <CustomButton type='submit'>Save</CustomButton>}
       </form>
     </div>
   );
