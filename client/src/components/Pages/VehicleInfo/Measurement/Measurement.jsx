@@ -1,33 +1,100 @@
+import { useState } from 'react';
+
 import { CustomButton } from '../../../Utils';
-import { TireMeasurePair, MeasureInput } from '.';
+import { MeasureInput } from '.';
 
 import carTopView from '../../../../assets/images/car-inspection.png';
 import edit from '../../../../assets/images/edit-icon.svg';
 
 const Measurement = () => {
+  const INITIAL_MEASUREMENT = {
+    fBrake: '',
+    rBrake: '',
+    lfTire: '',
+    lrTire: '',
+    rfTire: '',
+    rrTire: '',
+    note: '',
+  };
+  const [measureInput, setMeasureInput] = useState(INITIAL_MEASUREMENT);
+  const { fBrake, rBrake, lfTire, lrTire, rfTire, rrTire, note } = measureInput;
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setMeasureInput({ ...measureInput, [name]: value });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(measureInput);
+    setMeasureInput(INITIAL_MEASUREMENT);
+  };
+
   return (
     <div className='border-2 p-4 rounded flex flex-col'>
-      <div className='w-full'>
-        <img className='w-6 cursor-pointer ml-auto' src={edit} alt='edit' />
+      <div className='flex justify-between'>
+        <p>(mm)</p>
+        <img className='w-6 cursor-pointer' src={edit} alt='edit' />
       </div>
-      <form class='text-zinc-800 flex flex-col gap-4'>
+      <form
+        className='text-zinc-800 flex flex-col gap-4'
+        onSubmit={handleSubmit}
+      >
         <div className='flex flex-col items-center'>
-          <MeasureInput name='F brake' />
+          <MeasureInput
+            name='fBrake'
+            value={fBrake}
+            handleChange={handleChange}
+            placeholder='F brake'
+          />
           <div className='flex flex-row my-4'>
-            <TireMeasurePair />
+            <div className='flex flex-col justify-around'>
+              <MeasureInput
+                name='lfTire'
+                value={lfTire}
+                handleChange={handleChange}
+                placeholder='LF tire'
+              />
+              <MeasureInput
+                name='lrTire'
+                value={lrTire}
+                handleChange={handleChange}
+                placeholder='LR tire'
+              />
+            </div>
             <img className='w-20' src={carTopView} alt='car top view' />
-            <TireMeasurePair />
+            <div className='flex flex-col justify-around'>
+              <MeasureInput
+                name='rfTire'
+                value={rfTire}
+                handleChange={handleChange}
+                placeholder='RF tire'
+              />
+              <MeasureInput
+                name='rrTire'
+                value={rrTire}
+                handleChange={handleChange}
+                placeholder='RR tire'
+              />
+            </div>
           </div>
-          <MeasureInput name='R brake' />
+          <MeasureInput
+            name='rBrake'
+            value={rBrake}
+            handleChange={handleChange}
+            placeholder='R brake'
+          />
         </div>
         <textarea
           className='p-2'
           name='note'
+          value={note}
           cols='30'
           rows='2'
           placeholder='Note'
+          onChange={handleChange}
         />
-        <CustomButton>Save</CustomButton>
+        <CustomButton type='submit'>Save</CustomButton>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-const MeasureInput = ({ name, value, handleChange }) => {
+const MeasureInput = ({ name, value, handleChange, placeholder }) => {
   return (
     <div className='w-20'>
       <input
@@ -6,8 +6,8 @@ const MeasureInput = ({ name, value, handleChange }) => {
         type='number'
         name={name}
         value={value}
-        onchange={handleChange}
-        placeholder={name}
+        onChange={handleChange}
+        placeholder={placeholder}
       />
     </div>
   );
