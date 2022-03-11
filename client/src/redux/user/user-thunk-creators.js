@@ -39,7 +39,6 @@ export const userSignOutAsync = () => dispatch => {
   axios
     .delete('/auth/signout')
     .then(res => {
-      console.log(res.data);
       dispatch(userSignOutSuccess());
     })
     .catch(err => {
@@ -59,9 +58,11 @@ export const authBySession = () => dispatch => {
         email: res.data.email,
         name: res.data.name,
       };
+      console.log(res.data)
       dispatch(userSignInSuccess(userObj));
     })
     .catch(err => {
+      console.log(err);
       dispatch(userSignInFail());
     });
 };

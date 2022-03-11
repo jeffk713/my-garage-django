@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 
+import { VehicleAddButton } from '.';
 import { VehicleCard } from '../VehicleCard';
 import { CustomLink } from '../Utils';
 
@@ -12,6 +13,7 @@ const SideBar = ({ sideBarDisplay }) => {
     >
       <VehicleCard />
       <VehicleCard />
+      <VehicleAddButton />
       <CustomLink>Shops</CustomLink>
     </div>
   );
