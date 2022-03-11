@@ -1,6 +1,6 @@
 import { ServiceItem } from '.';
 
-const ServiceTable = () => {
+const ServiceTable = ({ services }) => {
   return (
     <div className='font-semibold flex flex-col items-center w-full pt-2'>
       <div className='w-full bg-amber-600 grid grid-cols-7 gap-2 items-stretch text-center'>
@@ -9,7 +9,9 @@ const ServiceTable = () => {
         <div className='col-span-2'>Date</div>
         <div>Warranty</div>
       </div>
-      <ServiceItem />
+      {services.map(service => (
+        <ServiceItem key={service.id} {...service} />
+      ))}
     </div>
   );
 };

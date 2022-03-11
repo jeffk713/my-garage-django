@@ -3,8 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { ServiceTable } from '../../ServiceTable';
 import { VehicleAvatar } from '../../VehicleCard';
 
-const VehiclePost = () => {
+const VehiclePost = ({ ...vehicle }) => {
   const history = useHistory();
+  const { imageUrl, services } = vehicle;
+  console.log(vehicle);
   return (
     <div
       className='w-full flex items-start gap-4 p-10 rounded-xl bg-zinc-800/90 text-slate-200 cursor-pointer'
@@ -17,7 +19,7 @@ const VehiclePost = () => {
           <p>Brakes: 8-10mm</p>
         </div>
       </div>
-      <ServiceTable />
+      <ServiceTable services={services.slice(0, 3)} />
     </div>
   );
 };

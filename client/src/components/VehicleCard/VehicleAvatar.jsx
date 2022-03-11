@@ -1,27 +1,33 @@
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { toggleSideBar } from '../../redux/side-bar/side-bar-action-creators';
+import { hideSideBar } from '../../redux/side-bar/side-bar-action-creators';
+import defaultVehicle from '../../assets/images/default-vehicle.svg';
 
-const VehicleAvatar = ({ toggleSideBar }) => {
+const VehicleAvatar = ({ imageUrl, hideSideBar }) => {
   const history = useHistory();
 
   const selectVehicle = () => {
     history.push(`/vehicle/1`);
-    toggleSideBar();
+    hideSideBar();
   };
+
   return (
     <div
-      className='w-28 h-28 border-2 rounded-2xl cursor-pointer'
+      className='w-28 h-28 border-2 rounded-2xl cursor-pointer overflow-hidden flex justify-center items-center'
       onClick={selectVehicle}
     >
-      PIC
+      <img
+        className='w-20 h-20'
+        src={imageUrl ? imageUrl : defaultVehicle}
+        alt='vehicle'
+      />
     </div>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  toggleSideBar: () => dispatch(toggleSideBar()),
+  hideSideBar: () => dispatch(hideSideBar()),
 });
 
 export default connect(null, mapDispatchToProps)(VehicleAvatar);

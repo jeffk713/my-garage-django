@@ -7,18 +7,18 @@ const INITIAL_STATE = {
 
 const vehicleReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case vehicleActionTypes.UPDATE_VEHICLE_START:
+    case vehicleActionTypes.GET_VEHICLES_START:
       return {
         ...state,
         isLoading: true,
       };
-    case vehicleActionTypes.UPDATE_VEHICLE_SUCCESS:
+    case vehicleActionTypes.GET_VEHICLES_SUCCESS:
       return {
         ...state,
         vehicles: action.payload,
         isLoading: false,
       };
-    case vehicleActionTypes.UPDATE_VEHICLE_FAIL:
+    case vehicleActionTypes.GET_VEHICLES_FAIL:
       return {
         ...state,
         isLoading: false,

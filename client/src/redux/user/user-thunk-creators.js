@@ -8,6 +8,7 @@ import {
   userSignOutSuccess,
   userSignOutFail,
 } from './user-action-creators';
+import { getVehiclesSuccess } from '../vehicle/vehicle-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
   const config = {
@@ -27,6 +28,7 @@ export const userSignInAsync = userCredentials => dispatch => {
         name: res.data.name,
       };
       dispatch(userSignInSuccess(userObj));
+      dispatch(getVehiclesSuccess(res.data.vehicles));
     })
     .catch(err => {
       dispatch(userSignInFail());
@@ -58,8 +60,8 @@ export const authBySession = () => dispatch => {
         email: res.data.email,
         name: res.data.name,
       };
-      console.log(res.data)
       dispatch(userSignInSuccess(userObj));
+      dispatch(getVehiclesSuccess(res.data.vehicles));
     })
     .catch(err => {
       console.log(err);
