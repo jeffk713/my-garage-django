@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import { VehicleAddButton } from '.';
+import { Logo } from '../NavBar';
 import { VehicleCard } from '../VehicleCard';
 import { CustomLink } from '../Utils';
 
@@ -11,6 +12,9 @@ const SideBar = ({ sideBarDisplay }) => {
         sideBarDisplay && 'translate-x-full'
       }`}
     >
+      <div className='mb-8'>
+        <Logo />
+      </div>
       <VehicleCard />
       <VehicleCard />
       <VehicleAddButton />

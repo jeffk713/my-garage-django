@@ -11,6 +11,11 @@ const sideBarReducer = (state = INITIAL_STATE, action) => {
         ...state,
         display: !state.display,
       };
+    case sideBarActionTypes.HIDE_SIDE_BAR:
+      return {
+        ...state,
+        display: false,
+      };
     default:
       return {
         ...state,
