@@ -6,7 +6,7 @@ import { VehicleInfoPage } from '../VehicleInfo';
 const DashboardPage = () => {
   return (
     <div className='h-full bg-neutral-300/80 overflow-y-auto'>
-      <div className='p-12 flex flex-col h-full'>
+      <div className='p-12 flex flex-col h-full max-w-[1280px] mx-auto'>
         <Switch>
           <Route exact path='/' component={Dashboard} />
           <Route path='/vehicle/:vehicleId' component={VehicleInfoPage} />
