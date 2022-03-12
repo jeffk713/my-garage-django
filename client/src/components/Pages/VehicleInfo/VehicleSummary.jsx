@@ -1,11 +1,12 @@
 import { Measurement } from './Measurement';
 import { VehicleInfo } from '.';
 
-const VehicleSummary = () => {
+const VehicleSummary = ({ vehicle }) => {
+  console.log(vehicle);
   return (
     <div className='col-span-4 flex flex-col items-center justify-center font-semibold text-slate-200'>
-      <VehicleInfo />
-      <Measurement />
+      <VehicleInfo vehicle={vehicle} />
+      <Measurement vehicleNote={vehicle && vehicle.vehicleNote} />
     </div>
   );
 };

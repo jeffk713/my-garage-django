@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { CustomButton } from '../../../Utils';
 import { MeasureInput } from '.';
@@ -6,7 +6,8 @@ import { MeasureInput } from '.';
 import carTopView from '../../../../assets/images/car-inspection.png';
 import edit from '../../../../assets/images/edit-icon.svg';
 
-const Measurement = () => {
+const Measurement = ({ vehicleNote }) => {
+  console.log(vehicleNote);
   const INITIAL_MEASUREMENT = {
     fBrake: '',
     rBrake: '',
@@ -16,9 +17,15 @@ const Measurement = () => {
     rrTire: '',
     note: '',
   };
-  const [measureInput, setMeasureInput] = useState(INITIAL_MEASUREMENT);
+  const [measureInput, setMeasureInput] = useState(
+    vehicleNote || INITIAL_MEASUREMENT
+  );
   const [editMode, setEditMode] = useState(false);
   const { fBrake, rBrake, lfTire, lrTire, rfTire, rrTire, note } = measureInput;
+
+  useEffect(() => {
+    vehicleNote && setMeasureInput({ ...vehicleNote });
+  }, [vehicleNote]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -33,7 +40,6 @@ const Measurement = () => {
 
   const toggleEditMode = () => {
     setEditMode(prev => !prev);
-    setMeasureInput(INITIAL_MEASUREMENT);
   };
 
   return (

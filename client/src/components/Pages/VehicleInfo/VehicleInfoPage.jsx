@@ -1,13 +1,24 @@
+import { connect } from 'react-redux';
+
 import { VehicleSummary } from '.';
 import { ServiceTableContainer } from '../../ServiceTable';
 
-const VehicleInfoPage = () => {
+import { getVehicleByVehicleId } from '../../../utils/data-utils';
+
+const VehicleInfoPage = ({ match, vehicles }) => {
+  const vehicleId = match.params.vehicleId;
+  const vehicleToDisplay = getVehicleByVehicleId(vehicles, vehicleId);
+
   return (
     <div className='p-8 h-full overflow-y-auto grid grid-cols-10 rounded bg-zinc-800/90 text-slate-200'>
-      <VehicleSummary />
-      <ServiceTableContainer />
+      <VehicleSummary vehicle={vehicleToDisplay} />
+      <ServiceTableContainer  vehicle={vehicleToDisplay}/>
     </div>
   );
 };
 
-export default VehicleInfoPage;
+const mapStateToProps = state => ({
+  vehicles: state.vehicle.vehicles,
+});
+
+export default connect(mapStateToProps)(VehicleInfoPage);

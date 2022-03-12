@@ -10,15 +10,15 @@ import {
 
 const VehiclePost = ({ ...vehicle }) => {
   const history = useHistory();
-  const { imageUrl, services, vehicleNote } = vehicle;
-  console.log(vehicleNote);
+  const { id, imageUrl, services, vehicleNote } = vehicle;
+
   const minMaxTireMeasurement = getMinMaxTireMeasurement(vehicleNote);
-  const minMaxTBrakeMeasurement = getMinMaxTireMeasurement(vehicleNote);
-  console.log(minMaxTireMeasurement);
+  const minMaxBrakeMeasurement = getMinMaxBrakeMeasurement(vehicleNote);
+
   return (
     <div
       className='w-full flex items-start gap-4 p-10 rounded-xl bg-zinc-800/90 text-slate-200 cursor-pointer'
-      onClick={() => history.push(`/vehicle/1`)}
+      onClick={() => history.push(`/vehicle/${id}`)}
     >
       <div className='w-60 flex flex-col items-center gap-4'>
         <VehicleAvatar imageUrl={imageUrl} />
@@ -32,8 +32,8 @@ const VehiclePost = ({ ...vehicle }) => {
           </p>
           <p>
             Brakes:{' '}
-            {minMaxTBrakeMeasurement
-              ? `${minMaxTBrakeMeasurement[0]} - ${minMaxTBrakeMeasurement[1]}`
+            {minMaxBrakeMeasurement
+              ? `${minMaxBrakeMeasurement[0]} - ${minMaxBrakeMeasurement[1]}`
               : ' - '}{' '}
             mm
           </p>
