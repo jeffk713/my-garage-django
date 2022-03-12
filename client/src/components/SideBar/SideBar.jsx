@@ -5,7 +5,7 @@ import { Logo } from '../NavBar';
 import { VehicleCard } from '../VehicleCard';
 import { CustomLink } from '../Utils';
 
-const SideBar = ({ sideBarDisplay }) => {
+const SideBar = ({ sideBarDisplay, vehicles }) => {
   return (
     <div
       className={`col-span-2 flex flex-col items-center py-8 bg-amber-600 text-slate-200 absolute w-[16rem] h-full -left-[16rem] transition duration-700 ease-in-out z-50 ${
@@ -15,8 +15,10 @@ const SideBar = ({ sideBarDisplay }) => {
       <div className='mb-8'>
         <Logo />
       </div>
-      <VehicleCard />
-      <VehicleCard />
+      {vehicles.map(vehicle => (
+        <VehicleCard key={vehicle.id} {...vehicle} />
+      ))}
+
       <VehicleAddButton />
       <CustomLink>Shops</CustomLink>
     </div>
@@ -25,6 +27,7 @@ const SideBar = ({ sideBarDisplay }) => {
 
 const mapStateToProps = state => ({
   sideBarDisplay: state.sideBar.display,
+  vehicles: state.vehicle.vehicles,
 });
 
 export default connect(mapStateToProps)(SideBar);

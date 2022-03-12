@@ -1,10 +1,12 @@
 import { VehicleAvatar } from '.';
 
-const VehicleCard = () => {
+const VehicleCard = ({ ...vehicle }) => {
+  const { imageUrl, nickname } = vehicle;
+
   return (
     <div className='text-center flex flex-col mb-4'>
-      <VehicleAvatar />
-      <p className='text-lg font-semibold'>My car</p>
+      <VehicleAvatar imageUrl={imageUrl} />
+      <p className='text-lg font-semibold'>{nickname}</p>
     </div>
   );
 };
