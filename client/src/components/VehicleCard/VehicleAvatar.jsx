@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { hideSideBar } from '../../redux/side-bar/side-bar-action-creators';
 import defaultVehicle from '../../assets/images/default-vehicle.svg';
 
-const VehicleAvatar = ({ imageUrl, hideSideBar }) => {
+const VehicleAvatar = ({ vehicleId, imageUrl, hideSideBar }) => {
   const history = useHistory();
 
   const selectVehicle = () => {
-    history.push(`/vehicle/1`);
+    history.push(`/vehicle/${vehicleId}`);
     hideSideBar();
   };
 

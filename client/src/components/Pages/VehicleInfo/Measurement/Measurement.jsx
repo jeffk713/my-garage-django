@@ -6,8 +6,7 @@ import { MeasureInput } from '.';
 import carTopView from '../../../../assets/images/car-inspection.png';
 import edit from '../../../../assets/images/edit-icon.svg';
 
-const Measurement = ({ vehicleNote }) => {
-  console.log(vehicleNote);
+const Measurement = ({ vehicleNote, vehicleId }) => {
   const INITIAL_MEASUREMENT = {
     fBrake: '',
     rBrake: '',
@@ -35,7 +34,8 @@ const Measurement = ({ vehicleNote }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(measureInput);
-    editMode && setMeasureInput(INITIAL_MEASUREMENT);
+    editMode && setMeasureInput({ ...vehicleNote });
+    setEditMode(false);
   };
 
   const toggleEditMode = () => {
