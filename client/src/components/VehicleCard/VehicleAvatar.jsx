@@ -17,11 +17,22 @@ const VehicleAvatar = ({ imageUrl, hideSideBar }) => {
       className='w-28 h-28 border-2 rounded-2xl cursor-pointer overflow-hidden flex justify-center items-center'
       onClick={selectVehicle}
     >
-      <img
-        className='w-20 h-20'
-        src={imageUrl ? imageUrl : defaultVehicle}
-        alt='vehicle'
-      />
+      {imageUrl ? (
+        <div
+          className='w-full h-full'
+          style={{
+            backgroundImage: `url(${imageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      ) : (
+        <img
+          className='w-20 h-20'
+          src={imageUrl ? imageUrl : defaultVehicle}
+          alt='vehicle'
+        />
+      )}
     </div>
   );
 };
