@@ -11,13 +11,13 @@ import {
 import { getVehiclesSuccess } from '../vehicle/vehicle-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
+  dispatch(userSignInStart());
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
   const body = JSON.stringify(userCredentials);
-  dispatch(userSignInStart());
 
   axios
     .post('/auth/signin/', body, config)

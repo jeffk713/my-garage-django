@@ -18,10 +18,10 @@ export const updateVehicleNoteStart = () => ({
 });
 
 export const updateVehicleNoteSuccess = updatedVehicleNote => ({
-  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_START,
+  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_SUCCESS,
   payload: updatedVehicleNote,
 });
 
 export const updateVehicleNoteFail = () => ({
-  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_START,
+  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_FAIL,
 });

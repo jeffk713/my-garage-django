@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 import { CustomButton } from '../../../Utils';
 import { MeasureInput } from '.';
 
-import carTopView from '../../../../assets/images/car-inspection.png';
-import edit from '../../../../assets/images/edit-icon.svg';
-
+import { updateVehicleNoteAsync } from '../../../../redux/vehicle/vehicle-thunk-creators';
 import {
   getNextAppointmentDate,
   getNextAppointmentTime,
   getNextAppointmetDateTime,
 } from '../../../../utils/data-utils';
 
-const Measurement = ({ vehicleNote, vehicleId }) => {
+import carTopView from '../../../../assets/images/car-inspection.png';
+import edit from '../../../../assets/images/edit-icon.svg';
+
+const Measurement = ({ vehicleNote, vehicleId, updateVehicleNoteAsync }) => {
   const INITIAL_MEASUREMENT = {
     fBrake: '',
     rBrake: '',
@@ -51,7 +53,7 @@ const Measurement = ({ vehicleNote, vehicleId }) => {
           vehicleNote.nextAppointment
         ),
       });
-  }, [vehicleNote]);
+  }, [vehicleNote, editMode]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -60,18 +62,31 @@ const Measurement = ({ vehicleNote, vehicleId }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(measureInput);
 
-    editMode &&
-      setMeasureInput({
-        ...vehicleNote,
-        nextAppointmentDate: getNextAppointmentDate(
-          vehicleNote.nextAppointment
-        ),
-        nextAppointmentTime: getNextAppointmentTime(
-          vehicleNote.nextAppointment
-        ),
-      });
+    const updatedVehicleNote = {
+      ...measureInput,
+      nextAppointment: getNextAppointmetDateTime(
+        nextAppointmentDate,
+        nextAppointmentTime
+      ),
+      vehicle: vehicleId,
+    };
+
+    if (vehicleNote) {
+      updateVehicleNoteAsync(updatedVehicleNote, vehicleNote.id);
+    } else {
+      // createVehicleNoteAsync
+    }
+    // editMode &&
+    //   setMeasureInput({
+    //     ...vehicleNote,
+    //     nextAppointmentDate: getNextAppointmentDate(
+    //       vehicleNote.nextAppointment
+    //     ),
+    //     nextAppointmentTime: getNextAppointmentTime(
+    //       vehicleNote.nextAppointment
+    //     ),
+    //   });
     setEditMode(false);
   };
 
@@ -178,4 +193,9 @@ const Measurement = ({ vehicleNote, vehicleId }) => {
   );
 };
 
-export default Measurement;
+const mapDispatchToProps = dispatch => ({
+  updateVehicleNoteAsync: (updatedVehicleNote, vehicleNoteId) =>
+    dispatch(updateVehicleNoteAsync(updatedVehicleNote, vehicleNoteId)),
+});
+
+export default connect(null, mapDispatchToProps)(Measurement);
