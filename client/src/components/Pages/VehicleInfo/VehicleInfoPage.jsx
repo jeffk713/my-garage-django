@@ -10,9 +10,11 @@ const VehicleInfoPage = ({ match, vehicles }) => {
   const vehicleToDisplay = getVehicleByVehicleId(vehicles, vehicleId);
 
   return (
-    <div className='p-8 min-h-full grid grid-cols-10 rounded bg-zinc-800/90 text-slate-200'>
-      <VehicleSummary vehicle={vehicleToDisplay} />
-      <ServiceTableContainer vehicle={vehicleToDisplay} />
+    <div className='w-screen bg-zinc-800/90'>
+      <div className='p-8 min-h-full grid grid-cols-10 text-slate-200 max-w-[1280px] mx-auto'>
+        <VehicleSummary vehicle={vehicleToDisplay} />
+        <ServiceTableContainer vehicle={vehicleToDisplay} />
+      </div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { VehiclePost } from '.';
 
 const Dashboard = ({ vehicles }) => {
   return (
-    <div className='px-12'>
+    <div className='px-12 max-w-[1280px] mx-auto'>
       <h2 className='text-3xl font-bold border-b-4 border-zinc-800'>
         DASHBOARD
       </h2>
