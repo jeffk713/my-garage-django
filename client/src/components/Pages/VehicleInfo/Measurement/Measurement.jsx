@@ -6,6 +6,12 @@ import { MeasureInput } from '.';
 import carTopView from '../../../../assets/images/car-inspection.png';
 import edit from '../../../../assets/images/edit-icon.svg';
 
+import {
+  getNextAppointmentDate,
+  getNextAppointmentTime,
+  getNextAppointmetDateTime,
+} from '../../../../utils/data-utils';
+
 const Measurement = ({ vehicleNote, vehicleId }) => {
   const INITIAL_MEASUREMENT = {
     fBrake: '',
@@ -15,15 +21,36 @@ const Measurement = ({ vehicleNote, vehicleId }) => {
     rfTire: '',
     rrTire: '',
     note: '',
+    nextAppointmentDate: '',
+    nextAppointmentTime: '',
   };
   const [measureInput, setMeasureInput] = useState(
     vehicleNote || INITIAL_MEASUREMENT
   );
   const [editMode, setEditMode] = useState(false);
-  const { fBrake, rBrake, lfTire, lrTire, rfTire, rrTire, note } = measureInput;
+  const {
+    fBrake,
+    rBrake,
+    lfTire,
+    lrTire,
+    rfTire,
+    rrTire,
+    note,
+    nextAppointmentDate,
+    nextAppointmentTime,
+  } = measureInput;
 
   useEffect(() => {
-    vehicleNote && setMeasureInput({ ...vehicleNote });
+    vehicleNote &&
+      setMeasureInput({
+        ...vehicleNote,
+        nextAppointmentDate: getNextAppointmentDate(
+          vehicleNote.nextAppointment
+        ),
+        nextAppointmentTime: getNextAppointmentTime(
+          vehicleNote.nextAppointment
+        ),
+      });
   }, [vehicleNote]);
 
   const handleChange = e => {
@@ -34,7 +61,17 @@ const Measurement = ({ vehicleNote, vehicleId }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(measureInput);
-    editMode && setMeasureInput({ ...vehicleNote });
+
+    editMode &&
+      setMeasureInput({
+        ...vehicleNote,
+        nextAppointmentDate: getNextAppointmentDate(
+          vehicleNote.nextAppointment
+        ),
+        nextAppointmentTime: getNextAppointmentTime(
+          vehicleNote.nextAppointment
+        ),
+      });
     setEditMode(false);
   };
 
@@ -102,15 +139,39 @@ const Measurement = ({ vehicleNote, vehicleId }) => {
             placeholder='R brake'
           />
         </div>
-        <textarea
-          className='p-2'
-          name='note'
-          value={note}
-          cols='30'
-          rows='2'
-          placeholder='Note'
-          onChange={handleChange}
-        />
+        <div className='flex flex-col'>
+          <p className='text-slate-200'>Next appointment:</p>
+          <div>
+            <input
+              className='w-full text-center'
+              type='date'
+              name='nextAppointmentDate'
+              value={nextAppointmentDate}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              className='w-full text-center'
+              type='time'
+              name='nextAppointmentTime'
+              value={nextAppointmentTime}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div>
+          <p className='text-slate-200'>Note:</p>
+          <textarea
+            className='p-2'
+            name='note'
+            value={note}
+            cols='30'
+            rows='2'
+            placeholder='Note'
+            onChange={handleChange}
+          />
+        </div>
         {editMode && <CustomButton type='submit'>Save</CustomButton>}
       </form>
     </div>
