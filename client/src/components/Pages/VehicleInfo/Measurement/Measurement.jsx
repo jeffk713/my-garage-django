@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { CustomButton } from '../../../Utils';
 import { MeasureInput } from '.';
 
-import { updateVehicleNoteAsync } from '../../../../redux/vehicle/vehicle-thunk-creators';
+import {
+  updateVehicleNoteAsync,
+  createVehicleNoteAsync,
+} from '../../../../redux/vehicle/vehicle-thunk-creators';
 import {
   getNextAppointmentDate,
   getNextAppointmentTime,
@@ -14,7 +17,12 @@ import {
 import carTopView from '../../../../assets/images/car-inspection.png';
 import edit from '../../../../assets/images/edit-icon.svg';
 
-const Measurement = ({ vehicleNote, vehicleId, updateVehicleNoteAsync }) => {
+const Measurement = ({
+  vehicleNote,
+  vehicleId,
+  updateVehicleNoteAsync,
+  createVehicleNoteAsync,
+}) => {
   const INITIAL_MEASUREMENT = {
     fBrake: '',
     rBrake: '',
@@ -26,9 +34,7 @@ const Measurement = ({ vehicleNote, vehicleId, updateVehicleNoteAsync }) => {
     nextAppointmentDate: '',
     nextAppointmentTime: '',
   };
-  const [measureInput, setMeasureInput] = useState(
-    vehicleNote || INITIAL_MEASUREMENT
-  );
+  const [measureInput, setMeasureInput] = useState(INITIAL_MEASUREMENT);
   const [editMode, setEditMode] = useState(false);
   const {
     fBrake,
@@ -43,16 +49,25 @@ const Measurement = ({ vehicleNote, vehicleId, updateVehicleNoteAsync }) => {
   } = measureInput;
 
   useEffect(() => {
-    vehicleNote &&
-      setMeasureInput({
-        ...vehicleNote,
-        nextAppointmentDate: getNextAppointmentDate(
-          vehicleNote.nextAppointment
-        ),
-        nextAppointmentTime: getNextAppointmentTime(
-          vehicleNote.nextAppointment
-        ),
-      });
+    vehicleNote
+      ? setMeasureInput({
+          ...vehicleNote,
+          fBrake: vehicleNote.fBrake || '',
+          rBrake: vehicleNote.rBrake || '',
+          lfTire: vehicleNote.lfTire || '',
+          lrTire: vehicleNote.lrTire || '',
+          rfTire: vehicleNote.rfTire || '',
+          rrTire: vehicleNote.rrTire || '',
+          note: vehicleNote.note || '',
+          nextAppointmentDate: getNextAppointmentDate(
+            vehicleNote.nextAppointment
+          ),
+          nextAppointmentTime: getNextAppointmentTime(
+            vehicleNote.nextAppointment
+          ),
+        })
+      : setMeasureInput({ ...INITIAL_MEASUREMENT });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vehicleNote, editMode]);
 
   const handleChange = e => {
@@ -75,18 +90,9 @@ const Measurement = ({ vehicleNote, vehicleId, updateVehicleNoteAsync }) => {
     if (vehicleNote) {
       updateVehicleNoteAsync(updatedVehicleNote, vehicleNote.id);
     } else {
-      // createVehicleNoteAsync
+      createVehicleNoteAsync(updatedVehicleNote);
     }
-    // editMode &&
-    //   setMeasureInput({
-    //     ...vehicleNote,
-    //     nextAppointmentDate: getNextAppointmentDate(
-    //       vehicleNote.nextAppointment
-    //     ),
-    //     nextAppointmentTime: getNextAppointmentTime(
-    //       vehicleNote.nextAppointment
-    //     ),
-    //   });
+
     setEditMode(false);
   };
 
@@ -196,6 +202,8 @@ const Measurement = ({ vehicleNote, vehicleId, updateVehicleNoteAsync }) => {
 const mapDispatchToProps = dispatch => ({
   updateVehicleNoteAsync: (updatedVehicleNote, vehicleNoteId) =>
     dispatch(updateVehicleNoteAsync(updatedVehicleNote, vehicleNoteId)),
+  createVehicleNoteAsync: newVehicleNote =>
+    dispatch(createVehicleNoteAsync(newVehicleNote)),
 });
 
 export default connect(null, mapDispatchToProps)(Measurement);

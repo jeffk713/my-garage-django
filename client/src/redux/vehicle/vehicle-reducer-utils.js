@@ -3,10 +3,7 @@ export const getVehiclesWithUpdatedVehicleNote = (
   updatedVehicleNote
 ) => {
   return vehicleArr.map(vehicle => {
-    if (
-      vehicle.vehicleNote &&
-      vehicle.vehicleNote.vehicle === updatedVehicleNote.vehicle
-    ) {
+    if (vehicle && vehicle.id === updatedVehicleNote.vehicle) {
       const updatedVehicle = { ...vehicle };
       updatedVehicle.vehicleNote = updatedVehicleNote;
 

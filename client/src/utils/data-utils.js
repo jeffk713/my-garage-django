@@ -17,15 +17,19 @@ export const getMinMaxBrakeMeasurement = vehicleNote => {
 export const getVehicleByVehicleId = (vehicles, vehicleId) =>
   vehicles.find(vehicle => vehicle.id === +vehicleId);
 
-export const getNextAppointmentDate = nextAppointment =>
-  nextAppointment.split('T')[0];
+export const getNextAppointmentDate = nextAppointment => {
+  if (!nextAppointment) return '';
+  return nextAppointment.split('T')[0];
+};
 
-export const getNextAppointmentTime = nextAppointment =>
-  nextAppointment.split('T')[1].split('Z')[0];
+export const getNextAppointmentTime = nextAppointment => {
+  if (!nextAppointment) return '';
+  return nextAppointment.split('T')[1].split('Z')[0];
+};
 
 export const getNextAppointmetDateTime = (date, time) => {
   if (!date) return null;
   if (!time) return date;
-  
+
   return `${date}T${time}`;
 };

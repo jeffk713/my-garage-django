@@ -14,7 +14,7 @@ const VehicleAvatar = ({ vehicleId, imageUrl, hideSideBar }) => {
 
   return (
     <div
-      className='w-28 h-28 border-2 rounded-2xl cursor-pointer overflow-hidden flex justify-center items-center'
+      className='w-28 h-28 border-2 rounded-2xl cursor-pointer overflow-hidden flex justify-center items-center bg-neutral-500/80'
       onClick={selectVehicle}
     >
       {imageUrl ? (

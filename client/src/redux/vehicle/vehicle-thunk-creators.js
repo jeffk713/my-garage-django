@@ -19,7 +19,6 @@ export const updateVehicleNoteAsync =
     axios
       .patch(`/api/vehiclenote/${vehicleNoteId}/`, body, config)
       .then(res => {
-        console.log(res);
         dispatch(updateVehicleNoteSuccess(res.data));
       })
       .catch(err => {
@@ -27,3 +26,23 @@ export const updateVehicleNoteAsync =
         dispatch(updateVehicleNoteFail());
       });
   };
+
+export const createVehicleNoteAsync = vehicleNote => dispatch => {
+  dispatch(updateVehicleNoteStart());
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify(vehicleNote);
+
+  axios
+    .post(`/api/vehiclenote/`, body, config)
+    .then(res => {
+      dispatch(updateVehicleNoteSuccess(res.data));
+    })
+    .catch(err => {
+      console.log(err.response.data.error);
+      dispatch(updateVehicleNoteFail());
+    });
+};
