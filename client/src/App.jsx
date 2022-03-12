@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { NavBar } from './components/NavBar';
-import { Background } from './components/Utils';
 import { HomePage } from './components/Pages/Home';
 import { DashboardPage } from './components/Pages/Dashboard';
 import { SideBar } from './components/SideBar';
 
 import { authBySession } from './redux/user/user-thunk-creators';
+
+import bg from './assets/images/bg.jpeg';
 
 const App = ({ isAuth, authBySession }) => {
   useEffect(() => {
@@ -16,11 +17,17 @@ const App = ({ isAuth, authBySession }) => {
   }, []);
 
   return (
-    <div className='w-screen h-screen mx-auto bg-fixed'>
-      <Background />
+    <div
+      className='w-screen min-h-screen mx-auto'
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+      }}
+    >
       <SideBar />
       <NavBar />
-      <div className='text-gray-800 relative h-[calc(100vh-6rem)]'>
+      <div className='text-gray-800 relative min-h-[calc(100vh-6rem)]'>
         {isAuth ? <DashboardPage /> : <HomePage />}
       </div>
     </div>
