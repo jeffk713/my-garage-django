@@ -8,8 +8,10 @@ const VehicleAvatar = ({ vehicleId, imageUrl, hideSideBar }) => {
   const history = useHistory();
 
   const selectVehicle = () => {
-    history.push(`/vehicle/${vehicleId}`);
-    hideSideBar();
+    if (vehicleId) {
+      history.push(`/vehicle/${vehicleId}`);
+      hideSideBar();
+    }
   };
 
   return (
