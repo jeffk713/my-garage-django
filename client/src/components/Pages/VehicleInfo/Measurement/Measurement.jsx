@@ -164,7 +164,7 @@ const Measurement = ({
           <p className='text-slate-200'>Next appointment:</p>
           <div>
             <input
-              className='w-full text-center bg-neutral-500 rounded-t text-slate-200 font-semibold'
+              className='w-full text-center bg-neutral-500 rounded-t text-slate-200 font-semibold outline-none'
               type='date'
               name='nextAppointmentDate'
               value={nextAppointmentDate}
@@ -173,7 +173,7 @@ const Measurement = ({
           </div>
           <div>
             <input
-              className='w-full text-center bg-neutral-500 rounded-b text-slate-200 font-semibold'
+              className='w-full text-center bg-neutral-500 rounded-b text-slate-200 font-semibold outline-none'
               type='time'
               name='nextAppointmentTime'
               value={nextAppointmentTime}
@@ -184,7 +184,7 @@ const Measurement = ({
         <div>
           <p className='text-slate-200'>Note:</p>
           <textarea
-            className='p-2 bg-neutral-500 rounded text-slate-200 font-semibold'
+            className='p-2 bg-neutral-500 rounded text-slate-200 font-semibold outline-none'
             name='note'
             value={note}
             cols='30'

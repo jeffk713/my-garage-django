@@ -17,6 +17,15 @@ from django.contrib import admin
 from django.urls import path
 
 from garage_backend.views import api, auth
+from garage_backend import models
+
+
+admin.site.register(models.User)
+admin.site.register(models.Shop)
+admin.site.register(models.Vehicle)
+admin.site.register(models.VehicleNote)
+admin.site.register(models.Service)
+admin.site.register(models.Parts)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
