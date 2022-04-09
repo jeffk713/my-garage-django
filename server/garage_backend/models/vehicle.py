@@ -8,6 +8,7 @@ class Vehicle(models.Model):
     make = models.TextField(blank=False, null=False, max_length=50)
     model = models.TextField(blank=False, null=False, max_length=50)
     year = models.IntegerField(blank=False, null=False)
+    imageFile = models.FileField(null=True, upload_to="media/")
     imageUrl = models.TextField(null=True)
     warrantyUntil = models.DateField(null=True)
     shopId = models.IntegerField(null=True)
