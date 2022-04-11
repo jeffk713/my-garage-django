@@ -18,7 +18,7 @@ const App = ({ isAuth, authBySession }) => {
 
   return (
     <div
-      className='w-screen min-h-screen mx-auto'
+      className='min-h-screen mx-auto'
       style={{
         backgroundImage: `url(${bg})`,
         backgroundPosition: 'center',

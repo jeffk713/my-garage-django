@@ -2,6 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import { Dashboard } from '.';
 import { VehicleInfoPage } from '../VehicleInfo';
+import { AddVehiclePage } from '../AddVehicle';
 
 const DashboardPage = () => {
   return (
@@ -9,6 +10,7 @@ const DashboardPage = () => {
       <div className='flex flex-col h-full'>
         <Switch>
           <Route exact path='/' component={Dashboard} />
+          <Route path='/vehicle/add' component={AddVehiclePage} />
           <Route path='/vehicle/:vehicleId' component={VehicleInfoPage} />
         </Switch>
       </div>

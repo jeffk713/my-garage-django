@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SignFormInput = ({
+const FormInput = ({
   type,
   name,
   value,
@@ -23,4 +23,4 @@ const SignFormInput = ({
   );
 };
 
-export default SignFormInput;
+export default FormInput;

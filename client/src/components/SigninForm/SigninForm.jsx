@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { CustomButton, SignFormInput } from '../Utils';
+import { CustomButton, FormInput } from '../Utils';
 
 import { userSignInAsync } from '../../redux/user/user-thunk-creators';
 
@@ -31,7 +31,7 @@ const SignInForm = ({ userSignInAsync }) => {
       className='flex flex-row items-stretch gap-3 mt-3'
       onSubmit={handleSubmit}
     >
-      <SignFormInput
+      <FormInput
         type='email'
         name='email'
         value={email}
@@ -39,7 +39,7 @@ const SignInForm = ({ userSignInAsync }) => {
         placeholder='Email'
         required
       />
-      <SignFormInput
+      <FormInput
         type='password'
         name='password'
         value={password}
