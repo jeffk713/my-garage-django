@@ -1,4 +1,4 @@
-import { ServiceItem } from '.';
+import { ServiceItem, NoService } from '.';
 
 const ServiceTable = ({ services }) => {
   return (
@@ -9,9 +9,13 @@ const ServiceTable = ({ services }) => {
         <div>Warranty</div>
         <div className='col-span-2'>Date</div>
       </div>
-      {services.map((service, index) => (
-        <ServiceItem key={service.id} {...service} index={index}/>
-      ))}
+      {services.length > 0 ? (
+        services.map((service, index) => (
+          <ServiceItem key={service.id} {...service} index={index} />
+        ))
+      ) : (
+        <NoService />
+      )}
     </div>
   );
 };

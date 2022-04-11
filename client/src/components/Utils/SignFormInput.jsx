@@ -11,7 +11,7 @@ const SignFormInput = ({
   return (
     <div>
       <input
-        className='bg-zinc-500 py-1.5 px-2 focus:outline-none text-center rounded'
+        className='bg-zinc-500 py-1.5 px-2 focus:outline-none text-center rounded w-[270px]'
         type={type}
         name={name}
         value={value}
