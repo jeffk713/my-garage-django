@@ -11,7 +11,7 @@ class VehicleNote(models.Model):
     rrTire = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     fBrake = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     rBrake = models.DecimalField(null=True, max_digits=3, decimal_places=1)
-    note = models.TextField(null=True)
+    note = models.TextField(null=True, blank=True)
     vehicle = models.OneToOneField(
         Vehicle,
         on_delete=models.CASCADE,

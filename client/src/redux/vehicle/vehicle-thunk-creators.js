@@ -1,12 +1,16 @@
 import axios from 'axios';
 
 import {
+  addVehicleStart,
+  addVehicleSuccess,
+  addVehicleFail,
   updateVehicleNoteStart,
   updateVehicleNoteSuccess,
   updateVehicleNoteFail,
 } from './vehicle-action-creators';
 
 export const addVehicleAsync = vehicleInfo => dispatch => {
+  dispatch(addVehicleStart());
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -22,9 +26,11 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
     .post('/api/vehicle/', body, config)
     .then(res => {
       console.log(res.data);
+      dispatch(addVehicleSuccess(res.data));
     })
     .catch(err => {
       console.log(err.response.data.error);
+      dispatch(addVehicleFail());
     });
 };
 

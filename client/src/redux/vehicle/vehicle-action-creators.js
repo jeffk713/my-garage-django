@@ -13,6 +13,19 @@ export const getVehiclesFail = () => ({
   type: vehicleActionTypes.GET_VEHICLES_FAIL,
 });
 
+export const addVehicleStart = () => ({
+  type: vehicleActionTypes.ADD_VEHICLE_START,
+});
+
+export const addVehicleSuccess = vehicleData => ({
+  type: vehicleActionTypes.ADD_VEHICLE_SUCCESS,
+  payload: vehicleData,
+});
+
+export const addVehicleFail = () => ({
+  type: vehicleActionTypes.ADD_VEHICLE_FAIL,
+});
+
 export const updateVehicleNoteStart = () => ({
   type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_START,
 });
