@@ -6,6 +6,24 @@ import {
   updateVehicleNoteFail,
 } from './vehicle-action-creators';
 
+export const addVehicleAsync = vehicleInfo => dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify(vehicleInfo);
+
+  axios
+    .post('/api/vehicle/', body, config)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err.response.data.error);
+    });
+};
+
 export const updateVehicleNoteAsync =
   (vehicleNote, vehicleNoteId) => dispatch => {
     dispatch(updateVehicleNoteStart());
