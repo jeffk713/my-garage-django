@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { FormInput } from '../../Utils';
 import { CustomButton } from '../../Utils';
 import { FileInput } from '.';
 
-const AddVehiclePage = () => {
+import { addVehicleAsync } from '../../../redux/vehicle/vehicle-thunk-creators';
+
+const AddVehiclePage = ({ addVehicleAsync }) => {
   const INITIAL_INPUT = {
     year: '',
     make: '',
@@ -14,6 +18,7 @@ const AddVehiclePage = () => {
   };
   const [input, setInput] = useState(INITIAL_INPUT);
   const { year, make, model, nickname, imageFile } = input;
+  const history = useHistory();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -22,8 +27,9 @@ const AddVehiclePage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(input);
+    addVehicleAsync(input);
     setInput(INITIAL_INPUT);
+    history.push('/');
   };
 
   return (
@@ -85,4 +91,8 @@ const AddVehiclePage = () => {
   );
 };
 
-export default AddVehiclePage;
+const mapDispatchToProps = dispatch => ({
+  addVehicleAsync: vehicleInfo => dispatch(addVehicleAsync(vehicleInfo)),
+});
+
+export default connect(null, mapDispatchToProps)(AddVehiclePage);

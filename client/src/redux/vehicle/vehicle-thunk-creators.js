@@ -12,12 +12,16 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
       'Content-Type': 'application/json',
     },
   };
+
+  if (!vehicleInfo['imageFile']) {
+    delete vehicleInfo['imageFile'];
+  }
   const body = JSON.stringify(vehicleInfo);
 
   axios
     .post('/api/vehicle/', body, config)
     .then(res => {
-      console.log(res);
+      console.log(res.data);
     })
     .catch(err => {
       console.log(err.response.data.error);

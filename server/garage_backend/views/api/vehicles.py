@@ -18,7 +18,7 @@ class Vehicle(APIView):
             if not user_id: 
                 return JsonResponse({"error": ["sesion required"]}, status=400)
 
-            vehicle_data = {**request.data, user: user_id}
+            vehicle_data = {**request.data, "user": user_id}
             serializer = serializers.VehicleSerializer(data=vehicle_data)
 
             if serializer.is_valid(raise_exception=True): 
