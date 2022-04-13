@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { ServiceInput } from '.';
 import { CustomButton } from '../../../Utils';
 
-const ServicePopup = () => {
+import close from '../../../../assets/images/close-icon.svg';
+
+const ServicePopup = ({ setPopupDisplay }) => {
   const INITIAL_INPUT = {
     serviceName: '',
     mileage: '',
@@ -39,6 +41,12 @@ const ServicePopup = () => {
 
   return (
     <div className='absolute bg-zinc-500 w-[600px] left-[calc(50%-300px)] px-12 py-16 rounded mt-[50px]'>
+      <div
+        className='px-2 flex justify-end'
+        onClick={() => setPopupDisplay(false)}
+      >
+        <img className='w-4 cursor-pointer' src={close} alt='close' />
+      </div>
       <div className='px-2 mb-4'>
         <h2 className='text-xl text-orange-400 font-bold'>New Service</h2>
       </div>

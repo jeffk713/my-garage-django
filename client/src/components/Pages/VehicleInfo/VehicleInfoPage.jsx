@@ -16,7 +16,7 @@ const VehicleInfoPage = ({ match, vehicles }) => {
 
   return (
     <div className='bg-zinc-800/90'>
-      {!!popupDisplay && <ServicePopup />}
+      {!!popupDisplay && <ServicePopup setPopupDisplay={setPopupDisplay} />}
       <div className='w-11/12 p-8 mx-auto max-w-[1280px] min-h-[calc(100vh-6rem)] grid grid-cols-10 text-slate-200 '>
         <VehicleSummary vehicle={vehicleToDisplay} />
         <ServiceTableContainer

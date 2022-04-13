@@ -19,7 +19,7 @@ const ServiceTableContainer = ({ vehicle, setPopupDisplay }) => {
           <ServiceTable services={vehicle.services} />
         </>
       )}
-      <CustomButton type='button' handleClick={setPopupDisplay}>
+      <CustomButton type='button' handleClick={() => setPopupDisplay(true)}>
         Add Service +{' '}
       </CustomButton>
     </div>
