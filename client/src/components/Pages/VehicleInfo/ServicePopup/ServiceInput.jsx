@@ -1,12 +1,22 @@
-const ServiceInput = ({ type, name, placeholder, required, styleStr }) => {
+const ServiceInput = ({
+  type,
+  name,
+  value,
+  placeholder,
+  required,
+  handleChange,
+  styleStr,
+}) => {
   return (
     <div className='w-full'>
       <input
         className={`w-full h-8 block bg-zinc-300 focus:outline-none px-2 rounded-sm ${styleStr}`}
         type={type}
         name={name}
+        value={value}
         placeholder={placeholder}
-        require={required}
+        onChange={handleChange}
+        required={required}
       />
     </div>
   );
