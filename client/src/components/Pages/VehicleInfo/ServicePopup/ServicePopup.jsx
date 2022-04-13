@@ -1,33 +1,32 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { ServiceInput } from '.';
 import { CustomButton } from '../../../Utils';
 
+import { addVehicleServiceAsync } from '../../../../redux/vehicle/vehicle-thunk/vehicleService-thunk-creators';
+
 import close from '../../../../assets/images/close-icon.svg';
 
-const ServicePopup = ({ setPopupDisplay }) => {
+const ServicePopup = ({ setPopupDisplay, addVehicleServiceAsync }) => {
+  const params = useParams();
+
   const INITIAL_INPUT = {
-    serviceName: '',
+    name: '',
     mileage: '',
     serviceDate: '',
-    serviceNote: '',
-    servicePrice: '',
-    warranty: false,
+    note: '',
+    price: '',
+    isWarranty: false,
   };
   const [input, setInput] = useState(INITIAL_INPUT);
-  const {
-    serviceName,
-    mileage,
-    serviceDate,
-    serviceNote,
-    servicePrice,
-    warranty,
-  } = input;
+  const { name, mileage, serviceDate, note, price, isWarranty } = input;
 
   const handleChange = e => {
     const { name, value } = e.target;
-    if (name === 'warranty') {
-      setInput({ ...input, warranty: !warranty });
+    if (name === 'isWarranty') {
+      setInput({ ...input, isWarranty: !isWarranty });
     } else {
       setInput({ ...input, [name]: value });
     }
@@ -35,8 +34,10 @@ const ServicePopup = ({ setPopupDisplay }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(input);
+    const newService = { ...input, vehicle: params.vehicleId };
+    addVehicleServiceAsync(newService);
     setInput({ ...INITIAL_INPUT });
+    setPopupDisplay(false);
   };
 
   return (
@@ -53,9 +54,9 @@ const ServicePopup = ({ setPopupDisplay }) => {
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <ServiceInput
           type='text'
-          name='serviceName'
+          name='name'
           placeholder='Service name'
-          value={serviceName}
+          value={name}
           handleChange={handleChange}
           required
         />
@@ -78,18 +79,18 @@ const ServicePopup = ({ setPopupDisplay }) => {
         </div>
         <textarea
           className='bg-zinc-300 rounded-sm resize-y focus:outline-none p-2'
-          name='serviceNote'
+          name='note'
           placeholder='Note'
-          value={serviceNote}
+          value={note}
           onChange={handleChange}
           rows={4}
         />
         <div className='flex gap-3'>
           <ServiceInput
             type='number'
-            name='servicePrice'
+            name='price'
             placeholder='Price'
-            value={servicePrice}
+            value={price}
             handleChange={handleChange}
             required
           />
@@ -99,8 +100,8 @@ const ServicePopup = ({ setPopupDisplay }) => {
                 <span className='px-2'>Warranty </span>
                 <input
                   type='checkbox'
-                  name='warranty'
-                  value={warranty}
+                  name='isWarranty'
+                  value={isWarranty}
                   onChange={handleChange}
                 />
               </label>
@@ -117,4 +118,9 @@ const ServicePopup = ({ setPopupDisplay }) => {
   );
 };
 
-export default ServicePopup;
+const mapDispatchToProps = dispatch => ({
+  addVehicleServiceAsync: newService =>
+    dispatch(addVehicleServiceAsync(newService)),
+});
+
+export default connect(null, mapDispatchToProps)(ServicePopup);

@@ -13,3 +13,14 @@ export const getVehiclesWithUpdatedVehicleNote = (
     return vehicle;
   });
 };
+
+export const getVehiclesWithNewService = (vehicleArr, newService) => {
+  return vehicleArr.map(vehicle => {
+    if (+vehicle.id === +newService.vehicle) {
+      const newVehicle = { ...vehicle };
+      newVehicle.services = [newService, ...vehicle.services];
+      return newVehicle;
+    }
+    return vehicle;
+  });
+};

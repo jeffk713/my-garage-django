@@ -33,3 +33,5 @@ export const getNextAppointmetDateTime = (date, time) => {
 
   return `${date}T${time}`;
 };
+
+// export const sortServicesByDate = (serviceArr) => 

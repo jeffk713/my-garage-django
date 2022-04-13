@@ -10,7 +10,7 @@ class Service(models.Model):
     serviceDate = models.DateField(null=False, default=timezone.now())
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     isWarranty = models.BooleanField(default=False)
-    note = models.TextField(null=True)
+    note = models.TextField(null=True, blank=True)
     vehicle = models.ForeignKey(
         Vehicle,
         on_delete=models.CASCADE,
