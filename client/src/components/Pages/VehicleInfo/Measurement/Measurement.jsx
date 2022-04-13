@@ -7,7 +7,7 @@ import { MeasureInput } from '.';
 import {
   updateVehicleNoteAsync,
   createVehicleNoteAsync,
-} from '../../../../redux/vehicle/vehicle-thunk-creators';
+} from '../../../../redux/vehicle/vehicle-thunk';
 import {
   getNextAppointmentDate,
   getNextAppointmentTime,

@@ -6,7 +6,7 @@ import { FormInput } from '../../Utils';
 import { CustomButton } from '../../Utils';
 import { FileInput } from '.';
 
-import { addVehicleAsync } from '../../../redux/vehicle/vehicle-thunk-creators';
+import { addVehicleAsync } from '../../../redux/vehicle/vehicle-thunk';
 
 const AddVehiclePage = ({ addVehicleAsync }) => {
   const INITIAL_INPUT = {

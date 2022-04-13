@@ -40,7 +40,7 @@ const ServicePopup = ({ setPopupDisplay }) => {
   };
 
   return (
-    <div className='absolute bg-zinc-500 w-[600px] left-[calc(50%-300px)] px-12 py-16 rounded mt-[50px]'>
+    <div className='absolute bg-zinc-600 w-[600px] left-[calc(50%-300px)] px-12 py-16 rounded mt-[50px]'>
       <div
         className='px-2 flex justify-end'
         onClick={() => setPopupDisplay(false)}
