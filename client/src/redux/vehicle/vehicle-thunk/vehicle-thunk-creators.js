@@ -4,7 +4,7 @@ import {
   addVehicleStart,
   addVehicleSuccess,
   addVehicleFail,
-} from '../vehicle-action-creators';
+} from '../vehicle-action-creator';
 
 export const addVehicleAsync = vehicleInfo => dispatch => {
   dispatch(addVehicleStart());

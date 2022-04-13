@@ -4,7 +4,7 @@ import {
   updateVehicleNoteStart,
   updateVehicleNoteSuccess,
   updateVehicleNoteFail,
-} from '../vehicle-action-creators';
+} from '../vehicle-action-creator';
 
 export const updateVehicleNoteAsync =
   (vehicleNote, vehicleNoteId) => dispatch => {

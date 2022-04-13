@@ -1,4 +1,7 @@
-import { vehicleActionTypes } from './vehicle-action-types';
+import {
+  vehicleActionTypes,
+  vehicleNoteActionTypes,
+} from './vehicle-action-type';
 
 import { getVehiclesWithUpdatedVehicleNote } from './vehicle-reducer-utils';
 
@@ -11,7 +14,7 @@ const vehicleReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case vehicleActionTypes.GET_VEHICLES_START:
     case vehicleActionTypes.ADD_VEHICLE_START:
-    case vehicleActionTypes.UPDATE_VEHICLE_NOTE_START:
+    case vehicleNoteActionTypes.UPDATE_VEHICLE_NOTE_START:
       return {
         ...state,
         isLoading: true,
@@ -28,7 +31,7 @@ const vehicleReducer = (state = INITIAL_STATE, action) => {
         vehicles: [...state.vehicles, action.payload],
         isLoading: false,
       };
-    case vehicleActionTypes.UPDATE_VEHICLE_NOTE_SUCCESS:
+    case vehicleNoteActionTypes.UPDATE_VEHICLE_NOTE_SUCCESS:
       return {
         ...state,
         vehicles: getVehiclesWithUpdatedVehicleNote(
@@ -39,7 +42,7 @@ const vehicleReducer = (state = INITIAL_STATE, action) => {
       };
     case vehicleActionTypes.GET_VEHICLES_FAIL:
     case vehicleActionTypes.ADD_VEHICLE_FAIL:
-    case vehicleActionTypes.UPDATE_VEHICLE_NOTE_FAIL:
+    case vehicleNoteActionTypes.UPDATE_VEHICLE_NOTE_FAIL:
       return {
         ...state,
         isLoading: false,

@@ -8,7 +8,7 @@ import {
   userSignOutSuccess,
   userSignOutFail,
 } from './user-action-creators';
-import { getVehiclesSuccess } from '../vehicle/vehicle-action-creators';
+import { getVehiclesSuccess } from '../vehicle/vehicle-action-creator/vehicle-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
   dispatch(userSignInStart());

@@ -1,4 +1,4 @@
-import { vehicleActionTypes } from './vehicle-action-types';
+import { vehicleActionTypes } from '../vehicle-action-type';
 
 export const getVehiclesStart = () => ({
   type: vehicleActionTypes.GET_VEHICLES_START,
@@ -24,17 +24,4 @@ export const addVehicleSuccess = vehicleData => ({
 
 export const addVehicleFail = () => ({
   type: vehicleActionTypes.ADD_VEHICLE_FAIL,
-});
-
-export const updateVehicleNoteStart = () => ({
-  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_START,
-});
-
-export const updateVehicleNoteSuccess = updatedVehicleNote => ({
-  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_SUCCESS,
-  payload: updatedVehicleNote,
-});
-
-export const updateVehicleNoteFail = () => ({
-  type: vehicleActionTypes.UPDATE_VEHICLE_NOTE_FAIL,
 });
