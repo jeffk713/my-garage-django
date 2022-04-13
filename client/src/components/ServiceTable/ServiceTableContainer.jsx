@@ -1,7 +1,13 @@
 import { ServiceTable } from '.';
 import { CustomButton } from '../Utils';
 
-const ServiceTableContainer = ({ vehicle, setPopupDisplay }) => {
+const ServiceTableContainer = ({
+  vehicle,
+  popupDisplay,
+  setPopupDisplay,
+  setServiceToDisplay,
+  resetServiceToDisplay,
+}) => {
   return (
     <div className='col-span-6 py-4 text-center'>
       {vehicle && (
@@ -16,7 +22,12 @@ const ServiceTableContainer = ({ vehicle, setPopupDisplay }) => {
               </select>
             </div>
           </div>
-          <ServiceTable services={vehicle.services} />
+          <ServiceTable
+            services={vehicle.services}
+            popupDisplay={popupDisplay}
+            setPopupDisplay={setPopupDisplay}
+            setServiceToDisplay={setServiceToDisplay}
+          />
         </>
       )}
       <CustomButton type='button' handleClick={() => setPopupDisplay(true)}>
