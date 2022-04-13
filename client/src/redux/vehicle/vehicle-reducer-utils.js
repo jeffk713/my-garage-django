@@ -1,5 +1,3 @@
-import { store } from '../store';
-
 export const getVehiclesWithUpdatedVehicleNote = (
   vehicleArr,
   updatedVehicleNote
@@ -14,9 +12,4 @@ export const getVehiclesWithUpdatedVehicleNote = (
 
     return vehicle;
   });
-};
-
-export const addNewVehicleToReducer = (vehicleArr, newVehicle) => {
-  const newVehicleArr = [...vehicleArr, newVehicle];
-  return newVehicleArr;
 };

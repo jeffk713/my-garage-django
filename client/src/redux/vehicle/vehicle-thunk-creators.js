@@ -25,7 +25,6 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
   axios
     .post('/api/vehicle/', body, config)
     .then(res => {
-      console.log(res.data);
       dispatch(addVehicleSuccess(res.data));
     })
     .catch(err => {
