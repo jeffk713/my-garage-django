@@ -26,10 +26,11 @@ const VehicleInfoPage = ({ match, vehicles }) => {
 
   return (
     <div className='bg-zinc-800/90'>
-      {!!popupDisplay && serviceToDisplay.id && (
+      {!!popupDisplay && (
         <ServicePopup
           setPopupDisplay={setPopupDisplay}
           serviceToDisplay={serviceToDisplay}
+          setServiceToDisplay={setServiceToDisplay}
         />
       )}
       <div className='w-11/12 p-8 mx-auto max-w-[1280px] min-h-[calc(100vh-6rem)] grid grid-cols-10 text-slate-200 '>
@@ -39,9 +40,6 @@ const VehicleInfoPage = ({ match, vehicles }) => {
           popupDisplay={popupDisplay}
           setPopupDisplay={setPopupDisplay}
           setServiceToDisplay={setServiceToDisplay}
-          resetServiceToDisplay={() =>
-            setServiceToDisplay(INITIAL_SERVICE_DATA)
-          }
         />
       </div>
     </div>

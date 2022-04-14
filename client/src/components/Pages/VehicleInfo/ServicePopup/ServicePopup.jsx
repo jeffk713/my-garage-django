@@ -8,9 +8,16 @@ import { CustomButton } from '../../../Utils';
 import { addVehicleServiceAsync } from '../../../../redux/vehicle/vehicle-thunk/vehicleService-thunk-creators';
 
 import close from '../../../../assets/images/close-icon.svg';
+import edit from '../../../../assets/images/edit-icon.svg';
 
-const ServicePopup = ({ setPopupDisplay, addVehicleServiceAsync }) => {
+const ServicePopup = ({
+  setPopupDisplay,
+  serviceToDisplay,
+  setServiceToDisplay,
+  addVehicleServiceAsync,
+}) => {
   const params = useParams();
+  const isExistent = serviceToDisplay.id;
 
   const INITIAL_INPUT = {
     name: '',
@@ -20,10 +27,14 @@ const ServicePopup = ({ setPopupDisplay, addVehicleServiceAsync }) => {
     price: '',
     isWarranty: false,
   };
-  const [input, setInput] = useState(INITIAL_INPUT);
+  const [input, setInput] = useState(
+    isExistent ? serviceToDisplay : INITIAL_INPUT
+  );
   const { name, mileage, serviceDate, note, price, isWarranty } = input;
 
   const handleChange = e => {
+    if (isExistent) return;
+
     const { name, value } = e.target;
     if (name === 'isWarranty') {
       setInput({ ...input, isWarranty: !isWarranty });
@@ -34,22 +45,36 @@ const ServicePopup = ({ setPopupDisplay, addVehicleServiceAsync }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (isExistent) return;
+
     const newService = { ...input, vehicle: params.vehicleId };
     addVehicleServiceAsync(newService);
-    setInput({ ...INITIAL_INPUT });
+    setInput(INITIAL_INPUT);
     setPopupDisplay(false);
   };
 
+  const closePopup = () => {
+    setPopupDisplay(false);
+    setServiceToDisplay(INITIAL_INPUT);
+  };
+
   return (
-    <div className='absolute bg-zinc-600 w-[600px] left-[calc(50%-300px)] px-12 py-16 rounded mt-[50px]'>
-      <div
-        className='px-2 flex justify-end'
-        onClick={() => setPopupDisplay(false)}
-      >
-        <img className='w-4 cursor-pointer' src={close} alt='close' />
+    <div className='absolute bg-zinc-600 w-[600px] left-[calc(50%-300px)] px-12 pb-16 pt-4 rounded mt-[50px]'>
+      <div className='flex justify-end mb-12 -mr-8'>
+        <img
+          className='w-4 cursor-pointer'
+          src={close}
+          alt='close'
+          onClick={closePopup}
+        />
       </div>
-      <div className='px-2 mb-4'>
-        <h2 className='text-xl text-orange-400 font-bold'>New Service</h2>
+      <div className='px-2 mb-4 flex justify-between'>
+        <h2 className='text-xl text-orange-400 font-bold'>
+          {isExistent ? 'View Service' : 'New Service'}
+        </h2>
+        {isExistent && (
+          <img className='w-5 cursor-pointer' src={edit} alt='edit' />
+        )}
       </div>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <ServiceInput
@@ -101,7 +126,7 @@ const ServicePopup = ({ setPopupDisplay, addVehicleServiceAsync }) => {
                 <input
                   type='checkbox'
                   name='isWarranty'
-                  value={isWarranty}
+                  checked={isWarranty}
                   onChange={handleChange}
                 />
               </label>
@@ -109,9 +134,11 @@ const ServicePopup = ({ setPopupDisplay, addVehicleServiceAsync }) => {
           </div>
         </div>
         <div className='w-3/5 m-auto'>
-          <CustomButton type='submit' btnStyle='p-1 mt-4 w-full'>
-            Save
-          </CustomButton>
+          {!isExistent && (
+            <CustomButton type='submit' btnStyle='p-1 mt-4 w-full'>
+              Save
+            </CustomButton>
+          )}
         </div>
       </form>
     </div>

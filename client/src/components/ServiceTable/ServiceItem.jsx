@@ -15,7 +15,6 @@ const ServiceItem = ({
 
     setPopupDisplay(true);
     setServiceToDisplay(service);
-    console.log(service);
   };
   return (
     <div
