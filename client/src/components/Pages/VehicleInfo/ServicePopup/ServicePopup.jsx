@@ -152,10 +152,12 @@ const ServicePopup = ({
         </div>
         <div className='w-3/5 m-auto'>
           {(!isExistent || editMode) && (
+            <CustomButton type='submit' btnStyle='p-1 my-4 w-full'>
+              Save
+            </CustomButton>
+          )}
+          {isExistent && editMode && (
             <div className='flex flex-col justify-center'>
-              <CustomButton type='submit' btnStyle='p-1 my-4 w-full'>
-                Save
-              </CustomButton>
               <span
                 className='m-auto border-b border-amber-500 text-amber-500 font-bold text-sm cursor-pointer my-4'
                 onClick={cancelEditMode}
