@@ -30,10 +30,11 @@ const ServicePopup = ({
   const [input, setInput] = useState(
     isExistent ? serviceToDisplay : INITIAL_INPUT
   );
+  const [editMode, setEditMode] = useState(false);
   const { name, mileage, serviceDate, note, price, isWarranty } = input;
 
   const handleChange = e => {
-    if (isExistent) return;
+    if (isExistent && !editMode) return;
 
     const { name, value } = e.target;
     if (name === 'isWarranty') {
@@ -45,10 +46,16 @@ const ServicePopup = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (isExistent) return;
 
     const newService = { ...input, vehicle: params.vehicleId };
-    addVehicleServiceAsync(newService);
+    if (isExistent) {
+      if (!editMode) return;
+
+      // update the existing service
+    } else {
+      addVehicleServiceAsync(newService);
+    }
+
     setInput(INITIAL_INPUT);
     setPopupDisplay(false);
   };
@@ -56,6 +63,11 @@ const ServicePopup = ({
   const closePopup = () => {
     setPopupDisplay(false);
     setServiceToDisplay(INITIAL_INPUT);
+  };
+
+  const cancelEditMode = () => {
+    setInput(serviceToDisplay);
+    setEditMode(false);
   };
 
   return (
@@ -72,8 +84,13 @@ const ServicePopup = ({
         <h2 className='text-xl text-orange-400 font-bold'>
           {isExistent ? 'View Service' : 'New Service'}
         </h2>
-        {isExistent && (
-          <img className='w-5 cursor-pointer' src={edit} alt='edit' />
+        {isExistent && !editMode && (
+          <img
+            className='w-5 cursor-pointer'
+            src={edit}
+            alt='edit'
+            onClick={() => setEditMode(true)}
+          />
         )}
       </div>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
@@ -134,10 +151,21 @@ const ServicePopup = ({
           </div>
         </div>
         <div className='w-3/5 m-auto'>
-          {!isExistent && (
-            <CustomButton type='submit' btnStyle='p-1 mt-4 w-full'>
-              Save
-            </CustomButton>
+          {(!isExistent || editMode) && (
+            <div className='flex flex-col justify-center'>
+              <CustomButton type='submit' btnStyle='p-1 my-4 w-full'>
+                Save
+              </CustomButton>
+              <span
+                className='m-auto border-b border-amber-500 text-amber-500 font-bold text-sm cursor-pointer my-4'
+                onClick={cancelEditMode}
+              >
+                Cancel Edit
+              </span>
+              <span className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer'>
+                Delete Service
+              </span>
+            </div>
           )}
         </div>
       </form>
