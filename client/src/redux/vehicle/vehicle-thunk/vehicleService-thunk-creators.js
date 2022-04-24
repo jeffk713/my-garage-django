@@ -4,6 +4,9 @@ import {
   addVehicleServiceStart,
   addVehicleServiceSuccess,
   addVehicleServiceFail,
+  updateVehicleServiceStart,
+  updateVehicleServiceSuccess,
+  updateVehicleServiceFail,
 } from '../vehicle-action-creator/vehicleService-action-creators';
 
 export const addVehicleServiceAsync = serviceInfo => dispatch => {
@@ -20,8 +23,29 @@ export const addVehicleServiceAsync = serviceInfo => dispatch => {
     .then(res => {
       dispatch(addVehicleServiceSuccess(res.data));
     })
-    .catch(res => {
-      console.log(res.response.data.error);
+    .catch(err => {
+      console.log(err.response.data.error);
       dispatch(addVehicleServiceFail());
     });
 };
+
+export const updateVehicleServiceAsync =
+  (serviceInfo, serviceId) => dispatch => {
+    dispatch(updateVehicleServiceStart());
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify(serviceInfo);
+
+    axios
+      .patch(`/api/service/${serviceId}/`, body, config)
+      .then(res => {
+        dispatch(updateVehicleServiceSuccess(res.data));
+      })
+      .catch(err => {
+        console.log(err.response.data.error);
+        dispatch(updateVehicleServiceFail());
+      });
+  };

@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { ServiceInput } from '.';
 import { CustomButton } from '../../../Utils';
 
-import { addVehicleServiceAsync } from '../../../../redux/vehicle/vehicle-thunk/vehicleService-thunk-creators';
+import {
+  addVehicleServiceAsync,
+  updateVehicleServiceAsync,
+} from '../../../../redux/vehicle/vehicle-thunk/vehicleService-thunk-creators';
 
 import close from '../../../../assets/images/close-icon.svg';
 import edit from '../../../../assets/images/edit-icon.svg';
@@ -15,6 +18,7 @@ const ServicePopup = ({
   serviceToDisplay,
   setServiceToDisplay,
   addVehicleServiceAsync,
+  updateVehicleServiceAsync
 }) => {
   const params = useParams();
   const isExistent = serviceToDisplay.id;
@@ -55,6 +59,7 @@ const ServicePopup = ({
       if (!editMode) return;
 
       // update the existing service
+      updateVehicleServiceAsync(newService, newService.id)
     } else {
       addVehicleServiceAsync(newService);
     }
@@ -187,6 +192,8 @@ const ServicePopup = ({
 const mapDispatchToProps = dispatch => ({
   addVehicleServiceAsync: newService =>
     dispatch(addVehicleServiceAsync(newService)),
+  updateVehicleServiceAsync: (updatedService, serviceId) =>
+    dispatch(updateVehicleServiceAsync(updatedService, serviceId)),
 });
 
 export default connect(null, mapDispatchToProps)(ServicePopup);
