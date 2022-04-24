@@ -8,6 +8,7 @@ import { CustomButton } from '../../../Utils';
 import {
   addVehicleServiceAsync,
   updateVehicleServiceAsync,
+  deleteVehicleServiceAsync,
 } from '../../../../redux/vehicle/vehicle-thunk/vehicleService-thunk-creators';
 
 import close from '../../../../assets/images/close-icon.svg';
@@ -18,7 +19,8 @@ const ServicePopup = ({
   serviceToDisplay,
   setServiceToDisplay,
   addVehicleServiceAsync,
-  updateVehicleServiceAsync
+  updateVehicleServiceAsync,
+  deleteVehicleServiceAsync,
 }) => {
   const params = useParams();
   const isExistent = serviceToDisplay.id;
@@ -59,7 +61,7 @@ const ServicePopup = ({
       if (!editMode) return;
 
       // update the existing service
-      updateVehicleServiceAsync(newService, newService.id)
+      updateVehicleServiceAsync(newService, newService.id);
     } else {
       addVehicleServiceAsync(newService);
     }
@@ -76,6 +78,14 @@ const ServicePopup = ({
   const cancelEditMode = () => {
     setInput(serviceToDisplay);
     setEditMode(false);
+  };
+
+  const deleteVehicleService = () => {
+    if (!isExistent || !editMode) return;
+
+    deleteVehicleServiceAsync(serviceToDisplay.id);
+    setInput(INITIAL_INPUT);
+    setPopupDisplay(false);
   };
 
   return (
@@ -177,7 +187,10 @@ const ServicePopup = ({
                 >
                   Cancel Edit
                 </span>
-                <span className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer'>
+                <span
+                  className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer'
+                  onClick={deleteVehicleService}
+                >
                   Delete Service
                 </span>
               </div>
@@ -194,6 +207,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addVehicleServiceAsync(newService)),
   updateVehicleServiceAsync: (updatedService, serviceId) =>
     dispatch(updateVehicleServiceAsync(updatedService, serviceId)),
+  deleteVehicleServiceAsync: serviceId =>
+    dispatch(deleteVehicleServiceAsync(serviceId)),
 });
 
 export default connect(null, mapDispatchToProps)(ServicePopup);

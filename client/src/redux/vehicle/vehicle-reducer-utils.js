@@ -40,3 +40,19 @@ export const getVehiclesWithUpdatedService = (vehicleArr, updatedService) => {
     return vehicle;
   });
 };
+
+export const getVehiclesWithoutDeletedService = (
+  vehicleArr,
+  deletedServiceIds
+) => {
+  return vehicleArr.map(vehicle => {
+    if (+vehicle.id === +deletedServiceIds.vehicle) {
+      const newVehicle = { ...vehicle };
+      newVehicle.services = newVehicle.services.filter(
+        service => +service.id !== +deletedServiceIds.id
+      );
+      return newVehicle;
+    }
+    return vehicle;
+  });
+};

@@ -25,3 +25,16 @@ export const updateVehicleServiceSuccess = newService => ({
 export const updateVehicleServiceFail = () => ({
   type: vehicleServiceActionTypes.UPDATE_SERVICE_FAIL,
 });
+
+export const deleteVehicleServiceStart = () => ({
+  type: vehicleServiceActionTypes.DELETE_SERVICE_START,
+});
+
+export const deleteVehicleServiceSuccess = (vehicleId, serviceId) => ({
+  type: vehicleServiceActionTypes.DELETE_SERVICE_SUCCESS,
+  payload: { vehicle: vehicleId, id: serviceId },
+});
+
+export const deleteVehicleServiceFail = () => ({
+  type: vehicleServiceActionTypes.DELETE_SERVICE_FAIL,
+});

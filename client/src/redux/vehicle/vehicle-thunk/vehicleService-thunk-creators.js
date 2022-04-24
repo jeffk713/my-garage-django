@@ -7,6 +7,9 @@ import {
   updateVehicleServiceStart,
   updateVehicleServiceSuccess,
   updateVehicleServiceFail,
+  deleteVehicleServiceStart,
+  deleteVehicleServiceSuccess,
+  deleteVehicleServiceFail,
 } from '../vehicle-action-creator/vehicleService-action-creators';
 
 export const addVehicleServiceAsync = serviceInfo => dispatch => {
@@ -49,3 +52,16 @@ export const updateVehicleServiceAsync =
         dispatch(updateVehicleServiceFail());
       });
   };
+
+export const deleteVehicleServiceAsync = serviceId => dispatch => {
+  dispatch(deleteVehicleServiceStart());
+  axios
+    .delete(`/api/service/${serviceId}/`)
+    .then(res => {
+      dispatch(deleteVehicleServiceSuccess(res.data.vehicle, serviceId));
+    })
+    .catch(err => {
+      console.log(err.response.data.error);
+      dispatch(deleteVehicleServiceFail());
+    });
+};
