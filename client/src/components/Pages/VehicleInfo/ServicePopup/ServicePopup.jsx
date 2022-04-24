@@ -66,13 +66,12 @@ const ServicePopup = ({
       addVehicleServiceAsync(newService);
     }
 
-    setInput(INITIAL_INPUT);
-    setPopupDisplay(false);
+    closePopup();
   };
 
   const closePopup = () => {
-    setPopupDisplay(false);
     setServiceToDisplay(INITIAL_INPUT);
+    setPopupDisplay(false);
   };
 
   const cancelEditMode = () => {
@@ -84,8 +83,7 @@ const ServicePopup = ({
     if (!isExistent || !editMode) return;
 
     deleteVehicleServiceAsync(serviceToDisplay.id);
-    setInput(INITIAL_INPUT);
-    setPopupDisplay(false);
+    closePopup();
   };
 
   return (
