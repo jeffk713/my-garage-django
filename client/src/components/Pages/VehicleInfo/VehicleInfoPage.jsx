@@ -35,12 +35,18 @@ const VehicleInfoPage = ({ match, vehicles }) => {
       )}
       <div className='w-11/12 p-8 mx-auto max-w-[1280px] min-h-[calc(100vh-6rem)] grid grid-cols-10 text-slate-200 '>
         <VehicleSummary vehicle={vehicleToDisplay} />
-        <ServiceTableContainer
-          vehicle={vehicleToDisplay}
-          popupDisplay={popupDisplay}
-          setPopupDisplay={setPopupDisplay}
-          setServiceToDisplay={setServiceToDisplay}
-        />
+        <div className='col-span-6 flex flex-col justify-between px-4 pb-8'>
+          <ServiceTableContainer
+            vehicle={vehicleToDisplay}
+            popupDisplay={popupDisplay}
+            setPopupDisplay={setPopupDisplay}
+            setServiceToDisplay={setServiceToDisplay}
+          />
+          {/* <div>
+            <p>Richmond Volkswagen</p>
+            <p>Contact: 604-123-4567</p>
+          </div> */}
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,10 @@ from .vehicle import Vehicle
 
 
 class Service(models.Model):
+    
+    class Meta:
+        ordering = ['-serviceDate']
+    
     name = models.TextField(blank=False, null=False, max_length=120)
     mileage = models.IntegerField(blank=False, null=False)
     serviceDate = models.DateField(null=False, default=timezone.now())
