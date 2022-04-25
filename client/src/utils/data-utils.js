@@ -67,3 +67,10 @@ export const getFilteredYearServices = (serviceArr, filterYear) => {
     return false;
   });
 };
+
+export const getSortedServiceByDate = serviceArr => {
+  return serviceArr.sort(
+    (a, b) =>
+      +b.serviceDate.replaceAll('-', '') - +a.serviceDate.replaceAll('-', '')
+  );
+};

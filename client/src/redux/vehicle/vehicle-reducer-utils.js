@@ -1,3 +1,5 @@
+import { getSortedServiceByDate } from '../../utils/data-utils';
+
 export const getVehiclesWithUpdatedVehicleNote = (
   vehicleArr,
   updatedVehicleNote
@@ -18,7 +20,10 @@ export const getVehiclesWithNewService = (vehicleArr, newService) => {
   return vehicleArr.map(vehicle => {
     if (+vehicle.id === +newService.vehicle) {
       const newVehicle = { ...vehicle };
-      newVehicle.services = [newService, ...vehicle.services];
+      newVehicle.services = getSortedServiceByDate([
+        newService,
+        ...vehicle.services,
+      ]);
       return newVehicle;
     }
     return vehicle;
