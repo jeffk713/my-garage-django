@@ -34,4 +34,16 @@ export const getNextAppointmetDateTime = (date, time) => {
   return `${date}T${time}`;
 };
 
-// export const sortServicesByDate = (serviceArr) => 
+export const getFilteredYearServices = (serviceArr, filterYear) => {
+  if (!+filterYear) return serviceArr;
+
+  return serviceArr.filter(service => {
+    const serviceDate = getNextAppointmentDate(service.serviceDate);
+    const serviceYear = serviceDate.split('-')[0];
+    if (serviceYear === filterYear) {
+      return true;
+    }
+
+    return false;
+  });
+};
