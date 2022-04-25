@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { ServiceTable } from '.';
 import { CustomButton } from '../Utils';
 
-import { getFilteredYearServices } from '../../utils/data-utils';
+import {
+  getFilteredYearServices,
+  getServiceYears,
+} from '../../utils/data-utils';
 
 const ServiceTableContainer = ({
   vehicle,
@@ -32,7 +35,9 @@ const ServiceTableContainer = ({
                 onChange={handleFilterYearChange}
               >
                 <option value={0}>All year</option>
-                <option value={2022}>2022</option>
+                {getServiceYears(vehicle.services).map(serviceYear => (
+                  <option value={serviceYear}>{serviceYear}</option>
+                ))}
               </select>
             </div>
           </div>

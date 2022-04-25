@@ -34,12 +34,32 @@ export const getNextAppointmetDateTime = (date, time) => {
   return `${date}T${time}`;
 };
 
+// helper
+const getServiceYear = date => {
+  const serviceDate = getNextAppointmentDate(date);
+  return serviceDate.split('-')[0];
+};
+
+export const getServiceYears = serviceArr => {
+  let curYear = 9000;
+  const years = [];
+
+  serviceArr.forEach(service => {
+    const serviceYear = getServiceYear(service.serviceDate);
+    if (serviceYear >= curYear) return;
+
+    curYear = serviceYear;
+    years.push(serviceYear);
+  });
+
+  return years;
+};
+
 export const getFilteredYearServices = (serviceArr, filterYear) => {
   if (!+filterYear) return serviceArr;
 
   return serviceArr.filter(service => {
-    const serviceDate = getNextAppointmentDate(service.serviceDate);
-    const serviceYear = serviceDate.split('-')[0];
+    const serviceYear = getServiceYear(service.serviceDate);
     if (serviceYear === filterYear) {
       return true;
     }
