@@ -60,7 +60,6 @@ const ServicePopup = ({
     if (isExistent) {
       if (!editMode) return;
 
-      // update the existing service
       updateVehicleServiceAsync(newService, newService.id);
     } else {
       addVehicleServiceAsync(newService);
@@ -92,7 +91,7 @@ const ServicePopup = ({
         className='absolute w-[calc(100%)] h-[calc(100%+6rem)] -mt-[6rem] bg-zinc-300/40'
         onClick={closePopup}
       />
-      <div className='absolute bg-zinc-600 w-[600px] left-[calc(50%-300px)] px-12 pb-16 pt-4 rounded mt-[3rem] z-30'>
+      <div className='absolute bg-zinc-600 w-[600px] left-[calc(50%-300px)] px-12 pb-16 pt-4 rounded mt-[3rem]'>
         <div className='flex justify-end mb-12 -mr-8'>
           <img
             className='w-4 cursor-pointer'

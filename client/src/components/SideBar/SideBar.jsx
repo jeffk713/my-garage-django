@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { VehicleAddButton } from '.';
 import { Logo } from '../NavBar';
 import { VehicleCard } from '../VehicleCard';
-import { CustomLink } from '../Utils';
 
 const SideBar = ({ sideBarDisplay, vehicles }) => {
   return (
@@ -18,9 +17,7 @@ const SideBar = ({ sideBarDisplay, vehicles }) => {
       {vehicles.map(vehicle => (
         <VehicleCard key={vehicle.id} {...vehicle} />
       ))}
-
       <VehicleAddButton />
-      <CustomLink>Shops</CustomLink>
     </div>
   );
 };
