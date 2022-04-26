@@ -29,6 +29,7 @@ const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
     if (isExistent) {
       setInput(vehicleToDisplay);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExistent]);
 
   const handleChange = e => {

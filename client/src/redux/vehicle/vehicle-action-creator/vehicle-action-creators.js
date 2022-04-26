@@ -25,3 +25,16 @@ export const addVehicleSuccess = vehicleData => ({
 export const addVehicleFail = () => ({
   type: vehicleActionTypes.ADD_VEHICLE_FAIL,
 });
+
+export const editVehicleStart = () => ({
+  type: vehicleActionTypes.EDIT_VEHICLE_START,
+});
+
+export const editVehicleSuccess = vehicleData => ({
+  type: vehicleActionTypes.EDIT_VEHICLE_SUCCESS,
+  payload: vehicleData,
+});
+
+export const editVehicleFail = () => ({
+  type: vehicleActionTypes.EDIT_VEHICLE_FAIL,
+});
