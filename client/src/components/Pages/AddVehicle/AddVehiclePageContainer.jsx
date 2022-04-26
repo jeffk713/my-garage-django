@@ -9,6 +9,7 @@ const AddVehiclePageContainer = ({ vehicles }) => {
   const params = useParams();
   const vehicleIdToDisplay = params.vehicleId ? params.vehicleId : null;
   const vehicleToDisplay = getVehicleByVehicleId(vehicles, vehicleIdToDisplay);
+
   return (
     <div>
       <AddVehiclePage vehicleToDisplay={vehicleToDisplay} />

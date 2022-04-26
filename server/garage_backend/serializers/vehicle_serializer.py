@@ -11,4 +11,4 @@ class VehicleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Vehicle
-        fields = "__all__"
+        exclude = ["warrantyUntil"]

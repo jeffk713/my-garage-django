@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import { addVehicleAsync } from '../../../redux/vehicle/vehicle-thunk';
 
 const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
   const isExistent = vehicleToDisplay ? true : false;
+  console.log(vehicleToDisplay);
   const INITIAL_INPUT = {
     year: '',
     make: '',
@@ -24,6 +25,12 @@ const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
   const { year, make, model, nickname, imageFile } = input;
   const history = useHistory();
 
+  useEffect(() => {
+    if (isExistent) {
+      setInput(vehicleToDisplay);
+    }
+  }, [isExistent]);
+
   const handleChange = e => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -31,7 +38,13 @@ const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addVehicleAsync(input);
+
+    if (isExistent) {
+      addVehicleAsync(input);
+    } else {
+      // update vehicle
+    }
+
     setInput(INITIAL_INPUT);
     history.push('/');
   };
@@ -88,9 +101,16 @@ const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
               />
             </div>
           </div>
-          <CustomButton type='submit' btnStyle='p-1 w-48 mt-4'>
-            {isExistent ? 'EDIT' : 'ADD'}
-          </CustomButton>
+          <div className='flex flex-col items-center'>
+            <CustomButton type='submit' btnStyle='p-1 w-48 mt-4'>
+              {isExistent ? 'EDIT' : 'ADD'}
+            </CustomButton>
+            {isExistent && (
+              <span className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer mt-12'>
+                Delete Vehicle
+              </span>
+            )}
+          </div>
         </form>
       </div>
     </div>

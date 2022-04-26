@@ -24,9 +24,6 @@ const ServicePopup = ({
 }) => {
   const params = useParams();
   const isExistent = serviceToDisplay.id;
-  if (!serviceToDisplay.note) {
-    serviceToDisplay.note = '';
-  }
 
   const INITIAL_INPUT = {
     name: '',
@@ -143,7 +140,7 @@ const ServicePopup = ({
             className='bg-zinc-300 rounded-sm resize-y focus:outline-none p-2'
             name='note'
             placeholder='Note'
-            value={note}
+            value={note || ''}
             onChange={handleChange}
             rows={4}
           />

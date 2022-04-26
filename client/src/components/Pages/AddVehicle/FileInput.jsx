@@ -7,7 +7,7 @@ const FileInput = ({ type, name, value, handleChange, imageUrl }) => {
           className='hidden'
           type={type}
           name={name}
-          value={value}
+          value={value || ''}
           onChange={handleChange}
         />
       </label>
