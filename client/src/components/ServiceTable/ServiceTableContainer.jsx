@@ -36,7 +36,9 @@ const ServiceTableContainer = ({
               >
                 <option value={0}>All year</option>
                 {getServiceYears(vehicle.services).map(serviceYear => (
-                  <option value={serviceYear}>{serviceYear}</option>
+                  <option key={serviceYear}  value={serviceYear}>
+                    {serviceYear}
+                  </option>
                 ))}
               </select>
             </div>

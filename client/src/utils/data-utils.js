@@ -14,8 +14,10 @@ export const getMinMaxBrakeMeasurement = vehicleNote => {
   return [Math.min(...brakeMeasurements), Math.max(...brakeMeasurements)];
 };
 
-export const getVehicleByVehicleId = (vehicles, vehicleId) =>
-  vehicles.find(vehicle => vehicle.id === +vehicleId);
+export const getVehicleByVehicleId = (vehicles, vehicleId) => {
+  if (!vehicleId) return null;
+  return vehicles.find(vehicle => vehicle.id === +vehicleId);
+};
 
 export const getNextAppointmentDate = nextAppointment => {
   if (!nextAppointment) return '';

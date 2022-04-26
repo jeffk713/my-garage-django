@@ -8,15 +8,19 @@ import { FileInput } from '.';
 
 import { addVehicleAsync } from '../../../redux/vehicle/vehicle-thunk';
 
-const AddVehiclePage = ({ addVehicleAsync }) => {
+const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
+  const isExistent = vehicleToDisplay ? true : false;
   const INITIAL_INPUT = {
     year: '',
     make: '',
     model: '',
     nickname: '',
+    imageUrl: '',
     imageFile: '',
   };
-  const [input, setInput] = useState(INITIAL_INPUT);
+  const [input, setInput] = useState(
+    isExistent ? vehicleToDisplay : INITIAL_INPUT
+  );
   const { year, make, model, nickname, imageFile } = input;
   const history = useHistory();
 
@@ -35,7 +39,9 @@ const AddVehiclePage = ({ addVehicleAsync }) => {
   return (
     <div className='bg-zinc-800/90 p-8 min-h-[calc(100vh-6rem)] text-slate-200'>
       <div className='w-[600px] m-auto my-[110px]'>
-        <p className='text-3xl text-center mb-8 '>ADD VEHICLE</p>
+        <p className='text-3xl text-center mb-8 '>
+          {isExistent ? 'EDIT VEHICLE' : 'ADD VEHICLE'}
+        </p>
         <form
           className='w-full flex flex-col gap-4 items-center'
           onSubmit={handleSubmit}
@@ -83,7 +89,7 @@ const AddVehiclePage = ({ addVehicleAsync }) => {
             </div>
           </div>
           <CustomButton type='submit' btnStyle='p-1 w-48 mt-4'>
-            ADD
+            {isExistent ? 'EDIT' : 'ADD'}
           </CustomButton>
         </form>
       </div>
