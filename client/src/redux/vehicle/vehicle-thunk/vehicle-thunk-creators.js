@@ -35,7 +35,7 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
     });
 };
 
-export const editVehicleAsync = (updatedInfo, vehicleId) => dispatch => {
+export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
   dispatch(editVehicleStart);
   const config = {
     headers: {
@@ -43,13 +43,13 @@ export const editVehicleAsync = (updatedInfo, vehicleId) => dispatch => {
     },
   };
 
-  if (!updatedInfo['imageFile']) {
-    delete updatedInfo['imageFile'];
+  if (!updatedVehicleData['imageFile']) {
+    delete updatedVehicleData['imageFile'];
   }
-  const body = JSON.stringify(updatedInfo);
+  const body = JSON.stringify(updatedVehicleData);
 
   axios
-    .patch(`api/vehicle/${vehicleId}`, body, config)
+    .patch(`/api/vehicle/${vehicleId}/`, body, config)
     .then(res => {
       dispatch(editVehicleSuccess(res.data));
     })

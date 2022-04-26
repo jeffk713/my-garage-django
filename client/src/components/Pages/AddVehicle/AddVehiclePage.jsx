@@ -6,9 +6,16 @@ import { FormInput } from '../../Utils';
 import { CustomButton } from '../../Utils';
 import { FileInput } from '.';
 
-import { addVehicleAsync } from '../../../redux/vehicle/vehicle-thunk';
+import {
+  addVehicleAsync,
+  editVehicleAsync,
+} from '../../../redux/vehicle/vehicle-thunk/vehicle-thunk-creators';
 
-const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
+const AddVehiclePage = ({
+  vehicleToDisplay,
+  addVehicleAsync,
+  editVehicleAsync,
+}) => {
   const isExistent = vehicleToDisplay ? true : false;
   console.log(vehicleToDisplay);
   const INITIAL_INPUT = {
@@ -41,9 +48,9 @@ const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
     e.preventDefault();
 
     if (isExistent) {
-      addVehicleAsync(input);
+      editVehicleAsync(input, vehicleToDisplay.id);
     } else {
-      // update vehicle
+      addVehicleAsync(input);
     }
 
     setInput(INITIAL_INPUT);
@@ -120,6 +127,8 @@ const AddVehiclePage = ({ vehicleToDisplay, addVehicleAsync }) => {
 
 const mapDispatchToProps = dispatch => ({
   addVehicleAsync: vehicleInfo => dispatch(addVehicleAsync(vehicleInfo)),
+  editVehicleAsync: (vehicleInfo, vehicleId) =>
+    dispatch(editVehicleAsync(vehicleInfo, vehicleId)),
 });
 
 export default connect(null, mapDispatchToProps)(AddVehiclePage);
