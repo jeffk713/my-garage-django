@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 
 import { ServiceTable } from '../../ServiceTable';
-import { VehicleAvatar } from '../../VehicleCard';
+import { VehicleCard } from '../../VehicleCard';
 
 import {
   getMinMaxTireMeasurement,
@@ -10,18 +10,23 @@ import {
 
 const VehiclePost = ({ ...vehicle }) => {
   const history = useHistory();
-  const { id, imageUrl, services, vehicleNote } = vehicle;
+  const { id, imageUrl, services, vehicleNote, nickname } = vehicle;
 
   const minMaxTireMeasurement = getMinMaxTireMeasurement(vehicleNote);
   const minMaxBrakeMeasurement = getMinMaxBrakeMeasurement(vehicleNote);
 
   return (
     <div
-      className='w-full flex items-start gap-4 p-10 rounded-xl bg-zinc-800/90 text-slate-200 cursor-pointer'
+      className='w-full flex items-start gap-4 py-6 px-8 rounded-xl bg-zinc-800/90 text-slate-200 cursor-pointer'
       onClick={() => history.push(`/vehicle/${id}`)}
     >
       <div className='w-60 flex flex-col items-center gap-4'>
-        <VehicleAvatar imageUrl={imageUrl} />
+        <VehicleCard
+          id={id}
+          imageUrl={imageUrl}
+          nickname={nickname}
+          cardStyle='mb-0'
+        />
         <div className='flex flex-col font-semibold'>
           <p>
             Tires:{' '}

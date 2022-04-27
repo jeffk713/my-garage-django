@@ -9,15 +9,16 @@ import { FileInput } from '.';
 import {
   addVehicleAsync,
   editVehicleAsync,
+  deleteVehicleAsync,
 } from '../../../redux/vehicle/vehicle-thunk/vehicle-thunk-creators';
 
 const AddVehiclePage = ({
   vehicleToDisplay,
   addVehicleAsync,
   editVehicleAsync,
+  deleteVehicleAsync,
 }) => {
   const isExistent = vehicleToDisplay ? true : false;
-  console.log(vehicleToDisplay);
   const INITIAL_INPUT = {
     year: '',
     make: '',
@@ -53,6 +54,14 @@ const AddVehiclePage = ({
       addVehicleAsync(input);
     }
 
+    setInput(INITIAL_INPUT);
+    history.push('/');
+  };
+
+  const delelteVehicle = () => {
+    if (!isExistent) return;
+
+    deleteVehicleAsync(vehicleToDisplay.id);
     setInput(INITIAL_INPUT);
     history.push('/');
   };
@@ -114,7 +123,10 @@ const AddVehiclePage = ({
               {isExistent ? 'EDIT' : 'ADD'}
             </CustomButton>
             {isExistent && (
-              <span className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer mt-12'>
+              <span
+                className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer mt-12'
+                onClick={delelteVehicle}
+              >
                 Delete Vehicle
               </span>
             )}
@@ -129,6 +141,7 @@ const mapDispatchToProps = dispatch => ({
   addVehicleAsync: vehicleInfo => dispatch(addVehicleAsync(vehicleInfo)),
   editVehicleAsync: (vehicleInfo, vehicleId) =>
     dispatch(editVehicleAsync(vehicleInfo, vehicleId)),
+  deleteVehicleAsync: vehicleId => dispatch(deleteVehicleAsync(vehicleId)),
 });
 
 export default connect(null, mapDispatchToProps)(AddVehiclePage);
