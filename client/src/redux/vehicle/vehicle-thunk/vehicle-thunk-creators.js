@@ -6,6 +6,9 @@ import {
   addVehicleFail,
 } from '../vehicle-action-creator';
 import {
+  deleteVehicleFail,
+  deleteVehicleStart,
+  deleteVehicleSuccess,
   editVehicleFail,
   editVehicleStart,
   editVehicleSuccess,
@@ -56,5 +59,18 @@ export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
     .catch(err => {
       console.log(err.response.data.error);
       dispatch(editVehicleFail());
+    });
+};
+
+export const deleteVehicleAsync = vehicleId => dispatch => {
+  dispatch(deleteVehicleStart());
+  axios
+    .delete(`/api/vehicle/${vehicleId}/`)
+    .then(res => {
+      dispatch(deleteVehicleSuccess(vehicleId));
+    })
+    .catch(err => {
+      console.log(err.response.data.error);
+      dispatch(deleteVehicleFail());
     });
 };

@@ -38,3 +38,16 @@ export const editVehicleSuccess = vehicleData => ({
 export const editVehicleFail = () => ({
   type: vehicleActionTypes.EDIT_VEHICLE_FAIL,
 });
+
+export const deleteVehicleStart = () => ({
+  type: vehicleActionTypes.DELETE_VEHICLE_START,
+});
+
+export const deleteVehicleSuccess = vehicleId => ({
+  type: vehicleActionTypes.DELETE_VEHICLE_SUCCESS,
+  payload: vehicleId,
+});
+
+export const deleteVehicleFail = () => ({
+  type: vehicleActionTypes.DELETE_VEHICLE_FAIL,
+});
