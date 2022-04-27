@@ -10,6 +10,7 @@ import {
   getVehiclesWithUpdatedService,
   getVehiclesWithoutDeletedService,
   getVehiclesWithUpdatedVehicle,
+  getVehiclesWithoutDeletedVehicle,
 } from './vehicle-reducer-utils';
 
 const INITIAL_STATE = {
@@ -22,6 +23,7 @@ const vehicleReducer = (state = INITIAL_STATE, action) => {
     case vehicleActionTypes.GET_VEHICLES_START:
     case vehicleActionTypes.ADD_VEHICLE_START:
     case vehicleActionTypes.EDIT_VEHICLE_START:
+    case vehicleActionTypes.DELETE_VEHICLE_START:
     case vehicleServiceActionTypes.ADD_SERVICE_START:
     case vehicleNoteActionTypes.UPDATE_VEHICLE_NOTE_START:
     case vehicleServiceActionTypes.UPDATE_SERVICE_START:
@@ -46,6 +48,15 @@ const vehicleReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         vehicles: getVehiclesWithUpdatedVehicle(state.vehicles, action.payload),
+        isLoading: false,
+      };
+    case vehicleActionTypes.DELETE_VEHICLE_SUCCESS:
+      return {
+        ...state,
+        vehicles: getVehiclesWithoutDeletedVehicle(
+          state.vehicles,
+          action.payload
+        ),
         isLoading: false,
       };
     case vehicleServiceActionTypes.ADD_SERVICE_SUCCESS:
@@ -81,6 +92,7 @@ const vehicleReducer = (state = INITIAL_STATE, action) => {
     case vehicleActionTypes.GET_VEHICLES_FAIL:
     case vehicleActionTypes.ADD_VEHICLE_FAIL:
     case vehicleActionTypes.EDIT_VEHICLE_FAIL:
+    case vehicleActionTypes.DELETE_VEHICLE_FAIL:
     case vehicleServiceActionTypes.ADD_SERVICE_FAIL:
     case vehicleNoteActionTypes.UPDATE_VEHICLE_NOTE_FAIL:
     case vehicleServiceActionTypes.UPDATE_SERVICE_FAIL:
