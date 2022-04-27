@@ -4,20 +4,31 @@ import { VehicleAddButton } from '.';
 import { Logo } from '../NavBar';
 import { VehicleCard } from '../VehicleCard';
 
-const SideBar = ({ sideBarDisplay, vehicles }) => {
+import { toggleSideBar } from '../../redux/side-bar/side-bar-action-creators';
+
+const SideBar = ({ sideBarDisplay, toggleSideBar, vehicles }) => {
   return (
-    <div
-      className={`col-span-2 flex flex-col items-center py-8 bg-amber-600 text-slate-200 fixed w-[16rem] h-full -left-[16rem] transition duration-700 ease-in-out z-50 overflow-y-auto ${
-        sideBarDisplay && 'translate-x-full'
-      }`}
-    >
-      <div className='mb-8'>
-        <Logo />
+    <div>
+      {sideBarDisplay && (
+        <div
+          className='absolute w-[calc(100%)] h-[calc(100%)] z-30'
+          onClick={() => toggleSideBar()}
+        />
+      )}
+      <div
+        className={`col-span-2 flex flex-col items-center py-8 bg-amber-600 text-slate-200 fixed w-[16rem] h-full 
+        -left-[16rem] transition duration-700 ease-in-out z-50 overflow-y-auto z-25 ${
+          sideBarDisplay && 'translate-x-full'
+        }`}
+      >
+        <div className='mb-8'>
+          <Logo />
+        </div>
+        {vehicles.map(vehicle => (
+          <VehicleCard key={vehicle.id} {...vehicle} />
+        ))}
+        <VehicleAddButton />
       </div>
-      {vehicles.map(vehicle => (
-        <VehicleCard key={vehicle.id} {...vehicle} />
-      ))}
-      <VehicleAddButton />
     </div>
   );
 };
@@ -27,4 +38,8 @@ const mapStateToProps = state => ({
   vehicles: state.vehicle.vehicles,
 });
 
-export default connect(mapStateToProps)(SideBar);
+const mapDispatchToProps = dispatch => ({
+  toggleSideBar: () => dispatch(toggleSideBar()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
