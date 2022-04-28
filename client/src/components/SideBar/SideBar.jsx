@@ -11,7 +11,7 @@ const SideBar = ({ sideBarDisplay, toggleSideBar, vehicles }) => {
     <div>
       {sideBarDisplay && (
         <div
-          className='absolute w-[calc(100%)] h-[calc(100%)] z-30'
+          className='fixed w-[calc(100%)] h-screen z-30'
           onClick={() => toggleSideBar()}
         />
       )}
