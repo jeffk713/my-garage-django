@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { HomeTitle, SignInForm, SignUpForm, SignUpLink } from '.';
+import { HomeTitle, SignInForm, SignUpForm, SignInLink, SignUpLink } from '.';
 
 const HomePage = () => {
   const [isToRegister, setIsToRegister] = useState(false);
@@ -13,11 +13,13 @@ const HomePage = () => {
       <HomeTitle />
       {!isToRegister ? (
         <>
-          <SignInForm />
-          <SignUpLink toRegister={() => setIsToRegister(true)} />
+          <SignInForm /> <SignUpLink toRegister={() => setIsToRegister(true)} />
         </>
       ) : (
-        <SignUpForm />
+        <>
+          <SignUpForm />
+          <SignInLink toSignIn={() => setIsToRegister(false)} />
+        </>
       )}
     </div>
   );

@@ -20,13 +20,17 @@ const SignUpForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
+    if (password !== passwordConfirm) {
+      return setInput({ ...input, password: '', passwordConfirm: '' });
+    }
+    
     setInput(INITIAL_INPUT);
   };
   return (
     <div className='w-full bg-zinc-200/40 flex justify-center p-8'>
       <form
         className='flex flex-col items-center gap-4 w-fit'
-        handleSubmit={handleSubmit}
+        onSubmit={handleSubmit}
       >
         <FormInput
           name='email'
@@ -34,6 +38,7 @@ const SignUpForm = () => {
           value={email}
           handleChange={handleChange}
           placeholder='Email'
+          required
         />
         <FormInput
           name='name'
@@ -41,6 +46,7 @@ const SignUpForm = () => {
           value={name}
           handleChange={handleChange}
           placeholder='Name'
+          required
         />
         <FormInput
           name='password'
@@ -48,6 +54,7 @@ const SignUpForm = () => {
           value={password}
           handleChange={handleChange}
           placeholder='Password'
+          required
         />
         <FormInput
           name='passwordConfirm'
@@ -55,6 +62,7 @@ const SignUpForm = () => {
           value={passwordConfirm}
           handleChange={handleChange}
           placeholder='Confirm password'
+          required
         />
         <CustomButton type='submit' btnStyle='w-2/5 mt-4'>
           Sign Up
