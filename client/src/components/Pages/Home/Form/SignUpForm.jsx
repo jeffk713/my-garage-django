@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { CustomButton, FormInput } from '../../../Utils';
 import { SignInLink } from '.';
 
-const SignUpForm = ({ toSignIn }) => {
+import { userSignUpAsync } from '../../../../redux/user/user-thunk-creators';
+
+const SignUpForm = ({ toSignIn, userSignUpAsync }) => {
+  const history = useHistory();
   const INITIAL_INPUT = {
     email: '',
     name: '',
@@ -24,8 +29,11 @@ const SignUpForm = ({ toSignIn }) => {
     if (password !== passwordConfirm) {
       return setInput({ ...input, password: '', passwordConfirm: '' });
     }
+    const userCredentials = { email, name, password };
+    userSignUpAsync(userCredentials);
 
     setInput(INITIAL_INPUT);
+    history.push('/');
   };
   return (
     <div className='w-full bg-zinc-300/0 flex flex-col justify-center items-center p-8'>
@@ -74,4 +82,9 @@ const SignUpForm = ({ toSignIn }) => {
   );
 };
 
-export default SignUpForm;
+const mapDispatchToProps = dispatch => ({
+  userSignUpAsync: userCredentials =>
+    dispatch(userSignUpAsync(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUpForm);

@@ -23,6 +23,7 @@ class Register(APIView):
             password=password,
             )
             serializer = serializers.UserSerializer(user)
+            request.session['user_id'] = serializer.data["id"]
             
             return JsonResponse(serializer.data) 
         

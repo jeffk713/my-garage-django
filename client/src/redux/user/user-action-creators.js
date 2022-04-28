@@ -29,8 +29,9 @@ export const userSignUpStart = () => ({
   type: userActionTypes.USER_SIGN_UP_START,
 });
 
-export const userSignUpSuccess = () => ({
+export const userSignUpSuccess = userObj => ({
   type: userActionTypes.USER_SIGN_UP_SUCCESS,
+  payload: userObj,
 });
 
 export const userSignUpFail = () => ({

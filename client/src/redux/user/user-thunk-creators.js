@@ -64,7 +64,12 @@ export const userSignUpAsync = userCredentials => dispatch => {
   axios
     .post('/auth/register/', body, config)
     .then(res => {
-      dispatch(userSignUpSuccess(res.data));
+      const userObj = {
+        id: res.data.id,
+        email: res.data.email,
+        name: res.data.name,
+      };
+      dispatch(userSignUpSuccess(userObj));
     })
     .catch(err => {
       console.log(err.response.data.error);
