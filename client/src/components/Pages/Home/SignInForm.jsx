@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { CustomButton, FormInput } from '../Utils';
+import { CustomButton, FormInput } from '../../Utils';
 
-import { userSignInAsync } from '../../redux/user/user-thunk-creators';
+import { userSignInAsync } from '../../../redux/user/user-thunk-creators';
 
 const INITIAL_INPUT = {
   email: '',
