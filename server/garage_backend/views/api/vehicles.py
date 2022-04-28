@@ -18,7 +18,8 @@ class Vehicle(APIView):
             if not user_id: 
                 return JsonResponse({"error": ["sesion required"]}, status=400)
 
-            vehicle_data = {**request.data, "user": user_id}
+            dict_request_data = request.data.dict()
+            vehicle_data = {**dict_request_data, "user": user_id}
             serializer = serializers.VehicleSerializer(data=vehicle_data)
 
             if serializer.is_valid(raise_exception=True): 
@@ -56,8 +57,9 @@ class VehicleDetail(APIView):
             vehicle = object_utils.get_object_by_id(models.Vehicle, vehicle_id)
             if not vehicle: 
                 return JsonResponse({"error": ["Vehicle not found"]}, status=400)
-
-            serializer = serializers.VehicleSerializer(vehicle, data=request.data, partial=True)
+            
+            dict_request_data = request.data.dict()
+            serializer = serializers.VehicleSerializer(vehicle, data=dict_request_data, partial=True)
             if serializer.is_valid(raise_exception=True): 
                 serializer.save()
 

@@ -10,7 +10,7 @@ import {
 
 const VehiclePost = ({ ...vehicle }) => {
   const history = useHistory();
-  const { id, imageUrl, services, vehicleNote, nickname } = vehicle;
+  const { id, imageFile, services, vehicleNote, nickname } = vehicle;
 
   const minMaxTireMeasurement = getMinMaxTireMeasurement(vehicleNote);
   const minMaxBrakeMeasurement = getMinMaxBrakeMeasurement(vehicleNote);
@@ -23,7 +23,7 @@ const VehiclePost = ({ ...vehicle }) => {
       <div className='w-60 flex flex-col items-center gap-4'>
         <VehicleCard
           id={id}
-          imageUrl={imageUrl}
+          imageUrl={imageFile}
           nickname={nickname}
           cardStyle='mb-0'
         />

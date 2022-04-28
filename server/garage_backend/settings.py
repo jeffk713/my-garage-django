@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'garage_backend'
+    'garage_backend',
+    
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,10 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "garage_backend.User"
+
+#S3 BUCKET CONFIG
+AWS_ACCESS_KEY_ID = env_vars.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env_vars.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env_vars.get("AWS_STORAGE_BUCKET_NAME")
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

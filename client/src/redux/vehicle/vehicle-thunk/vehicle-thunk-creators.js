@@ -16,19 +16,26 @@ import {
 
 export const addVehicleAsync = vehicleInfo => dispatch => {
   dispatch(addVehicleStart());
+
+  const formData = new FormData();
+
+  if (typeof vehicleInfo.imageFile === 'string' || !vehicleInfo.imageFile) {
+    delete vehicleInfo.imageFile;
+  }
+
+  for (let key in vehicleInfo) {
+    if (!vehicleInfo[key]) continue;
+    formData.append(key, vehicleInfo[key]);
+  }
+
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
   };
 
-  if (!vehicleInfo['imageFile']) {
-    delete vehicleInfo['imageFile'];
-  }
-  const body = JSON.stringify(vehicleInfo);
-
   axios
-    .post('/api/vehicle/', body, config)
+    .post('/api/vehicle/', formData, config)
     .then(res => {
       dispatch(addVehicleSuccess(res.data));
     })
@@ -40,19 +47,29 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
 
 export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
   dispatch(editVehicleStart);
+
+  const formData = new FormData();
+
+  if (
+    typeof updatedVehicleData.imageFile === 'string' ||
+    !updatedVehicleData.imageFile
+  ) {
+    delete updatedVehicleData.imageFile;
+  }
+
+  for (let key in updatedVehicleData) {
+    if (!updatedVehicleData[key]) continue;
+    formData.append(key, updatedVehicleData[key]);
+  }
+
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
   };
 
-  if (!updatedVehicleData['imageFile']) {
-    delete updatedVehicleData['imageFile'];
-  }
-  const body = JSON.stringify(updatedVehicleData);
-
   axios
-    .patch(`/api/vehicle/${vehicleId}/`, body, config)
+    .patch(`/api/vehicle/${vehicleId}/`, formData, config)
     .then(res => {
       dispatch(editVehicleSuccess(res.data));
     })
