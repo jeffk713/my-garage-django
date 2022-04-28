@@ -25,11 +25,12 @@ const AddVehiclePage = ({
     model: '',
     nickname: '',
     imageFile: '',
+    tempImageFile: '',
   };
   const [input, setInput] = useState(
     isExistent ? vehicleToDisplay : INITIAL_INPUT
   );
-  const { year, make, model, nickname } = input;
+  const { year, make, model, nickname, imageFile, tempImageFile } = input;
   const history = useHistory();
 
   useEffect(() => {
@@ -50,12 +51,14 @@ const AddVehiclePage = ({
     setInput({
       ...input,
       imageFile: e.target.files[0],
+      tempImageFile: e.target.files[0],
     });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
+    delete input.tempImageFile;
     if (isExistent) {
       editVehicleAsync(input, vehicleToDisplay.id);
     } else {
@@ -85,7 +88,12 @@ const AddVehiclePage = ({
           onSubmit={handleSubmit}
         >
           <div className='w-full flex gap-8 items-center justify-center'>
-            <FileInput name='imageFile' handleChange={handleFileChange} />
+            <FileInput
+              name='imageFile'
+              imageFile={imageFile}
+              tempImageFile={tempImageFile}
+              handleChange={handleFileChange}
+            />
             <div className='flex flex-col gap-6 items-center'>
               <FormInput
                 type='number'
