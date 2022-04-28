@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-import { CustomButton, FormInput } from '../../Utils';
+import { CustomButton, FormInput } from '../../../Utils';
+import { SignInLink } from '.';
 
-const SignUpForm = () => {
+const SignUpForm = ({ toSignIn }) => {
   const INITIAL_INPUT = {
     email: '',
     name: '',
@@ -23,11 +24,11 @@ const SignUpForm = () => {
     if (password !== passwordConfirm) {
       return setInput({ ...input, password: '', passwordConfirm: '' });
     }
-    
+
     setInput(INITIAL_INPUT);
   };
   return (
-    <div className='w-full bg-zinc-200/40 flex justify-center p-8'>
+    <div className='w-full bg-zinc-200/40 flex flex-col justify-center items-center p-8'>
       <form
         className='flex flex-col items-center gap-4 w-fit'
         onSubmit={handleSubmit}
@@ -68,6 +69,7 @@ const SignUpForm = () => {
           Sign Up
         </CustomButton>
       </form>
+      <SignInLink toSignIn={toSignIn} />
     </div>
   );
 };
