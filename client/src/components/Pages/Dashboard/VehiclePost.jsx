@@ -23,7 +23,7 @@ const VehiclePost = ({ ...vehicle }) => {
       <div className='w-60 flex flex-col items-center gap-4'>
         <VehicleCard
           id={id}
-          imageUrl={imageFile}
+          imageFile={imageFile}
           nickname={nickname}
           cardStyle='mb-0'
         />

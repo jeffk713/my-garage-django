@@ -13,7 +13,7 @@ const VehicleInfo = ({ vehicle }) => {
       {vehicle && (
         <>
           <VehicleCard
-            imageUrl={vehicle.imageUrl}
+            imageFile={vehicle.imageFile}
             nickname={vehicle.nickname}
           />
           <div className='pb-4 flex flex-col h-full justify-start w-24'>
@@ -22,7 +22,9 @@ const VehicleInfo = ({ vehicle }) => {
                 className='w-6 cursor-pointer'
                 src={edit}
                 alt='edit'
-                onClick={() => history.push(`/vehicle/edit/${params.vehicleId}`)}
+                onClick={() =>
+                  history.push(`/vehicle/edit/${params.vehicleId}`)
+                }
               />
             </div>
             <div className='grow h-full flex flex-col gap-2 justify-start'>
