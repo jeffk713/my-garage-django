@@ -28,7 +28,7 @@ const SignUpForm = ({ toSignIn }) => {
     setInput(INITIAL_INPUT);
   };
   return (
-    <div className='w-full bg-zinc-200/40 flex flex-col justify-center items-center p-8'>
+    <div className='w-full bg-zinc-300/0 flex flex-col justify-center items-center p-8'>
       <form
         className='flex flex-col items-center gap-4 w-fit'
         onSubmit={handleSubmit}

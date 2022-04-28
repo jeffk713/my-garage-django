@@ -24,3 +24,15 @@ export const userSignOutSuccess = () => ({
 export const userSignOutFail = () => ({
   type: userActionTypes.USER_SIGN_OUT_FAIL,
 });
+
+export const userSignUpStart = () => ({
+  type: userActionTypes.USER_SIGN_UP_START,
+});
+
+export const userSignUpSuccess = () => ({
+  type: userActionTypes.USER_SIGN_UP_SUCCESS,
+});
+
+export const userSignUpFail = () => ({
+  type: userActionTypes.USER_SIGN_UP_FAIL,
+});

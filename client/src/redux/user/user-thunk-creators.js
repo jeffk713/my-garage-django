@@ -7,6 +7,9 @@ import {
   userSignOutStart,
   userSignOutSuccess,
   userSignOutFail,
+  userSignUpStart,
+  userSignUpSuccess,
+  userSignUpFail,
 } from './user-action-creators';
 import { getVehiclesSuccess } from '../vehicle/vehicle-action-creator/vehicle-action-creators';
 
@@ -46,6 +49,26 @@ export const userSignOutAsync = () => dispatch => {
     .catch(err => {
       console.log(err);
       dispatch(userSignOutFail());
+    });
+};
+
+export const userSignUpAsync = userCredentials => dispatch => {
+  dispatch(userSignUpStart());
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify(userCredentials);
+
+  axios
+    .post('/auth/register/', body, config)
+    .then(res => {
+      dispatch(userSignUpSuccess(res.data));
+    })
+    .catch(err => {
+      console.log(err.response.data.error);
+      dispatch(userSignUpFail(err));
     });
 };
 
