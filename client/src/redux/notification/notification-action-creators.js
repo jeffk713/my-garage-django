@@ -13,3 +13,10 @@ export const displayErrorNotification = messageArr => ({
 export const hideNotification = () => ({
   type: notificationActionTypes.HIDE_NOTIFICATION,
 });
+
+export const triggerErrorNotification = (dispatch, messageArr) => {
+  dispatch(displayErrorNotification(messageArr));
+  setTimeout(() => {
+    dispatch(hideNotification());
+  }, 3000);
+};

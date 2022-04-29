@@ -26,11 +26,7 @@ const SignUpForm = ({ toSignIn, userSignUpAsync }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (password !== passwordConfirm) {
-      return setInput({ ...input, password: '', passwordConfirm: '' });
-    }
-    const userCredentials = { email, name, password };
-    userSignUpAsync(userCredentials);
+    userSignUpAsync(input);
 
     setInput(INITIAL_INPUT);
     history.push('/');

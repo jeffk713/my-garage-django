@@ -18,15 +18,17 @@ class SignIn(APIView):
             password = body.get("password")
             
             user = object_utils.get_user_by_email(email)
+            if not user:
+                return JsonResponse({"error": ["User credentials incorrect"]}, status=400)
+            
             is_password_correct = user.check_password(password)
-            if not (user and is_password_correct): 
+            if not is_password_correct: 
                 return JsonResponse({"error": ["User credentials incorrect"]}, status=400)
             
             serializer = serializers.UserSerializer(user)
             request.session['user_id'] = serializer.data["id"]
 
             return JsonResponse(serializer.data)
-
         except Exception as e:
             print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)

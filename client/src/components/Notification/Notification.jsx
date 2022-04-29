@@ -5,10 +5,16 @@ const Notification = ({ error, messages }) => {
     <div
       className={`z-40 absolute w-[calc(100%)] h-fit p-2 mt-[6rem] flex items-center justify-center ${
         error ? 'bg-red-500' : 'bg-green-500'
-      } ${!messages.length && 'hidden'} ease-in transition duration-700`}
+      } ${!messages.length && 'opacity-0'} transition-all duration-500`}
     >
       {messages.map(message => (
-        <p className='text-lg text-zinc-800'>{message}</p>
+        <p
+          className={`text-lg text-zinc-800  ${
+            !messages.length && 'opacity-0'
+          }`}
+        >
+          {message}
+        </p>
       ))}
     </div>
   );

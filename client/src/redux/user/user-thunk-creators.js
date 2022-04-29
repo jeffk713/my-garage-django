@@ -12,10 +12,7 @@ import {
   userSignUpFail,
 } from './user-action-creators';
 import { getVehiclesSuccess } from '../vehicle/vehicle-action-creator/vehicle-action-creators';
-import {
-  displayErrorNotification,
-  hideNotification,
-} from '../notification/notification-action-creators';
+import { triggerErrorNotification } from '../notification/notification-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
   dispatch(userSignInStart());
@@ -38,12 +35,8 @@ export const userSignInAsync = userCredentials => dispatch => {
       dispatch(getVehiclesSuccess(res.data.vehicles));
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(userSignInFail());
-      dispatch(displayErrorNotification(err.response.data.error));
-      setTimeout(() => {
-        dispatch(hideNotification());
-      }, 2000);
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
 
@@ -56,19 +49,28 @@ export const userSignOutAsync = () => dispatch => {
       dispatch(userSignOutSuccess());
     })
     .catch(err => {
-      console.log(err);
       dispatch(userSignOutFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
 
 export const userSignUpAsync = userCredentials => dispatch => {
   dispatch(userSignUpStart());
+
+  const { email, name, password, passwordConfirm } = userCredentials;
+  if (password !== passwordConfirm) {
+    dispatch(userSignUpFail());
+    triggerErrorNotification(dispatch, ['Passwords do not match']);
+    return;
+  }
+
+  const userDataToSend = { email, name, password };
+  const body = JSON.stringify(userDataToSend);
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify(userCredentials);
 
   axios
     .post('/auth/register/', body, config)
@@ -81,8 +83,8 @@ export const userSignUpAsync = userCredentials => dispatch => {
       dispatch(userSignUpSuccess(userObj));
     })
     .catch(err => {
-      console.log(err.response.data.error);
-      dispatch(userSignUpFail(err));
+      dispatch(userSignUpFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
 
@@ -101,7 +103,6 @@ export const authBySession = () => dispatch => {
       dispatch(getVehiclesSuccess(res.data.vehicles));
     })
     .catch(err => {
-      console.log(err);
       dispatch(userSignInFail());
     });
 };
