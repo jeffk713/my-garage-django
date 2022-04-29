@@ -17,7 +17,7 @@ const FileInput = ({ name, handleChange, imageFile, tempImageFile }) => {
   }
   return (
     <div className='flex flex-col items-center'>
-      <div className='w-48 h-48 border-2 flex items-center justify-center rounded overflow-hidden mb-2'>
+      <div className='w-48 h-48 border-2 flex items-center justify-center rounded-lg overflow-hidden mb-2'>
         {selectedImageComponent}
       </div>
       <label className='cursor-pointer border-2 px-2 flex items-center justify-center rounded'>
