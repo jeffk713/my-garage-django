@@ -34,12 +34,14 @@ export const getVehiclesWithUpdatedService = (vehicleArr, updatedService) => {
   return vehicleArr.map(vehicle => {
     if (+vehicle.id === +updatedService.vehicle) {
       const newVehicle = { ...vehicle };
-      newVehicle.services = newVehicle.services.map(service => {
+      const unsortedUpdatedServiceArr = newVehicle.services.map(service => {
         if (+service.id === +updatedService.id) {
           return updatedService;
         }
         return service;
       });
+      newVehicle.services = getSortedServiceByDate(unsortedUpdatedServiceArr);
+
       return newVehicle;
     }
     return vehicle;
