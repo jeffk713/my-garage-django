@@ -5,6 +5,7 @@ import { NavBar } from './components/NavBar';
 import { HomePage } from './components/Pages/Home';
 import { DashboardPage } from './components/Pages/Dashboard';
 import { SideBar } from './components/SideBar';
+import { Notification } from './components/Notification';
 
 import { authBySession } from './redux/user/user-thunk-creators';
 
@@ -26,6 +27,7 @@ const App = ({ isAuth, authBySession }) => {
       }}
     >
       <SideBar />
+      <Notification />
       <NavBar />
       <div className='text-gray-800 relative min-h-[calc(100vh-6rem)]'>
         {isAuth ? <DashboardPage /> : <HomePage />}
