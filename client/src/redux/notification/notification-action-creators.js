@@ -14,6 +14,13 @@ export const hideNotification = () => ({
   type: notificationActionTypes.HIDE_NOTIFICATION,
 });
 
+export const triggerSuccessNotification = (dispatch, messageArr) => {
+  dispatch(displaySuccessNotification(messageArr));
+  setTimeout(() => {
+    dispatch(hideNotification());
+  }, 3000);
+};
+
 export const triggerErrorNotification = (dispatch, messageArr) => {
   dispatch(displayErrorNotification(messageArr));
   setTimeout(() => {

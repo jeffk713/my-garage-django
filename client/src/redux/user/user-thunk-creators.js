@@ -12,7 +12,10 @@ import {
   userSignUpFail,
 } from './user-action-creators';
 import { getVehiclesSuccess } from '../vehicle/vehicle-action-creator/vehicle-action-creators';
-import { triggerErrorNotification } from '../notification/notification-action-creators';
+import {
+  triggerErrorNotification,
+  triggerSuccessNotification,
+} from '../notification/notification-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
   dispatch(userSignInStart());
@@ -81,6 +84,10 @@ export const userSignUpAsync = userCredentials => dispatch => {
         name: res.data.name,
       };
       dispatch(userSignUpSuccess(userObj));
+      dispatch(getVehiclesSuccess(res.data.vehicles));
+      triggerSuccessNotification(dispatch, [
+        'User has been successfully registered!',
+      ]);
     })
     .catch(err => {
       dispatch(userSignUpFail());

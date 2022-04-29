@@ -29,10 +29,10 @@ class Register(APIView):
         
         except IntegrityError as e:
             print(e)
-            return JsonResponse({"error": ["User already exists"]}, status=401)
+            return JsonResponse({"error": ["The email has been already registered"]}, status=401)
         except ValueError as e:
             print(e)
-            return JsonResponse({"error": ["All fields required."]}, status=400)
+            return JsonResponse({"error": ["All fields required"]}, status=400)
         except Exception as e:
             print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
