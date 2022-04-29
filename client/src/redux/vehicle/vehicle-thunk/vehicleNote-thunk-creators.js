@@ -5,6 +5,10 @@ import {
   updateVehicleNoteSuccess,
   updateVehicleNoteFail,
 } from '../vehicle-action-creator';
+import {
+  triggerErrorNotification,
+  triggerSuccessNotification,
+} from '../../notification/notification-action-creators';
 
 export const updateVehicleNoteAsync =
   (vehicleNote, vehicleNoteId) => dispatch => {
@@ -20,10 +24,13 @@ export const updateVehicleNoteAsync =
       .patch(`/api/vehiclenote/${vehicleNoteId}/`, body, config)
       .then(res => {
         dispatch(updateVehicleNoteSuccess(res.data));
+        triggerSuccessNotification(dispatch, [
+          'Vehicle note has been successfully updated!',
+        ]);
       })
       .catch(err => {
-        console.log(err.response.data.error);
         dispatch(updateVehicleNoteFail());
+        triggerErrorNotification(dispatch, err.response.data.error);
       });
   };
 
@@ -40,9 +47,12 @@ export const createVehicleNoteAsync = vehicleNote => dispatch => {
     .post(`/api/vehiclenote/`, body, config)
     .then(res => {
       dispatch(updateVehicleNoteSuccess(res.data));
+      triggerSuccessNotification(dispatch, [
+        'Vehicle note has been successfully updated!',
+      ]);
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(updateVehicleNoteFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };

@@ -42,8 +42,6 @@ const AddVehiclePage = ({
 
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(input);
-    console.log(typeof input.imageFile);
     setInput({ ...input, [name]: value });
   };
 

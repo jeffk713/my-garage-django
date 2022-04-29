@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 const Notification = ({ error, messages }) => {
   return (
     <div
-      className={`z-40 absolute w-[calc(100%)] h-fit p-2 mt-[6rem] flex items-center justify-center ${
+      className={`z-40 fixed w-[calc(100%)] h-fit p-2 flex items-center justify-center ${
         error ? 'bg-red-500' : 'bg-green-500'
       } ${!messages.length && 'opacity-0'} transition-all duration-500`}
     >

@@ -13,6 +13,10 @@ import {
   editVehicleStart,
   editVehicleSuccess,
 } from '../vehicle-action-creator/vehicle-action-creators';
+import {
+  triggerErrorNotification,
+  triggerSuccessNotification,
+} from '../../notification/notification-action-creators';
 
 export const addVehicleAsync = vehicleInfo => dispatch => {
   dispatch(addVehicleStart());
@@ -38,10 +42,13 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
     .post('/api/vehicle/', formData, config)
     .then(res => {
       dispatch(addVehicleSuccess(res.data));
+      triggerSuccessNotification(dispatch, [
+        'Vehicle has been successfully added!',
+      ]);
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(addVehicleFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
 
@@ -72,10 +79,13 @@ export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
     .patch(`/api/vehicle/${vehicleId}/`, formData, config)
     .then(res => {
       dispatch(editVehicleSuccess(res.data));
+      triggerSuccessNotification(dispatch, [
+        'Vehicle has been successfully updated!',
+      ]);
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(editVehicleFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
 
@@ -85,9 +95,12 @@ export const deleteVehicleAsync = vehicleId => dispatch => {
     .delete(`/api/vehicle/${vehicleId}/`)
     .then(res => {
       dispatch(deleteVehicleSuccess(vehicleId));
+      triggerSuccessNotification(dispatch, [
+        'Vehicle has been successfully deleted!',
+      ]);
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(deleteVehicleFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };

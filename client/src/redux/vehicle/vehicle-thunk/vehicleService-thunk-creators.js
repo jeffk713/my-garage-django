@@ -11,6 +11,10 @@ import {
   deleteVehicleServiceSuccess,
   deleteVehicleServiceFail,
 } from '../vehicle-action-creator/vehicleService-action-creators';
+import {
+  triggerErrorNotification,
+  triggerSuccessNotification,
+} from '../../notification/notification-action-creators';
 
 export const addVehicleServiceAsync = serviceInfo => dispatch => {
   dispatch(addVehicleServiceStart());
@@ -25,10 +29,13 @@ export const addVehicleServiceAsync = serviceInfo => dispatch => {
     .post('/api/service/', body, config)
     .then(res => {
       dispatch(addVehicleServiceSuccess(res.data));
+      triggerSuccessNotification(dispatch, [
+        'Service has been successfully added!',
+      ]);
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(addVehicleServiceFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
 
@@ -46,10 +53,13 @@ export const updateVehicleServiceAsync =
       .patch(`/api/service/${serviceId}/`, body, config)
       .then(res => {
         dispatch(updateVehicleServiceSuccess(res.data));
+        triggerSuccessNotification(dispatch, [
+          'Service has been successfully updated!',
+        ]);
       })
       .catch(err => {
-        console.log(err.response.data.error);
         dispatch(updateVehicleServiceFail());
+        triggerErrorNotification(dispatch, err.response.data.error);
       });
   };
 
@@ -59,9 +69,12 @@ export const deleteVehicleServiceAsync = serviceId => dispatch => {
     .delete(`/api/service/${serviceId}/`)
     .then(res => {
       dispatch(deleteVehicleServiceSuccess(res.data.vehicle, serviceId));
+      triggerSuccessNotification(dispatch, [
+        'Service has been successfully deleted!',
+      ]);
     })
     .catch(err => {
-      console.log(err.response.data.error);
       dispatch(deleteVehicleServiceFail());
+      triggerErrorNotification(dispatch, err.response.data.error);
     });
 };
