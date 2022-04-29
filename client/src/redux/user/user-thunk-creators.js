@@ -12,6 +12,10 @@ import {
   userSignUpFail,
 } from './user-action-creators';
 import { getVehiclesSuccess } from '../vehicle/vehicle-action-creator/vehicle-action-creators';
+import {
+  displayErrorNotification,
+  hideNotification,
+} from '../notification/notification-action-creators';
 
 export const userSignInAsync = userCredentials => dispatch => {
   dispatch(userSignInStart());
@@ -34,7 +38,12 @@ export const userSignInAsync = userCredentials => dispatch => {
       dispatch(getVehiclesSuccess(res.data.vehicles));
     })
     .catch(err => {
+      console.log(err.response.data.error);
       dispatch(userSignInFail());
+      dispatch(displayErrorNotification(err.response.data.error));
+      setTimeout(() => {
+        dispatch(hideNotification());
+      }, 2000);
     });
 };
 
