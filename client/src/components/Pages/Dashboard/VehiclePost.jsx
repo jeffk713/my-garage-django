@@ -44,7 +44,7 @@ const VehiclePost = ({ ...vehicle }) => {
           </p>
         </div>
       </div>
-      <ServiceTable services={services.slice(0, 3)} />
+      <ServiceTable services={services.slice(0, 4)} />
     </div>
   );
 };
