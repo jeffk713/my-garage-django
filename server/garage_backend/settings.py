@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os  ## for docker
 from pathlib import Path
 
 from dotenv import dotenv_values
@@ -25,14 +26,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if not env_vars.get("SECRET_KEY"):
+if not os.environ.get("SECRET_KEY"):
     raise Exception("App SECRET_KEY is not set! Please add it to your .env file")
-SECRET_KEY = env_vars.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not env_vars.get("ENV") == "production"
+# DEBUG = not env_vars.get("ENV") == "production"
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))  ## for docker
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(  ## for docker
+    filter(
+        None,
+        os.environ.get('ALLOWED_HOSTS', '').split(','),
+    )
+)
 
 
 # Application definition
@@ -44,8 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'garage_backend',
     
+    'garage_backend',
     "storages",
 ]
 
@@ -83,17 +91,26 @@ WSGI_APPLICATION = 'garage_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+# DATABASES = {
+#     "default": {
+#         "ENGINE": env_vars.get("POSTGRES_ENGINE"),
+#         "NAME": env_vars.get("POSTGRES_DATABASE"),
+#         "USER": env_vars.get("POSTGRES_USER"),
+#         "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
+#         "HOST": env_vars.get("POSTGRES_HOST"),
+#         "PORT": env_vars.get("POSTGRES_PORT"),
+#     }
+# }
+
+DATABASES = {  ## for docker
     "default": {
-        "ENGINE": env_vars.get("POSTGRES_ENGINE"),
-        "NAME": env_vars.get("POSTGRES_DATABASE"),
-        "USER": env_vars.get("POSTGRES_USER"),
-        "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
-        "HOST": env_vars.get("POSTGRES_HOST"),
-        "PORT": env_vars.get("POSTGRES_PORT"),
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": os.environ.get("DB_HOST"),
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASS"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -141,8 +158,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "garage_backend.User"
 
 #S3 BUCKET CONFIG
-AWS_ACCESS_KEY_ID = env_vars.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env_vars.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = env_vars.get("AWS_STORAGE_BUCKET_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
