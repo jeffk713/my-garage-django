@@ -7,8 +7,9 @@ const Notification = ({ error, messages }) => {
         error ? 'bg-red-500' : 'bg-green-500'
       } ${!messages.length && 'opacity-0'} transition-all duration-500`}
     >
-      {messages.map(message => (
+      {messages.map((message, index) => (
         <p
+          key={index}
           className={`text-lg text-zinc-800  ${
             !messages.length && 'opacity-0'
           }`}
