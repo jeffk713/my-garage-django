@@ -42,5 +42,4 @@ urlpatterns = [
     path('auth/register/', auth.Register.as_view()),
     path('auth/signout/', auth.SignOut.as_view()),
     path('auth/authenticate/', auth.Authenticate.as_view()),
-    
 ]

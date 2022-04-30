@@ -4,18 +4,11 @@ services:
   app:
     build:
       context: .
-    command: >
-      sh -c "python manage.py wait_for_db &&
-              python manage.py migrate &&
-              python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - 8000:8000
+    restart: always
     volumes:
-      - ./server:/server
-      - ./data/web:/vol/web
+      - static-data:/vol/web
     environment:
       - SECRET_KEY=${SECRET_KEY}
-      - DEBUG=1
       - DB_HOST=db
       - DB_NAME=${POSTGRES_DATABASE}
       - DB_USER=${POSTGRES_USER}
@@ -29,7 +22,25 @@ services:
 
   db:
     image: postgres:13-alpine
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${POSTGRES_DATABASE}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  proxy:
+    build:
+      context: ./proxy
+    restart: always
+    depends_on:
+      - app
+    ports:
+      - 80:8000
+    volumes:
+      - static-data:/vol/static
+
+volumes:
+  postgres-data:
+  static-data:
