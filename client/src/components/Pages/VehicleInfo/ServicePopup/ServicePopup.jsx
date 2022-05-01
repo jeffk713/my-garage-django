@@ -39,6 +39,12 @@ const ServicePopup = ({
   const [editMode, setEditMode] = useState(false);
   const { name, mileage, serviceDate, note, price, isWarranty } = input;
 
+  const popupTitle = !isExistent
+    ? 'New Service'
+    : editMode
+    ? 'Update Service'
+    : 'View Service';
+
   const handleChange = e => {
     if (isExistent && !editMode) return;
 
@@ -98,9 +104,7 @@ const ServicePopup = ({
           />
         </div>
         <div className='px-2 mb-4 flex justify-between'>
-          <h2 className='text-xl text-orange-400 font-bold'>
-            {isExistent ? 'View Service' : 'New Service'}
-          </h2>
+          <h2 className='text-xl text-orange-400 font-bold'>{popupTitle}</h2>
           {isExistent && !editMode && (
             <img
               className='w-5 cursor-pointer'
@@ -179,7 +183,7 @@ const ServicePopup = ({
                   className='m-auto border-b border-amber-500 text-amber-500 font-bold text-sm cursor-pointer my-4'
                   onClick={cancelEditMode}
                 >
-                  Cancel Edit
+                  Cancel Update
                 </span>
                 <span
                   className='m-auto border-b border-red-500 text-red-500 font-bold text-sm cursor-pointer'
