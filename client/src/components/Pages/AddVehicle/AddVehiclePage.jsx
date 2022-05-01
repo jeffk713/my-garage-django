@@ -46,7 +46,7 @@ const AddVehiclePage = ({
       setInput(vehicleToDisplay);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isExistent, vehicles]);
+  }, [isExistent, vehicles, params.vehicleId]);
 
   const handleChange = e => {
     const { name, value } = e.target;

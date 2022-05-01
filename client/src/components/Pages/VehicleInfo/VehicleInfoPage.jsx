@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { VehicleSummary } from '.';
 import { ServicePopup } from './ServicePopup';
 import { ServiceTableContainer } from '../../ServiceTable';
 
 import { getVehicleByVehicleId } from '../../../utils/data-utils';
+import { isVehicleOwnedByUser } from '../../../utils/general-utils';
 
-const VehicleInfoPage = ({ match, vehicles }) => {
+const VehicleInfoPage = ({ vehicles }) => {
+  const history = useHistory();
+  const params = useParams();
+  const vehicleId = params.vehicleId;
+  const vehicleToDisplay = getVehicleByVehicleId(vehicles, vehicleId);
+
   const INITIAL_SERVICE_DATA = {
     id: '',
     name: '',
@@ -21,8 +28,12 @@ const VehicleInfoPage = ({ match, vehicles }) => {
   const [serviceToDisplay, setServiceToDisplay] =
     useState(INITIAL_SERVICE_DATA);
 
-  const vehicleId = match.params.vehicleId;
-  const vehicleToDisplay = getVehicleByVehicleId(vehicles, vehicleId);
+  useEffect(() => {
+    if (!isVehicleOwnedByUser(vehicles, params.vehicleId)) {
+      return history.push('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vehicles, params.vehicleId]);
 
   return (
     <div className='bg-zinc-800/90'>
@@ -42,10 +53,6 @@ const VehicleInfoPage = ({ match, vehicles }) => {
             setPopupDisplay={setPopupDisplay}
             setServiceToDisplay={setServiceToDisplay}
           />
-          {/* <div>
-            <p>Richmond Volkswagen</p>
-            <p>Contact: 604-123-4567</p>
-          </div> */}
         </div>
       </div>
     </div>
