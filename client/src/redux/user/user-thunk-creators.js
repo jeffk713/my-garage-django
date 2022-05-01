@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { awsServer } from '../reqUrl';
 import {
   userSignInStart,
   userSignInSuccess,
@@ -27,7 +28,7 @@ export const userSignInAsync = userCredentials => dispatch => {
   const body = JSON.stringify(userCredentials);
 
   axios
-    .post('/auth/signin/', body, config)
+    .post(`${awsServer}/auth/signin/`, body, config)
     .then(res => {
       const userObj = {
         id: res.data.id,
@@ -47,7 +48,7 @@ export const userSignOutAsync = () => dispatch => {
   dispatch(userSignOutStart());
 
   axios
-    .delete('/auth/signout')
+    .delete(`${awsServer}/auth/signout`)
     .then(res => {
       dispatch(userSignOutSuccess());
     })
@@ -76,7 +77,7 @@ export const userSignUpAsync = userCredentials => dispatch => {
   };
 
   axios
-    .post('/auth/register/', body, config)
+    .post(`${awsServer}/auth/register/`, body, config)
     .then(res => {
       const userObj = {
         id: res.data.id,
@@ -99,7 +100,7 @@ export const authBySession = () => dispatch => {
   dispatch(userSignInStart());
 
   axios
-    .get('/auth/authenticate/')
+    .get(`${awsServer}/auth/authenticate/`)
     .then(res => {
       const userObj = {
         id: res.data.id,
