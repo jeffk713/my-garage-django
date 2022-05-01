@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { FormInput } from '../../Utils';
 import { CustomButton } from '../../Utils';
@@ -12,12 +12,18 @@ import {
   deleteVehicleAsync,
 } from '../../../redux/vehicle/vehicle-thunk/vehicle-thunk-creators';
 
+import { isVehicleOwnedByUser } from '../../../utils/general-utils';
+
 const AddVehiclePage = ({
   vehicleToDisplay,
   addVehicleAsync,
   editVehicleAsync,
   deleteVehicleAsync,
+  vehicles,
 }) => {
+  const history = useHistory();
+  const params = useParams();
+
   const isExistent = vehicleToDisplay ? true : false;
   const INITIAL_INPUT = {
     year: '',
@@ -31,14 +37,16 @@ const AddVehiclePage = ({
     isExistent ? vehicleToDisplay : INITIAL_INPUT
   );
   const { year, make, model, nickname, imageFile, tempImageFile } = input;
-  const history = useHistory();
 
   useEffect(() => {
+    if (!isVehicleOwnedByUser(vehicles, params.vehicleId)) {
+      return history.push('/');
+    }
     if (isExistent) {
       setInput(vehicleToDisplay);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isExistent]);
+  }, [isExistent, vehicles]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -146,6 +154,10 @@ const AddVehiclePage = ({
   );
 };
 
+const mapStateToProps = state => ({
+  vehicles: state.vehicle.vehicles,
+});
+
 const mapDispatchToProps = dispatch => ({
   addVehicleAsync: vehicleInfo => dispatch(addVehicleAsync(vehicleInfo)),
   editVehicleAsync: (vehicleInfo, vehicleId) =>
@@ -153,4 +165,4 @@ const mapDispatchToProps = dispatch => ({
   deleteVehicleAsync: vehicleId => dispatch(deleteVehicleAsync(vehicleId)),
 });
 
-export default connect(null, mapDispatchToProps)(AddVehiclePage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddVehiclePage);
