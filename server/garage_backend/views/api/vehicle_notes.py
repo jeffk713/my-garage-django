@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.db import IntegrityError
 
 from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from garage_backend import models, serializers
 from garage_backend.views.view_utils import exception_utils, object_utils
@@ -11,7 +13,9 @@ class VehicleNote(APIView):
     """
     Create a vehicle note
     """
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, format=None):
         try:
             serializer = serializers.VehicleNoteSerializer(data=request.data)
@@ -32,7 +36,9 @@ class VehicleNoteDetail(APIView):
     """
     Retrieve, update, or delete an existing vehicle note by vehicle note ID
     """
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, vehicle_note_id, format=None):
         try:
             vehicle_note = object_utils.get_object_by_id(models.VehicleNote, vehicle_note_id)

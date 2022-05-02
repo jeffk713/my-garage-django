@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.db import IntegrityError
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 
 from garage_backend import models, serializers
 
@@ -23,9 +24,10 @@ class Register(APIView):
             password=password,
             )
             serializer = serializers.UserSerializer(user)
-            request.session['user_id'] = serializer.data["id"]
+            token = Token.objects.get(user=user).key
             
-            return JsonResponse(serializer.data) 
+            userData = {**serializer.data, "token": token}
+            return JsonResponse(userData) 
         
         except IntegrityError as e:
             print(e)

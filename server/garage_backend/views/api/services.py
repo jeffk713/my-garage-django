@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.db import IntegrityError
 
 from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from garage_backend import models, serializers
 from garage_backend.views.view_utils import exception_utils, object_utils
@@ -11,6 +13,8 @@ class Service(APIView):
     """
     create a service
     """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def post(self, request, format=None):
         try:
@@ -32,6 +36,8 @@ class ServiceDetail(APIView):
     """
     Retrieve, update, and delete an existing service
     """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request, service_id, format=None):
         try:

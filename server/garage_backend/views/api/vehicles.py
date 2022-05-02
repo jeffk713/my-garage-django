@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.db import IntegrityError
 
 from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from garage_backend import models, serializers
 from garage_backend.views.view_utils import exception_utils, object_utils
@@ -11,15 +13,17 @@ class Vehicle(APIView):
     """
     create a new vehicle
     """
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request, format=None):
         try:
-            user_id = request.session["user_id"]
-            if not user_id: 
-                return JsonResponse({"error": ["sesion required"]}, status=400)
+            user = request.user
+            if not user: 
+                return JsonResponse({"error": ["Authentication required"]}, status=400)
 
             dict_request_data = request.data.dict()
-            vehicle_data = {**dict_request_data, "user": user_id}
+            vehicle_data = {**dict_request_data, "user": user.id}
             serializer = serializers.VehicleSerializer(data=vehicle_data)
 
             if serializer.is_valid(raise_exception=True): 
@@ -38,12 +42,16 @@ class VehicleDetail(APIView):
     """
     Retrieve, update, and delete an existing vehicle
     """
- 
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]  
+    
     def get(self, request, vehicle_id, format=None):
         try:
             vehicle = object_utils.get_object_by_id(models.Vehicle, vehicle_id)
             if not vehicle: 
                 return JsonResponse({"error": ["Vehicle not found"]}, status=400)
+            if vehicle.user != request.user:
+                return JsonResponse({"error": ["User credentials are incorrect"]}, status=400)
             serializer = serializers.VehicleSerializer(vehicle)
 
             return JsonResponse(serializer.data)
@@ -57,6 +65,8 @@ class VehicleDetail(APIView):
             vehicle = object_utils.get_object_by_id(models.Vehicle, vehicle_id)
             if not vehicle: 
                 return JsonResponse({"error": ["Vehicle not found"]}, status=400)
+            if vehicle.user != request.user:
+                return JsonResponse({"error": ["User credentials are incorrect"]}, status=400)
             
             dict_request_data = request.data.dict()
             serializer = serializers.VehicleSerializer(vehicle, data=dict_request_data, partial=True)
@@ -76,6 +86,8 @@ class VehicleDetail(APIView):
             vehicle = object_utils.get_object_by_id(models.Vehicle, vehicle_id)
             if not vehicle: 
                 return JsonResponse({"error": ["Vehicle not found"]}, status=400)
+            if vehicle.user != request.user:
+                return JsonResponse({"error": ["User credentials are incorrect"]}, status=400)
 
             serializer = serializers.VehicleSerializer(vehicle)
             vehicle.delete()
