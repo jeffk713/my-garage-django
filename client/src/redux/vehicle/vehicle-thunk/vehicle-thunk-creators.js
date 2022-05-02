@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-import { awsServer } from '../../reqUrl';
 import {
   addVehicleStart,
   addVehicleSuccess,
@@ -40,7 +39,7 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
   };
 
   axios
-    .post(`${awsServer}/api/vehicle/`, formData, config)
+    .post('/api/vehicle/', formData, config)
     .then(res => {
       dispatch(addVehicleSuccess(res.data));
       triggerSuccessNotification(dispatch, [
@@ -77,7 +76,7 @@ export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
   };
 
   axios
-    .patch(`${awsServer}/api/vehicle/${vehicleId}/`, formData, config)
+    .patch(`/api/vehicle/${vehicleId}/`, formData, config)
     .then(res => {
       dispatch(editVehicleSuccess(res.data));
       triggerSuccessNotification(dispatch, [
@@ -93,7 +92,7 @@ export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
 export const deleteVehicleAsync = vehicleId => dispatch => {
   dispatch(deleteVehicleStart());
   axios
-    .delete(`${awsServer}/api/vehicle/${vehicleId}/`)
+    .delete(`/api/vehicle/${vehicleId}/`)
     .then(res => {
       dispatch(deleteVehicleSuccess(vehicleId));
       triggerSuccessNotification(dispatch, [
