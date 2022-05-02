@@ -34,6 +34,8 @@ export const userSignInAsync = userCredentials => dispatch => {
         email: res.data.email,
         name: res.data.name,
       };
+      localStorage.setItem('garageToken', res.data.token);
+      console.log('token: ', localStorage.getItem('garageToken'));
       dispatch(userSignInSuccess(userObj));
       dispatch(getVehiclesSuccess(res.data.vehicles));
     })
@@ -49,6 +51,7 @@ export const userSignOutAsync = () => dispatch => {
   axios
     .delete(`/auth/signout`)
     .then(res => {
+      localStorage.removeItem('garageToken');
       dispatch(userSignOutSuccess());
     })
     .catch(err => {
@@ -83,6 +86,8 @@ export const userSignUpAsync = userCredentials => dispatch => {
         email: res.data.email,
         name: res.data.name,
       };
+      localStorage.setItem('garageToken', res.data.token);
+      console.log('token: ', localStorage.getItem('garageToken'));
       dispatch(userSignUpSuccess(userObj));
       dispatch(getVehiclesSuccess(res.data.vehicles));
       triggerSuccessNotification(dispatch, [
@@ -97,9 +102,14 @@ export const userSignUpAsync = userCredentials => dispatch => {
 
 export const authBySession = () => dispatch => {
   dispatch(userSignInStart());
-
+  const config = {
+    headers: {
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
+    },
+  };
+  console.log(`Token ${localStorage.getItem('garageToken')}`);
   axios
-    .get(`/auth/authenticate/`)
+    .get(`/auth/authenticate/`, config)
     .then(res => {
       const userObj = {
         id: res.data.id,
