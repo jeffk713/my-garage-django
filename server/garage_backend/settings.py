@@ -35,12 +35,6 @@ DEBUG = not env_vars.get("ENV") == "production"
 # DEBUG = bool(int(os.environ.get('DEBUG', 0)))  ## for docker
 
 ALLOWED_HOSTS = []
-# ALLOWED_HOSTS.extend(  ## for docker
-#     filter(
-#         None,
-#         os.environ.get('ALLOWED_HOSTS', '').split(','),
-#     )
-# )
 
 # Application definition
 
@@ -88,6 +82,7 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'garage_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
