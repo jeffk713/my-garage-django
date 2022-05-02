@@ -43,11 +43,8 @@ class SignOut(APIView):
     
     def delete(self, request, format=None):
         try:
-            user = object_utils.get_user_by_email(email)
-            if not user:
-                return JsonResponse({"error": ["Authenticatioin incorrect"]}, status=400)
             
-            return JsonResponse({"data": [{"userId": user_id}]})
+            return JsonResponse({"data": "Sign out successful"})
         
         except Exception as e:
             print(e)
