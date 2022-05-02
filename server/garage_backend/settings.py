@@ -16,7 +16,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Load environment variables from .env file
-env_vars = dotenv_values(".env.heroku")
+# env_vars = dotenv_values(".env.dev")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,13 +28,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 if not env_vars.get("SECRET_KEY"):
     raise Exception("App SECRET_KEY is not set! Please add it to your .env file")
-SECRET_KEY = env_vars.get("SECRET_KEY")
+SECRET_KEY = os.environ("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not env_vars.get("ENV") == "production"
+DEBUG = not os.environ("ENV") == "production"
 # DEBUG = bool(int(os.environ.get('DEBUG', 0)))  ## for docker
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["my-garage-django.herokuapp.com"]
 
 # Application definition
 
@@ -89,12 +89,12 @@ WSGI_APPLICATION = 'garage_backend.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": env_vars.get("POSTGRES_ENGINE"),
-        "NAME": env_vars.get("POSTGRES_DATABASE"),
-        "USER": env_vars.get("POSTGRES_USER"),
-        "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
-        "HOST": env_vars.get("POSTGRES_HOST"),
-        "PORT": env_vars.get("POSTGRES_PORT"),
+        "ENGINE": os.environ("POSTGRES_ENGINE"),
+        "NAME": os.environ("POSTGRES_DATABASE"),
+        "USER": os.environ("POSTGRES_USER"),
+        "PASSWORD": os.environ("POSTGRES_PASSWORD"),
+        "HOST": os.environ("POSTGRES_HOST"),
+        "PORT": os.environ("POSTGRES_PORT"),
     }
 }
 
@@ -144,8 +144,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "garage_backend.User"
 
 #S3 BUCKET CONFIG
-AWS_ACCESS_KEY_ID = env_vars.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env_vars.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = env_vars.get("AWS_STORAGE_BUCKET_NAME")
+AWS_ACCESS_KEY_ID = os.environ("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ("AWS_STORAGE_BUCKET_NAME")
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
