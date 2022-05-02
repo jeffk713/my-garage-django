@@ -26,21 +26,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if not os.environ.get("SECRET_KEY"):
+if not env_vars.get("SECRET_KEY"):
     raise Exception("App SECRET_KEY is not set! Please add it to your .env file")
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = env_vars.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = not env_vars.get("ENV") == "production"
-DEBUG = bool(int(os.environ.get('DEBUG', 0)))  ## for docker
+DEBUG = not env_vars.get("ENV") == "production"
+# DEBUG = bool(int(os.environ.get('DEBUG', 0)))  ## for docker
 
 ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(  ## for docker
-    filter(
-        None,
-        os.environ.get('ALLOWED_HOSTS', '').split(','),
-    )
-)
+# ALLOWED_HOSTS.extend(  ## for docker
+#     filter(
+#         None,
+#         os.environ.get('ALLOWED_HOSTS', '').split(','),
+#     )
+# )
 
 # Application definition
 
@@ -94,24 +94,14 @@ WSGI_APPLICATION = 'garage_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": env_vars.get("POSTGRES_ENGINE"),
-#         "NAME": env_vars.get("POSTGRES_DATABASE"),
-#         "USER": env_vars.get("POSTGRES_USER"),
-#         "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
-#         "HOST": env_vars.get("POSTGRES_HOST"),
-#         "PORT": env_vars.get("POSTGRES_PORT"),
-#     }
-# }
-
-DATABASES = {  ## for docker
+DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": os.environ.get("DB_HOST"),
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASS"),
+        "ENGINE": env_vars.get("POSTGRES_ENGINE"),
+        "NAME": env_vars.get("POSTGRES_DATABASE"),
+        "USER": env_vars.get("POSTGRES_USER"),
+        "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
+        "HOST": env_vars.get("POSTGRES_HOST"),
+        "PORT": env_vars.get("POSTGRES_PORT"),
     }
 }
 
@@ -151,8 +141,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/static/'
-STATIC_ROOT = '/vol/web/static'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
