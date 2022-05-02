@@ -12,12 +12,9 @@ class Authenticate(APIView):
     
     def get(self, request, format=None):
         try:
-            user_id = request.session["user_id"]
-            if not user_id: 
-                return JsonResponse({"error": ["sesion required"]}, status=400)
-            user = object_utils.get_object_by_id(models.User, user_id)
+            user = request.user
             if not user: 
-                return JsonResponse({"error": ["User not found"]}, status=400)
+                return JsonResponse({"error": ["Authentication required"]}, status=400)
             
             serializer = serializers.UserSerializer(user)
             return JsonResponse(serializer.data)
