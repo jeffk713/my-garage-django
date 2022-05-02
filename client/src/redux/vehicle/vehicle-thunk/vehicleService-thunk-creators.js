@@ -21,6 +21,7 @@ export const addVehicleServiceAsync = serviceInfo => dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
     },
   };
   const body = JSON.stringify(serviceInfo);
@@ -45,6 +46,7 @@ export const updateVehicleServiceAsync =
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('garageToken')}`,
       },
     };
     const body = JSON.stringify(serviceInfo);
@@ -65,8 +67,13 @@ export const updateVehicleServiceAsync =
 
 export const deleteVehicleServiceAsync = serviceId => dispatch => {
   dispatch(deleteVehicleServiceStart());
+  const config = {
+    headers: {
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
+    },
+  };
   axios
-    .delete(`/api/service/${serviceId}/`)
+    .delete(`/api/service/${serviceId}/`, config)
     .then(res => {
       dispatch(deleteVehicleServiceSuccess(res.data.vehicle, serviceId));
       triggerSuccessNotification(dispatch, [

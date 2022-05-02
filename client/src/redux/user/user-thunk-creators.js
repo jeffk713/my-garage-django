@@ -35,7 +35,6 @@ export const userSignInAsync = userCredentials => dispatch => {
         name: res.data.name,
       };
       localStorage.setItem('garageToken', res.data.token);
-      console.log('token: ', localStorage.getItem('garageToken'));
       dispatch(userSignInSuccess(userObj));
       dispatch(getVehiclesSuccess(res.data.vehicles));
     })
@@ -87,7 +86,6 @@ export const userSignUpAsync = userCredentials => dispatch => {
         name: res.data.name,
       };
       localStorage.setItem('garageToken', res.data.token);
-      console.log('token: ', localStorage.getItem('garageToken'));
       dispatch(userSignUpSuccess(userObj));
       dispatch(getVehiclesSuccess(res.data.vehicles));
       triggerSuccessNotification(dispatch, [
@@ -107,7 +105,6 @@ export const authBySession = () => dispatch => {
       Authorization: `Token ${localStorage.getItem('garageToken')}`,
     },
   };
-  console.log(`Token ${localStorage.getItem('garageToken')}`);
   axios
     .get(`/auth/authenticate/`, config)
     .then(res => {
