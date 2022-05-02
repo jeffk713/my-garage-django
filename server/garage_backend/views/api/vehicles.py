@@ -4,7 +4,6 @@ from django.db import IntegrityError
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.authtoken.models import Token
 
 from garage_backend import models, serializers
 from garage_backend.views.view_utils import exception_utils, object_utils
