@@ -1,2 +1,2 @@
 export const awsServer =
-  'http://ec2-35-89-90-193.us-west-2.compute.amazonaws.com';
+  'http://ec2-34-220-36-122.us-west-2.compute.amazonaws.com';
