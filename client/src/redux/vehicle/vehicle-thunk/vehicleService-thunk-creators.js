@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { awsServer } from '../../reqUrl';
 import {
   addVehicleServiceStart,
   addVehicleServiceSuccess,
@@ -26,7 +27,7 @@ export const addVehicleServiceAsync = serviceInfo => dispatch => {
   const body = JSON.stringify(serviceInfo);
 
   axios
-    .post('/api/service/', body, config)
+    .post(`${awsServer}/api/service/`, body, config)
     .then(res => {
       dispatch(addVehicleServiceSuccess(res.data));
       triggerSuccessNotification(dispatch, [
@@ -50,7 +51,7 @@ export const updateVehicleServiceAsync =
     const body = JSON.stringify(serviceInfo);
 
     axios
-      .patch(`/api/service/${serviceId}/`, body, config)
+      .patch(`${awsServer}/api/service/${serviceId}/`, body, config)
       .then(res => {
         dispatch(updateVehicleServiceSuccess(res.data));
         triggerSuccessNotification(dispatch, [
@@ -66,7 +67,7 @@ export const updateVehicleServiceAsync =
 export const deleteVehicleServiceAsync = serviceId => dispatch => {
   dispatch(deleteVehicleServiceStart());
   axios
-    .delete(`/api/service/${serviceId}/`)
+    .delete(`${awsServer}/api/service/${serviceId}/`)
     .then(res => {
       dispatch(deleteVehicleServiceSuccess(res.data.vehicle, serviceId));
       triggerSuccessNotification(dispatch, [

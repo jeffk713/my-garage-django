@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { awsServer } from '../../reqUrl';
 import {
   updateVehicleNoteStart,
   updateVehicleNoteSuccess,
@@ -21,7 +22,7 @@ export const updateVehicleNoteAsync =
     const body = JSON.stringify(vehicleNote);
 
     axios
-      .patch(`/api/vehiclenote/${vehicleNoteId}/`, body, config)
+      .patch(`${awsServer}/api/vehiclenote/${vehicleNoteId}/`, body, config)
       .then(res => {
         dispatch(updateVehicleNoteSuccess(res.data));
         triggerSuccessNotification(dispatch, [
@@ -44,7 +45,7 @@ export const createVehicleNoteAsync = vehicleNote => dispatch => {
   const body = JSON.stringify(vehicleNote);
 
   axios
-    .post('/api/vehiclenote/', body, config)
+    .post(`${awsServer}/api/vehiclenote/`, body, config)
     .then(res => {
       dispatch(updateVehicleNoteSuccess(res.data));
       triggerSuccessNotification(dispatch, [
