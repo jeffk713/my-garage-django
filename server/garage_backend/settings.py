@@ -44,7 +44,11 @@ ALLOWED_HOSTS.extend(  ## for docker
 
 
 # Application definition
-
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:9000",
+    "https://626f1ba5d77cb20009ee7e3b--helpful-froyo-ad83d0.netlify.app/",
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,12 +56,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'garage_backend',
+
+    "garage_backend",
     "storages",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
