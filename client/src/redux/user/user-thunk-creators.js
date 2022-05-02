@@ -27,7 +27,7 @@ export const userSignInAsync = userCredentials => dispatch => {
   const body = JSON.stringify(userCredentials);
 
   axios
-    .post(`/auth/signin/`, body, config)
+    .post('/auth/signin/', body, config)
     .then(res => {
       const userObj = {
         id: res.data.id,

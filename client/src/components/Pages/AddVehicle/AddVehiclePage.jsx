@@ -39,11 +39,11 @@ const AddVehiclePage = ({
   const { year, make, model, nickname, imageFile, tempImageFile } = input;
 
   useEffect(() => {
-    if (!isVehicleOwnedByUser(vehicles, params.vehicleId)) {
-      return history.push('/');
-    }
     if (isExistent) {
       setInput(vehicleToDisplay);
+      if (!isVehicleOwnedByUser(vehicles, params.vehicleId)) {
+        return history.push('/');
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExistent, vehicles, params.vehicleId]);
