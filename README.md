@@ -2,8 +2,6 @@
 
 ## Contents
 
----
-
 - [General Info](#general-info)
   - [Live Demo](#live-demo)
     - Client side
@@ -21,31 +19,19 @@
   - [Client Setup](#client-set-up)
   - [Server Setup](#server-set-up)
 
----
-
 ## General Info
-
----
 
 MyGarage is a web application built with React/Django/Postgresql/AWS-S3, deployed with AWS-EC2/Docker+Nginx.
 
 With MyGarage, we can manage our vehicles easily. They can see all the information of our vehicles, such as previous services, measurements, a vehicle note, and an upcoming appointment.
 
----
-
 ### Live Demo
 
----
+#### Client side deployed on: http://ec2-34-217-115-89.us-west-2.compute.amazonaws.com/
 
-#### Client side deployed at: http://ec2-34-217-115-89.us-west-2.compute.amazonaws.com/
-
-#### Server side deployed at: http://ec2-54-212-73-178.us-west-2.compute.amazonaws.com/
-
----
+#### Server side deployed on: http://ec2-54-212-73-178.us-west-2.compute.amazonaws.com/
 
 ### Features
-
----
 
 Users can:
 
@@ -55,11 +41,7 @@ Users can:
 - Add/Update mesurements with next appointment
 - View a summary of registered vehicles
 
----
-
 ## Screenshots
-
----
 
 ![sample1](https://github.com/jeffk713/my-garage-django/blob/master/sample-images/sample1.png?raw=true)
 ![sample2](https://github.com/jeffk713/my-garage-django/blob/master/sample-images/sample2.png?raw=true)
@@ -68,11 +50,7 @@ Users can:
 ![sample5](https://github.com/jeffk713/my-garage-django/blob/master/sample-images/sample5.png?raw=true)
 ![sample6](https://github.com/jeffk713/my-garage-django/blob/master/sample-images/sample6.png?raw=true)
 
----
-
 ## Tech Stack
-
----
 
 ### Languages: JavaScript, Python
 
@@ -84,17 +62,9 @@ Users can:
 
 ### Deployment: Docker, AWS-EC2,
 
----
-
 ## How To Set Up
 
----
-
----
-
 ### Client Setup
-
----
 
 #### Install client dependencies
 
@@ -113,11 +83,7 @@ $ npm install
 $ npm start
 ```
 
----
-
 ### Server Setup
-
----
 
 #### Create and activate virtual environment
 
