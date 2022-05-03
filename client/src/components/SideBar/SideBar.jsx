@@ -11,13 +11,13 @@ const SideBar = ({ sideBarDisplay, toggleSideBar, vehicles }) => {
     <div>
       {sideBarDisplay && (
         <div
-          className='fixed w-[calc(100%)] h-screen z-30'
+          className='fixed w-[calc(100%)] h-screen z-40'
           onClick={() => toggleSideBar()}
         />
       )}
       <div
         className={`col-span-2 flex flex-col items-center py-8 bg-amber-600 text-slate-200 fixed w-[16rem] h-full 
-        -left-[16rem] transition duration-700 ease-in-out z-50 overflow-y-auto z-25 ${
+        -left-[16rem] transition duration-700 ease-in-out z-50 overflow-y-auto ${
           sideBarDisplay && 'translate-x-full'
         }`}
       >
