@@ -4,7 +4,7 @@ import { Logo, NavLinkGroup } from './index';
 
 const NavBar = ({ isAuth, name }) => {
   return (
-    <div className='bg-zinc-800 px-8 py-4 flex justify-between h-24'>
+    <div className='bg-neutral-900/90 px-8 py-4 flex justify-between h-24'>
       <Logo />
       {isAuth && <NavLinkGroup name={name} />}
     </div>
