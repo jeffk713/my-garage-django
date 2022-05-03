@@ -15,6 +15,7 @@
   - Technologies
   - Database
   - Deployment
+  - Testing
 - [How To Set Up](#how-to-set-up)
   - [Client Setup](#client-set-up)
   - [Server Setup](#server-set-up)
@@ -61,6 +62,8 @@ Users can:
 ### Database: Postgresql, AWS-S3
 
 ### Deployment: Docker, AWS-EC2,
+
+### Testing: Django TestCase
 
 ## How To Set Up
 
@@ -129,6 +132,14 @@ $ python3 manage.py makemigrations # create migration
 $ python3 manage.py migrate # migrate database
 ```
 
+#### Run django server on http://localhost:8000
+
+```bash
+# in /server dir
+
+$ python3 manage.py runserver 0.0.0.0:8000
+```
+
 #### Create superuser (optional)
 
 ```bash
@@ -137,10 +148,10 @@ $ python3 manage.py migrate # migrate database
 $ python3 manage.py createsuperuser
 ```
 
-#### Run django server on http://localhost:8000
+#### Test models with django testcase (optional)
 
 ```bash
 # in /server dir
 
-$ python3 manage.py runserver 0.0.0.0:8000
+$ python3 manage.py test
 ```
