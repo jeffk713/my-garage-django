@@ -18,6 +18,7 @@ const FormInput = ({
         onChange={handleChange}
         placeholder={placeholder}
         required={required}
+        autoComplete='off'
       />
     </div>
   );

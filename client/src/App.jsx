@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { NavBar } from './components/NavBar';
 import { HomePage } from './components/Pages/Home';
@@ -12,7 +13,9 @@ import { authBySession } from './redux/user/user-thunk-creators';
 import bg from './assets/images/bg.jpeg';
 
 const App = ({ isAuth, authBySession }) => {
+  const history = useHistory();
   useEffect(() => {
+    history.push('/');
     !isAuth && authBySession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -8,6 +8,7 @@ const MeasureInput = ({ name, value, handleChange, placeholder }) => {
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
+        autoComplete='off'
       />
     </div>
   );
