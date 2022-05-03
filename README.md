@@ -17,7 +17,9 @@
   - Technologies
   - Database
   - Deployment
-- [How to set up](#how-to-set-up)
+- [How To Set Up](#how-to-set-up)
+  - [Client Setup](#client-set-up)
+  - [Server Setup](#server-set-up)
 
 ---
 
@@ -90,7 +92,7 @@ Users can:
 
 ---
 
-### Client
+### Client Setup
 
 ---
 
@@ -98,12 +100,81 @@ Users can:
 
 ```bash
 # in /client dir
+
+$ cd client
 $ npm install
 ```
 
-#### Run client development server at http://localhost:3000
+#### Run react development server on http://localhost:3000
 
 ```bash
-# in /client dir
+# still in /client dir
+
 $ npm start
+```
+
+---
+
+### Server Setup
+
+---
+
+#### Create and activate virtual environment
+
+```bash
+# in root dir
+
+$ python3 -m venv env # create virtual env
+$ source env/bin/activate # activate virutal env
+```
+
+#### Install server dependencies
+
+```bash
+# in /server dir with venv activated
+
+$ pip3 install -r requiremets.txt
+```
+
+#### Create .env and assign env variables
+
+```bash
+# in /server dir
+
+$ cp .env.sample .env # copy contents of .env.sample into .env
+$ nano .env # complete env variables or skip this if text editor is used.
+```
+
+#### Create a new Postgresql database
+
+```bash
+$ psql postgres # connect to postgres
+$ CREATE DATABASE <YOUR_DATABASE_NAME>; # ensure to include semi-colon
+$ \l # confirm the created database
+$ \q # disconnect from postgres
+```
+
+#### Migrate database
+
+```bash
+# in /server dir
+
+$ python3 manage.py makemigrations # create migration
+$ python3 manage.py migrate # migrate database
+```
+
+#### Create superuser (optional)
+
+```bash
+# in /server dir
+
+$ python3 manage.py createsuperuser
+```
+
+#### Run django server on http://localhost:8000
+
+```bash
+# in /server dir
+
+$ python3 manage.py runserver 0.0.0.0:8000
 ```
