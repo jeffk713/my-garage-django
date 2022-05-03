@@ -17,6 +17,7 @@ export const updateVehicleNoteAsync =
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('garageToken')}`,
       },
     };
     const body = JSON.stringify(vehicleNote);
@@ -40,6 +41,7 @@ export const createVehicleNoteAsync = vehicleNote => dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
     },
   };
   const body = JSON.stringify(vehicleNote);

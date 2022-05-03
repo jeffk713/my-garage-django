@@ -36,6 +36,7 @@ export const addVehicleAsync = vehicleInfo => dispatch => {
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
     },
   };
 
@@ -73,6 +74,7 @@ export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
     },
   };
 
@@ -92,8 +94,13 @@ export const editVehicleAsync = (updatedVehicleData, vehicleId) => dispatch => {
 
 export const deleteVehicleAsync = vehicleId => dispatch => {
   dispatch(deleteVehicleStart());
+  const config = {
+    headers: {
+      Authorization: `Token ${localStorage.getItem('garageToken')}`,
+    },
+  };
   axios
-    .delete(`${awsServer}/api/vehicle/${vehicleId}/`)
+    .delete(`${awsServer}/api/vehicle/${vehicleId}/`, config)
     .then(res => {
       dispatch(deleteVehicleSuccess(vehicleId));
       triggerSuccessNotification(dispatch, [

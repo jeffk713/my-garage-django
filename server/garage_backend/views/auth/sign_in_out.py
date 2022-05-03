@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 
 from garage_backend import serializers
 from garage_backend.views.view_utils import object_utils
@@ -26,9 +27,11 @@ class SignIn(APIView):
                 return JsonResponse({"error": ["User credentials incorrect"]}, status=400)
             
             serializer = serializers.UserSerializer(user)
-            request.session['user_id'] = serializer.data["id"]
-
-            return JsonResponse(serializer.data)
+            token = Token.objects.get(user=user).key
+            
+            userData = {**serializer.data, "token": token}
+            return JsonResponse(userData) 
+        
         except Exception as e:
             print(e)
             return JsonResponse({"error": ["Server error has occurred"]}, status=500)
@@ -40,10 +43,8 @@ class SignOut(APIView):
     
     def delete(self, request, format=None):
         try:
-            user_id = request.session['user_id']
-            del request.session['user_id']
             
-            return JsonResponse({"data": [{"userId": user_id}]})
+            return JsonResponse({"data": "Sign out successful"})
         
         except Exception as e:
             print(e)
