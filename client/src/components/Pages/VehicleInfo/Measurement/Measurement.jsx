@@ -100,6 +100,15 @@ const Measurement = ({
     setEditMode(prev => !prev);
   };
 
+  const clearAppointment = () => {
+    editMode &&
+      setMeasureInput({
+        ...measureInput,
+        nextAppointmentDate: '',
+        nextAppointmentTime: '',
+      });
+  };
+
   return (
     <div className='border-2 p-4 rounded flex flex-col'>
       <div className='flex justify-between'>
@@ -161,25 +170,37 @@ const Measurement = ({
           />
         </div>
         <div className='flex flex-col'>
-          <p className='text-slate-200'>Next appointment:</p>
-          <div>
-            <input
-              className='w-full text-center bg-neutral-500 rounded-t text-slate-200 font-semibold outline-none'
-              type='date'
-              name='nextAppointmentDate'
-              value={nextAppointmentDate}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <input
-              className='w-full text-center bg-neutral-500 rounded-b text-slate-200 font-semibold outline-none'
-              type='time'
-              name='nextAppointmentTime'
-              value={nextAppointmentTime}
-              onChange={handleChange}
-            />
-          </div>
+          {!editMode && !nextAppointmentDate && !nextAppointmentTime ? (
+            <p className='text-slate-200 text-center'>No appointment set</p>
+          ) : (
+            <div>
+              <div className='flex justify-between'>
+                <p className='text-slate-200'>Next appointment:</p>
+                {editMode && (nextAppointmentDate || nextAppointmentTime) && (
+                  <p
+                    className='text-slate-200 text-sm cursor-pointer'
+                    onClick={clearAppointment}
+                  >
+                    clear
+                  </p>
+                )}
+              </div>
+              <input
+                className='w-full text-center bg-neutral-500 rounded-t text-slate-200 font-semibold outline-none'
+                type='date'
+                name='nextAppointmentDate'
+                value={nextAppointmentDate}
+                onChange={handleChange}
+              />
+              <input
+                className='w-full text-center bg-neutral-500 rounded-b text-slate-200 font-semibold outline-none'
+                type='time'
+                name='nextAppointmentTime'
+                value={nextAppointmentTime}
+                onChange={handleChange}
+              />
+            </div>
+          )}
         </div>
         <div>
           <p className='text-slate-200'>Note:</p>
