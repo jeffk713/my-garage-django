@@ -17,6 +17,7 @@ const ServiceInput = ({
         placeholder={placeholder}
         onChange={handleChange}
         required={required}
+        autoComplete='off'
       />
     </div>
   );
