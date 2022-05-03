@@ -100,7 +100,7 @@ TEMPLATES = [
 
 DATABASES = {
     "default": {
-        "ENGINE": env_vars.get("POSTGRES_ENGINE"),
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": env_vars.get("POSTGRES_DATABASE"),
         "USER": env_vars.get("POSTGRES_USER"),
         "PASSWORD": env_vars.get("POSTGRES_PASSWORD"),
