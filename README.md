@@ -28,9 +28,11 @@ With MyGarage, we can manage our vehicles easily. They can see all the informati
 
 ### Live Demo
 
-#### Client side deployed on: http://ec2-34-217-115-89.us-west-2.compute.amazonaws.com/
+#### ** Sorry! my AWS free tire is over, so the instances are not stopped **
 
-#### Server side deployed on: http://ec2-54-212-73-178.us-west-2.compute.amazonaws.com/
+#### ~~Client side deployed on: http://ec2-34-217-115-89.us-west-2.compute.amazonaws.com/~~
+
+#### ~~Server side deployed on: http://ec2-54-212-73-178.us-west-2.compute.amazonaws.com/~~
 
 ### Features
 
