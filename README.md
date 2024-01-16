@@ -28,7 +28,7 @@ With MyGarage, we can manage our vehicles easily. They can see all the informati
 
 ### Live Demo
 
-#### ** Sorry! my AWS free tire is over, so the instances are not stopped **
+#### ** Sorry! my AWS free tire is over, so the instances are now stopped **
 
 #### ~~Client side deployed on: http://ec2-34-217-115-89.us-west-2.compute.amazonaws.com/~~
 
